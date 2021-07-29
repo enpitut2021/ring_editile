@@ -32,7 +32,7 @@ class NextPage extends StatelessWidget {
         title: Text("チャット"),
       ),
       body: Center(
-        child: Text(name),
+        child: Text("Receive Message: "+ name + "\r\nLogin NickName: " + auth.getNickname()),
       ),
     );
   }

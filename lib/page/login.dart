@@ -16,6 +16,13 @@ class _LoginPage extends State<LoginPage> {
   String pass;
   final myController = TextEditingController();
   String errormsg = '';
+  bool _flag = false;
+
+  void _handleCheckbox(bool e) {
+    setState(() {
+      _flag = e;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +33,7 @@ class _LoginPage extends State<LoginPage> {
       body: Container(
         width: double.infinity,
         child: Column(
-          children: [
+          children: <Widget>[
             TextField(
               decoration: InputDecoration(
                 labelText: 'ID',
@@ -54,6 +61,11 @@ class _LoginPage extends State<LoginPage> {
               onChanged: (text) {
                 pass = text;
               },
+            ),
+            new Checkbox(
+              activeColor: Colors.blue,
+              value: _flag,
+              onChanged: _handleCheckbox,
             ),
             Text(
               errormsg,

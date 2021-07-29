@@ -102,6 +102,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+            RaisedButton(
+              child:Text('Sign Up'),
+              onPressed: (){
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AccountSignUp()),
+              );
+              
+            })
           ],
         ),
       ),

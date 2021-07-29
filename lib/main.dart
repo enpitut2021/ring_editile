@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ring_sns/page/regist.dart';
+import 'package:ring_sns/page/login.dart';
+import 'package:ring_sns/page/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,36 +66,54 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ホーム"),
+        title: Text('KBOYのFlutter大学'),
       ),
       body: Container(
         width: double.infinity,
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter a search ID',
-              ),
-              onChanged: (text) {
-                text = privateID
-              }
-            ),
-            RaisedButton(
-              child: Text('ID情報渡す'),
-              onPressed: () {
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.app_registration),
+              title: Text('Regist'),
+              onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NextPage(privateID)),
+                  MaterialPageRoute(builder: (context) => AccountSignUp()),
                 );
               },
             ),
+            ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
+            ),
+            RaisedButton(
+              child:Text('Sign Up'),
+              onPressed: (){
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AccountSignUp()),
+              );
+              
+            })
           ],
         ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

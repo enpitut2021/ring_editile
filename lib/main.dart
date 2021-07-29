@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ring_sns/page/regist.dart';
 
 void main() {
   runApp(MyApp());
@@ -100,6 +101,15 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            RaisedButton(
+              child:Text('Sign Up'),
+              onPressed: (){
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AccountSignUp()),
+              );
+              
+            })
           ],
         ),
       ),

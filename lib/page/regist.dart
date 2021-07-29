@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-//import 'package:ring_sns/api/auth.dart';
+import 'package:ring_sns/api/API.dart';
+import 'package:ring_sns/api/auth.dart';
 
 
 class AccountSignUp extends StatefulWidget{
+
   
   @override
   State<StatefulWidget> createState() => _AccountSignUp();
@@ -10,6 +12,7 @@ class AccountSignUp extends StatefulWidget{
 }
 
 class _AccountSignUp extends State<AccountSignUp>{
+  Auth auth;
   String user_id='';
   String password='';
   @override
@@ -45,7 +48,8 @@ class _AccountSignUp extends State<AccountSignUp>{
           ),
           RaisedButton(
             onPressed: (){
-              //LoginErrorMessage signupres =  signUp(user_id,password);
+              LoginErrorMessage signupres = auth.signUp(user_id, password) as LoginErrorMessage;
+              print(signupres.userId);
             },
             child:Text('submit')
             )

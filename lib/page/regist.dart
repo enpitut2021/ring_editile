@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/api/API.dart';
 import 'package:ring_sns/api/auth.dart';
@@ -39,7 +40,7 @@ class _AccountSignUp extends State<AccountSignUp> {
                     print('password:$password');
                   },
                 ),
-                Text(error_msg),
+                Text(error_msg,style: TextStyle(color: Colors.red),),
                 RaisedButton(
                     onPressed: () async {
                       auth = new Auth();
@@ -53,6 +54,7 @@ class _AccountSignUp extends State<AccountSignUp> {
                         MaterialPageRoute(builder: (context) => Home()),
                 );
                       }else{
+                        
                         if(signupres.userId!='ok'&&uid_error==false){
                           setState(() {
                             error_msg+=signupres.userId;

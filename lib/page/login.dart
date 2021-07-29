@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ring_sns/api/auth.dart';
+import 'package:ring_sns/page/home.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _LoginPage();
+}
+
+class _LoginPage extends State<LoginPage> {
+// class LoginPage extends StatefulWidget {
   bool _showPassword = false;
   final _passwordTextController = TextEditingController();
   String id;
   String pass;
   final myController = TextEditingController();
+  String errormsg = '';
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,9 @@ class LoginPage extends StatelessWidget {
                       ? FontAwesomeIcons.solidEye
                       : FontAwesomeIcons.solidEyeSlash),
                   onPressed: () {
-                    _showPassword = !_showPassword;
+                    this.setState(() {
+                      _showPassword = !_showPassword;
+                    });
                   },
                 ),
               ),
@@ -45,17 +55,27 @@ class LoginPage extends StatelessWidget {
                 pass = text;
               },
             ),
+            Text(
+              errormsg,
+              style: TextStyle(color: Colors.red),
+            ),
             RaisedButton(
               child: Text('Login now'),
               onPressed: () async {
                 //ここにログインを行うコードを追加する
                 final hobbyText = myController.text;
-                print("id: $id");
-                print("pass: $pass");
                 Auth auth = new Auth();
                 LoginErrorMessage res = await auth.signIn(id, pass);
-                print("res[id] = $res.userId");
-                print("res[pass] = $res.password");
+                if (res.userId == "" && res.password == "") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  );
+                } else {
+                  setState(() {
+                    errormsg += res.password;
+                  });
+                }
               },
             ),
           ],

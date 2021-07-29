@@ -34,7 +34,7 @@ class _AccountSignUp extends State<AccountSignUp> {
                 ),
                 TextField(
                   obscureText: true,
-                  decoration: InputDecoration(hintText: 'ユーザー名'),
+                  decoration: InputDecoration(hintText: 'パスワード'),
                   onChanged: (text) {
                     password = text;
                     print('password:$password');

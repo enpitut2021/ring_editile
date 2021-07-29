@@ -8,7 +8,11 @@ class LoginPage extends StatelessWidget {
         title: Text('login page'),
       ),
       body: Container(
-        color: Colors.blue,
+        width: double.infinity,
+        child: TextField(
+            decoration: InputDecoration(
+          border: InputBorder.none,
+        )),
       ),
     );
   }

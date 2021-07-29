@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/page/regist.dart';
 import 'package:ring_sns/page/login.dart';
 import 'package:ring_sns/page/home.dart';
+import 'package:ring_sns/page/profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -102,15 +103,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
+                );
+              },
+            ),
             RaisedButton(
-              child:Text('Sign Up'),
-              onPressed: (){
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AccountSignUp()),
-              );
-              
-            })
+                child: Text('Sign Up'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AccountSignUp()),
+                  );
+                })
           ],
         ),
       ),

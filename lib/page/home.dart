@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'chat.dart';
+import 'package:ring_sns/api/auth.dart';
 
 class Home extends StatelessWidget {
+  //ここにイニシャライザを書く
+  Home(this.auth);
+  Auth auth;
+
   @override
   String privateID = "";
   Widget build(BuildContext context) {
@@ -27,7 +32,8 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NextPage(privateID)),
+                  MaterialPageRoute(
+                      builder: (context) => NextPage(privateID, auth)),
                 );
               },
             ),

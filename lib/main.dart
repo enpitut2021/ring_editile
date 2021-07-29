@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/page/regist.dart';
 import 'package:ring_sns/page/login.dart';
 import 'package:ring_sns/page/home.dart';
+import 'package:ring_sns/api/auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,6 +51,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final Auth auth = new Auth();
 
   void _incrementCounter() {
     setState(() {
@@ -78,7 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AccountSignUp()),
+                  MaterialPageRoute(
+                      builder: (context) => AccountSignUp(new Auth())),
                 );
               },
             ),
@@ -88,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => LoginPage(auth)),
                 );
               },
             ),
@@ -98,19 +101,20 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home()),
+                  MaterialPageRoute(builder: (context) => Home(auth)),
                 );
               },
             ),
             RaisedButton(
-              child:Text('Sign Up'),
-              onPressed: (){
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AccountSignUp()),
-              );
-              
-            })
+              child: Text('Sign Up'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AccountSignUp(new Auth())),
+                );
+              },
+            ),
           ],
         ),
       ),

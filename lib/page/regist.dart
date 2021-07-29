@@ -5,6 +5,10 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/home.dart';
 
 class AccountSignUp extends StatefulWidget {
+  //ここにイニシャライザを書く
+  AccountSignUp(this.auth);
+  Auth auth;
+
   @override
   State<StatefulWidget> createState() => _AccountSignUp();
 }

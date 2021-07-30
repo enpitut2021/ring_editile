@@ -21,6 +21,7 @@ class ChatDemo extends StatefulWidget{
 
 class _ChatDemo extends State<ChatDemo>{
   String _roomId;
+  String input_msg="";
   
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [
@@ -84,13 +85,19 @@ class _ChatDemo extends State<ChatDemo>{
       floatingActionButton: 
       FloatingActionButton(
         onPressed: (){
-          chatupdate("test", "chatdemo2");
+          if(input_msg!=""){
+            chatupdate(input_msg, "chatdemo1");
+            input_msg="";
+          }
+          
           print("update roomID:$_roomId");
         },
         child: Icon(Icons.add)
       ),
       
-      body: Container(
+      body: 
+      Stack(
+        children:[Container(
         width:double.infinity,
         child:ListView.builder(
           itemCount:  messages_log.length,
@@ -100,6 +107,20 @@ class _ChatDemo extends State<ChatDemo>{
           )
         
       ),
+      TextField(
+        keyboardType: TextInputType.multiline,
+        maxLines: 6,
+        minLines: 1,
+        decoration:const InputDecoration(
+          hintText: 'メッセージを入力してください'
+        ),
+        onChanged: (text){
+          input_msg=text;
+          },
+      )
+      ]
+      )
+      
       
     );
     // final _channel = WebSocket(url)

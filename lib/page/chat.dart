@@ -85,12 +85,16 @@ class _ChatDemo extends State<ChatDemo>{
       floatingActionButton: 
       FloatingActionButton(
         onPressed: (){
-          if(input_msg!=""){
-            chatupdate(input_msg, "chatdemo1");
+          setState(() {
+            if(input_msg!=""){
+            chatupdate(input_msg, widget.auth.getUserId());
             input_msg="";
+            
           }
           
           print("update roomID:$_roomId");
+          });
+          
         },
         child: Icon(Icons.add)
       ),
@@ -112,11 +116,14 @@ class _ChatDemo extends State<ChatDemo>{
         maxLines: 6,
         minLines: 1,
         decoration:const InputDecoration(
-          hintText: 'メッセージを入力してください'
+          hintText: 'メッセージを入力してください',
+          
         ),
         onChanged: (text){
           input_msg=text;
+          
           },
+        
       )
       ]
       )

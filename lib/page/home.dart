@@ -57,6 +57,7 @@ class _Home extends State<Home> {
               onChanged: (text) {
                 // text = privateID;
                 privateID = text;
+                print(privateID);
               },
             ),
             RaisedButton(
@@ -65,7 +66,7 @@ class _Home extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NextPage(privateID, widget.auth)),
+                      builder: (context) => ChatDemo(privateID, widget.auth)),
                 );
               },
             ),

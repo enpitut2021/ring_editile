@@ -30,8 +30,6 @@ class _Home extends State<Home> {
     });
   }
 
-  //ここにイニシャライザを書く
-
   @override
   String privateID = "";
   Widget build(BuildContext context) {

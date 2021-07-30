@@ -14,8 +14,8 @@ class AccountSignUp extends StatefulWidget {
 }
 
 class _AccountSignUp extends State<AccountSignUp> {
-  Auth auth;
-  
+  // Auth auth;
+  Auth auth = new Auth();
   String user_id = '';
   String password = '';
   String error_msg='';
@@ -47,7 +47,6 @@ class _AccountSignUp extends State<AccountSignUp> {
                 Text(error_msg,style: TextStyle(color: Colors.red),),
                 RaisedButton(
                     onPressed: () async {
-                      auth = new Auth();
                       LoginErrorMessage signupres =
                           await auth.signUp(user_id, password);
                       print(signupres.userId);

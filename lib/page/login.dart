@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _LoginPage extends State<LoginPage> {
   final _passwordTextController = TextEditingController();
   String id;
   String pass;
+
   final myController = TextEditingController();
   String errormsg = '';
   bool _flag = false;
@@ -22,6 +24,12 @@ class _LoginPage extends State<LoginPage> {
     setState(() {
       _flag = e;
     });
+  }
+
+  void savePassword(String userId, String password) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userId', userId);
+    await prefs.setString('password', password);
   }
 
   @override
@@ -62,8 +70,9 @@ class _LoginPage extends State<LoginPage> {
                 pass = text;
               },
             ),
-            new Checkbox(
+            new CheckboxListTile(
               activeColor: Colors.blue,
+              title: Text('remember login'),
               value: _flag,
               onChanged: _handleCheckbox,
             ),
@@ -79,6 +88,9 @@ class _LoginPage extends State<LoginPage> {
                 Auth auth = new Auth();
                 LoginErrorMessage res = await auth.signIn(id, pass);
                 if (res.userId == "" && res.password == "") {
+                  if (_flag) {
+                    savePassword(id, pass);
+                  }
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Home()),

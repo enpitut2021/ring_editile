@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ring_sns/page/regist.dart';
 import 'package:ring_sns/page/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/home.dart';
 
 void main() {
@@ -62,6 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // void initState() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   var myStringData = await prefs.getString("userId");
+  //   var myStringData2 = await prefs.getString("password");
+  //   print(myStringData);
+  //   print(myStringData2);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,14 +112,13 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             RaisedButton(
-              child:Text('Sign Up'),
-              onPressed: (){
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AccountSignUp()),
-              );
-              
-            })
+                child: Text('Sign Up'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AccountSignUp()),
+                  );
+                }),
           ],
         ),
       ),

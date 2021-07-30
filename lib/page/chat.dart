@@ -34,9 +34,9 @@ class _ChatDemo extends State<ChatDemo>{
     
     setState(() {
         if(uid==widget.auth.getUserId()){
-            messages_log.insert(0,Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
+            messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
           }else{
-          messages_log.insert(0,Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
+          messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
           }
       }
 
@@ -64,9 +64,9 @@ class _ChatDemo extends State<ChatDemo>{
           String text = HtmlUnescape().convert(message.text);
           
           if(message.userId==widget.auth.getUserId()){
-            messages_log.add(Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
+            messages_log.insert(0,Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
           }else{
-          messages_log.add(Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
+          messages_log.insert(0,Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
           }
           //print(message.text);
         });
@@ -82,54 +82,59 @@ class _ChatDemo extends State<ChatDemo>{
         title: Text("チャット"),
         
       ),
-      floatingActionButton: 
-      FloatingActionButton(
-        onPressed: (){
-          setState(() {
-            if(input_msg!=""){
-            chatupdate(input_msg, widget.auth.getUserId());
-            input_msg="";
-            
-          }
-          
-          print("update roomID:$_roomId");
-          });
-          
-        },
-        child: Icon(Icons.add)
-      ),
+      
       
       body: 
-      Stack(
-        children:[Container(
+      Column(
+         children: <Widget>[
+        Container(
+        height: 600,
         width:double.infinity,
-        child:ListView.builder(
+         child:ListView.builder(
           itemCount:  messages_log.length,
           itemBuilder: (BuildContext context,int index){
             return messages_log[index];
           },
-          )
+          ),
+        
         
       ),
-      TextField(
-        keyboardType: TextInputType.multiline,
-        maxLines: 6,
-        minLines: 1,
-        decoration:const InputDecoration(
-          hintText: 'メッセージを入力してください',
-          
-        ),
-        onChanged: (text){
-          input_msg=text;
-          
-          },
+      Row(
         
+        children: [
+          Expanded( 
+            child:TextField(
+            keyboardType: TextInputType.multiline,
+            maxLines: 6,
+            minLines: 1,
+            decoration: const InputDecoration(
+              hintText: 'メッセージを入力してください',
+            ),
+            onChanged: (text){
+              input_msg=text;
+            },
+            
+          )),
+          IconButton(
+            onPressed:(){
+              setState(() {
+            if(input_msg!=""){
+            chatupdate(input_msg, widget.auth.getUserId());
+            print(input_msg);
+            input_msg="";
+            
+          }
+          
+          
+          });
+            } , 
+          icon: Icon(Icons.add))
+        ],
       )
-      ]
-      )
+      ],)
+        
       
-      
-    );
+      );
     // final _channel = WebSocket(url)
   }
 

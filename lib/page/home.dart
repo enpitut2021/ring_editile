@@ -59,7 +59,7 @@ class _Home extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatDemo(privateID, auth)),
+                      builder: (context) => ChatDemo(privateID, widget.auth)),
                 );
               },
             ),

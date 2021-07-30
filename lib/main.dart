@@ -62,13 +62,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    print("aaa");
+    print("mainを初期化します。");
     super.initState();
-    getAutoLoginData();
-    if (auth.autoLogin() == true) {
-      print("a");
-      MaterialPageRoute(builder: (context) => Home(auth));
-    }
+    //非同期処理(async await)はこうやって書くことで，関数の返戻値successを取得できる。
+    auth.autoLogin().then((success) {
+      AuthStatus authStatus = auth.getAuthStatus();
+      // print(authStatus.toString());
+      if (authStatus == AuthStatus.LOGGED_IN) {
+        print("ログイン成功");
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home(auth)),
+        );
+      } else {
+        print("ログイン失敗");
+      }
+    });
+    print("非同期処理なのでログイン成功/失敗が出る前にこっちのコードが実行される");
   }
 
   Future<void> getAutoLoginData() async {

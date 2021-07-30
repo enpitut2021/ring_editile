@@ -83,7 +83,6 @@ class _Usersetting extends State<Usersetting> {
               },
             ),
             TextField(
-              obscureText: true,
               decoration: InputDecoration(hintText: 'ひとこと'),
               onChanged: (text) {
                 profile_text = text;
@@ -91,7 +90,6 @@ class _Usersetting extends State<Usersetting> {
               },
             ),
             TextField(
-              obscureText: true,
               decoration: InputDecoration(hintText: '趣味をスペース区切りで入力'),
               onChanged: (text) {
                 hobby = text;
@@ -101,11 +99,15 @@ class _Usersetting extends State<Usersetting> {
             RaisedButton(
                 onPressed: () async {
                   AccountAPI account = new AccountAPI(auth.getBearer());
-                  dynamic signupres = await account.updateUserProfile(
-                      nickname: nickname,
-                      profileText: profile_text + "\r\n" + hobby);
-                  print(signupres.nickname);
-                  print(signupres.profile_text);
+                  await account
+                      .updateUserProfile(
+                          nickname: nickname,
+                          profileText: profile_text + "\r\n" + hobby)
+                      .then((value) {
+                    // print(signupres.nickname);
+                    // print(signupres.profile_text);
+                    print(value);
+                  });
                 },
                 child: Text('save')),
           ],

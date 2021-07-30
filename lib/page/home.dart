@@ -58,7 +58,7 @@ class _Home extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NextPage(privateID, auth)),
+                      builder: (context) => NextPage(privateID, widget.auth)),
                 );
               },
             ),

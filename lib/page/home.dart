@@ -50,37 +50,51 @@ class _Home extends State<Home> {
         width: double.infinity,
         child: Column(
           children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter a search ID',
-              ),
-              onChanged: (text) {
-                // text = privateID;
-                privateID = text;
-                print(privateID);
-              },
-            ),
-            RaisedButton(
-              child: Text('ID情報渡す'),
-              onPressed: () {
+            // TextField(
+            //   decoration: InputDecoration(
+            //     hintText: 'Enter a search ID',
+            //   ),
+            //   onChanged: (text) {
+            //     // text = privateID;
+            //     privateID = text;
+            //     print(privateID);
+            //   },
+            // ),
+            // RaisedButton(
+            //   child: Text('ID情報渡す'),
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => ChatDemo(privateID, widget.auth)),
+            //     );
+            //   },
+            // ),
+            ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('「音楽，Apex」でマッチング'),
+                onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatDemo(privateID, widget.auth)),
+                      builder: (context) => ChatDemo('user:6195', widget.auth)),
                 );
               },
             ),
             ListTile(
               leading: Icon(Icons.verified_user),
-              title: Text('User1'),
+              title: Text('「ゲーム」でマッチング'),
+                onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatDemo('user:6194', widget.auth)),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.verified_user),
-              title: Text('User2'),
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('User3'),
+              title: Text('「ドラマ」でマッチング'),
             ),
           ],
         ),

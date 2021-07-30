@@ -4,6 +4,7 @@ import 'package:ring_sns/page/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/api/auth.dart';
+import 'package:ring_sns/page/usersetting.dart';
 
 void main() {
   runApp(MyApp());
@@ -127,6 +128,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home(auth)),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Usersetting'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Usersetting(auth)),
                 );
               },
             ),

@@ -21,27 +21,54 @@ class ChatDemo extends StatefulWidget{
 
 class _ChatDemo extends State<ChatDemo>{
   String _roomId;
+  String input_msg="";
+  
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [
     
   ];
+  var current_count;
+  ChatAPI nChatapi;
+
+  void chatupdate(String msg,String uid){
+    
+    setState(() {
+        if(uid==widget.auth.getUserId()){
+            messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
+          }else{
+          messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
+          }
+      }
+
+    );}
   
   @override
   void initState(){
     //super.initState();
-    ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
+    ChatAPI chatapi = new ChatAPI('571|NJYSGy11ZN1yTDM6M2J63Z43rYeVLHyRNpLHAqL8');
+    
     
     _roomId=widget.roomId;
     print("roomId:$_roomId");
+    chatapi.getRoomInfo(_roomId).then((response){
+       current_count=response.count;
+       //print("warning");
+       print("current_num:$current_count");
+     });
     chatapi.getChatMessages(_roomId, 1).then((response){
-      print(response);
+      //print(response);
       List<Message> msgL=response.messageList;
       setState(() {
         
         msgL.forEach((message) { 
           String text = HtmlUnescape().convert(message.text);
-          messages_log.add(Text(text));
-          print(message.text);
+          
+          if(message.userId==widget.auth.getUserId()){
+            messages_log.insert(0,Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
+          }else{
+          messages_log.insert(0,Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
+          }
+          //print(message.text);
         });
       });
     });
@@ -53,17 +80,61 @@ class _ChatDemo extends State<ChatDemo>{
     return Scaffold(
       appBar: AppBar(
         title: Text("チャット"),
+        
       ),
-      body: Container(
+      
+      
+      body: 
+      Column(
+         children: <Widget>[
+        Container(
+        height: 600,
         width:double.infinity,
-        child:ListView.builder(
+         child:ListView.builder(
           itemCount:  messages_log.length,
           itemBuilder: (BuildContext context,int index){
             return messages_log[index];
-          })
+          },
+          ),
+        
         
       ),
-    );
+      Row(
+        
+        children: [
+          Expanded( 
+            child:TextField(
+            keyboardType: TextInputType.multiline,
+            maxLines: 6,
+            minLines: 1,
+            decoration: const InputDecoration(
+              hintText: 'メッセージを入力してください',
+            ),
+            onChanged: (text){
+              input_msg=text;
+            },
+            
+          )),
+          IconButton(
+            onPressed:(){
+              setState(() {
+            if(input_msg!=""){
+            chatupdate(input_msg, widget.auth.getUserId());
+            print(input_msg);
+            input_msg="";
+            
+          }
+          
+          
+          });
+            } , 
+          icon: Icon(Icons.add))
+        ],
+      )
+      ],)
+        
+      
+      );
     // final _channel = WebSocket(url)
   }
 

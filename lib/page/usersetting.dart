@@ -61,6 +61,7 @@ class _Usersetting extends State<Usersetting> {
         width: double.infinity,
         child: Column(
           children: [
+            CircleAvatar(backgroundImage:NetworkImage('https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),),
 //            CircleAvatar(
 //             radius: 60,
 //              backgroundImage: AssetImage("assets/images/Profile Image.png"),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ring_sns/api/accountAPI.dart';
+import 'package:ring_sns/main.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
 
@@ -11,9 +13,9 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
+  static TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Home',
       style: optionStyle,
@@ -31,6 +33,11 @@ class _Home extends State<Home> {
   }
 
   //ここにイニシャライザを書く
+  @override
+  void initState() {
+    // AccountAPI api = new AccountAPI(widget.auth.getBearer());
+    // api.searchUsers("a");
+  }
 
   @override
   String privateID = "";
@@ -63,23 +70,74 @@ class _Home extends State<Home> {
                 );
               },
             ),
+            ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('User1'),
+            ),
+            ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('User2'),
+            ),
+            ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('User3'),
+            ),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+            backgroundColor: Colors.blue[900],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'Chat',
+            backgroundColor: Colors.blue[900],
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.cyan[400],
         onTap: _onItemTapped,
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Ring',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.notifications),
+              title: Text('Notification'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Setting'),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

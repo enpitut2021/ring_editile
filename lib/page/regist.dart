@@ -15,12 +15,12 @@ class AccountSignUp extends StatefulWidget {
 
 class _AccountSignUp extends State<AccountSignUp> {
   // Auth auth;
-  Auth auth;
+  Auth auth = new Auth();
   String user_id = '';
   String password = '';
-  String error_msg='';
-  bool uid_error=false;
-  bool ups_error=false;
+  String error_msg = '';
+  bool uid_error = false;
+  bool ups_error = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,34 +44,33 @@ class _AccountSignUp extends State<AccountSignUp> {
                     print('password:$password');
                   },
                 ),
-                Text(error_msg,style: TextStyle(color: Colors.red),),
+                Text(
+                  error_msg,
+                  style: TextStyle(color: Colors.red),
+                ),
                 RaisedButton(
                     onPressed: () async {
-                      auth = new Auth();
                       LoginErrorMessage signupres =
                           await auth.signUp(user_id, password);
                       print(signupres.userId);
                       print(signupres.password);
-                      if (signupres.userId=='ok'&&signupres.password=='ok'){
+                      if (signupres.userId == 'ok' &&
+                          signupres.password == 'ok') {
                         Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                );
-                      }else{
-                        
-                        if(signupres.userId!='ok'&&uid_error==false){
+                          context,
+                          MaterialPageRoute(builder: (context) => Home(auth)),
+                        );
+                      } else {
+                        if (signupres.userId != 'ok' && uid_error == false) {
                           setState(() {
-                            error_msg+=signupres.userId;
-                            uid_error=true;
-                          })
-                          ;
-                        
-                         
+                            error_msg += signupres.userId;
+                            uid_error = true;
+                          });
                         }
-                        if (signupres.password!='ok'&&ups_error==false){
+                        if (signupres.password != 'ok' && ups_error == false) {
                           setState(() {
-                            error_msg+=signupres.password;
-                            ups_error=true;
+                            error_msg += signupres.password;
+                            ups_error = true;
                           });
                         }
                       }

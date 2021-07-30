@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
 
+
+
 class Home extends StatefulWidget {
   Home(this.auth);
   Auth auth;
@@ -59,7 +61,7 @@ class _Home extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatDemo(privateID, auth)),
+                      builder: (context) => ChatDemo(privateID, widget.auth)),
                 );
               },
             ),

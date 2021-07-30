@@ -15,7 +15,7 @@ class AccountSignUp extends StatefulWidget {
 
 class _AccountSignUp extends State<AccountSignUp> {
   // Auth auth;
-  Auth auth;
+  Auth auth = new Auth();
   String user_id = '';
   String password = '';
   String error_msg='';
@@ -55,7 +55,7 @@ class _AccountSignUp extends State<AccountSignUp> {
                       if (signupres.userId=='ok'&&signupres.password=='ok'){
                         Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(builder: (context) => Home(auth)),
                 );
                       }else{
                         

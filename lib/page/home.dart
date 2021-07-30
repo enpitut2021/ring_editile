@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'chat.dart';
+import 'package:ring_sns/api/auth.dart';
 
 class Home extends StatefulWidget {
+  Home(this.auth);
+  Auth auth;
   @override
   State<StatefulWidget> createState() => _Home();
 }
@@ -26,6 +29,8 @@ class _Home extends State<Home> {
       _selectedIndex = index;
     });
   }
+
+  //ここにイニシャライザを書く
 
   @override
   String privateID = "";
@@ -52,7 +57,8 @@ class _Home extends State<Home> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NextPage(privateID)),
+                  MaterialPageRoute(
+                      builder: (context) => NextPage(privateID, auth)),
                 );
               },
             ),

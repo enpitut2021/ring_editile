@@ -4,6 +4,9 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/home.dart';
 
 class LoginPage extends StatefulWidget {
+  //ここにイニシャライザを追加する
+  LoginPage(this.auth);
+  Auth auth;
   @override
   State<StatefulWidget> createState() => _LoginPage();
 }
@@ -69,7 +72,7 @@ class _LoginPage extends State<LoginPage> {
                 if (res.userId == "" && res.password == "") {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Home()),
+                    MaterialPageRoute(builder: (context) => Home(auth)),
                   );
                 } else {
                   setState(() {

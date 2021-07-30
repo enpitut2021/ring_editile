@@ -30,9 +30,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   html_unescape: ^2.0.0
-  adhara_socket_io: ^1.0.1+1
-
-
+  flutter_socket_io: ^0.6.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -14,8 +14,8 @@ class AccountSignUp extends StatefulWidget {
 }
 
 class _AccountSignUp extends State<AccountSignUp> {
-  // Auth auth;
-  Auth auth = new Auth();
+  Auth auth;
+  
   String user_id = '';
   String password = '';
   String error_msg='';

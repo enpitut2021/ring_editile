@@ -25,6 +25,7 @@ class Home extends StatelessWidget {
               onChanged: (text) {
                 // text = privateID;
                 privateID = text;
+                print(privateID);
               },
             ),
             RaisedButton(
@@ -33,7 +34,7 @@ class Home extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NextPage(privateID, auth)),
+                      builder: (context) => ChatDemo(privateID, auth)),
                 );
               },
             ),

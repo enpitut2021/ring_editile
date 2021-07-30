@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ring_sns/page/regist.dart';
 import 'package:ring_sns/page/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/usersetting.dart';
@@ -56,16 +57,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
 
   @override
+  void initState() {
+    print("mainを初期化します。");
+    super.initState();
+    //非同期処理(async await)はこうやって書くことで，関数の返戻値successを取得できる。
+    auth.autoLogin().then((success) {
+      AuthStatus authStatus = auth.getAuthStatus();
+      // print(authStatus.toString());
+      if (authStatus == AuthStatus.LOGGED_IN) {
+        print("ログイン成功");
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home(auth)),
+        );
+      } else {
+        print("ログイン失敗");
+      }
+    });
+    print("非同期処理なのでログイン成功/失敗が出る前にこっちのコードが実行される");
+  }
+
+  Future<void> getAutoLoginData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var myStringData = prefs.getString("userId");
+    var myStringData2 = prefs.getString("password");
+    print(myStringData);
+    print(myStringData2);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

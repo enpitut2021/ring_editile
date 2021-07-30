@@ -33,14 +33,6 @@ class _Home extends State<Home> {
       _selectedIndex = index;
     });
   }
-
-  //ここにイニシャライザを書く
-  @override
-  void initState() {
-    // AccountAPI api = new AccountAPI(widget.auth.getBearer());
-    // api.searchUsers("a");
-  }
-
   @override
   String privateID = "";
   Widget build(BuildContext context) {

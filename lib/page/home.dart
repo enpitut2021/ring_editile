@@ -4,8 +4,7 @@ import 'package:ring_sns/main.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
 
-//　by　Masayoshi
-// by Masayoshi
+//　by　Masayoshiii
 class Home extends StatefulWidget {
   Home(this.auth);
   Auth auth;

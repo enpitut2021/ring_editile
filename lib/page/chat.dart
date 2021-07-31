@@ -6,140 +6,228 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:html_unescape/html_unescape.dart';
+import 'package:adhara_socket_io/adhara_socket_io.dart';
 
-
-class ChatDemo extends StatefulWidget{
-  ChatDemo(this.roomId,this.auth);
+class ChatDemo extends StatefulWidget {
+  ChatDemo(this.roomId, this.auth);
   String roomId;
   Auth auth;
-  
+
   @override
   State<StatefulWidget> createState() => _ChatDemo();
-  
-
 }
 
-class _ChatDemo extends State<ChatDemo>{
+class _ChatDemo extends State<ChatDemo> {
   String _roomId;
-  String input_msg="";
-  
+  String input_msg = "";
+
+  SocketIOManager _manager;
+  Map<String, SocketIO> _sockets = {};
+
   // ignore: non_constant_identifier_names
-  List<Text> messages_log = [
-    
-  ];
+  List<Text> messages_log = [];
   var current_count;
   ChatAPI nChatapi;
 
-  void chatupdate(String msg,String uid){
-    
-    setState(() {
-        if(uid==widget.auth.getUserId()){
-            messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
-          }else{
-          messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
-          }
-      }
+  void chatupdate(String msg, String uid) {
+    _submitMessage(msg);
+    // setState(() {
+    //     if(uid==widget.auth.getUserId()){
+    //         messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
+    //       }else{
+    //       messages_log.add(Text("\r\n${uid}:\r\n"+msg,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
+    //       }
+    //   }
+    // );
+  }
 
-    );}
-  
   @override
-  void initState(){
+  void initState() {
     //super.initState();
-    ChatAPI chatapi = new ChatAPI('571|NJYSGy11ZN1yTDM6M2J63Z43rYeVLHyRNpLHAqL8');
-    
-    
-    _roomId=widget.roomId;
+    ChatAPI chatapi =
+        new ChatAPI('571|NJYSGy11ZN1yTDM6M2J63Z43rYeVLHyRNpLHAqL8');
+    _roomId = widget.roomId;
+    _manager = SocketIOManager();
     print("roomId:$_roomId");
-    chatapi.getRoomInfo(_roomId).then((response){
-       current_count=response.count;
-       //print("warning");
-       print("current_num:$current_count");
-     });
-    chatapi.getChatMessages(_roomId, 1).then((response){
+    chatapi.getRoomInfo(_roomId).then((response) {
+      current_count = response.count;
+      //print("warning");
+      print("current_num:$current_count");
+    });
+    chatapi.getChatMessages(_roomId, 1).then((response) {
       //print(response);
-      List<Message> msgL=response.messageList;
+      List<Message> msgL = response.messageList;
       setState(() {
-        
-        msgL.forEach((message) { 
+        msgL.forEach((message) {
           String text = HtmlUnescape().convert(message.text);
-          
-          if(message.userId==widget.auth.getUserId()){
-            messages_log.insert(0,Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.green),textAlign: TextAlign.right,));
-          }else{
-          messages_log.insert(0,Text("\r\n${message.userId}:\r\n"+text,style: TextStyle(color: Colors.blue),textAlign: TextAlign.left,));
+          if (message.userId == widget.auth.getUserId()) {
+            messages_log.insert(
+                0,
+                Text(
+                  "\r\n${message.userId}:\r\n" + text,
+                  style: TextStyle(color: Colors.green),
+                  textAlign: TextAlign.right,
+                ));
+          } else {
+            messages_log.insert(
+                0,
+                Text(
+                  "\r\n${message.userId}:\r\n" + text,
+                  style: TextStyle(color: Colors.blue),
+                  textAlign: TextAlign.left,
+                ));
           }
-          //print(message.text);
         });
       });
     });
-
+    _initSocket(_roomId, widget.auth.getBearer());
   }
-  
-  
+
+  void _initSocket(String roomId, String userSession) async {
+    print("接続中: $roomId");
+    SocketIO socket = await _manager
+        .createInstance(SocketOptions('https://chat2.p0x0q.com:8443',
+            namespace: '/',
+            query: {
+              'chatid': roomId,
+              'user_session': widget.auth.getBearer(),
+            },
+            enableLogging: false,
+            transports: [Transports.webSocket]));
+    socket.onConnect.listen((data) async {
+      print("接続完了");
+      connectRoom(socket, roomId);
+      // socket.emit('connected', []);
+      // print('[socketIO] connect: $_roomId');
+      // await Future.delayed(Duration(milliseconds: 500));
+      // print('[socketIO] emit connected message');
+      // socket.emit('API', [{'apiid': 'ConnectCheck'}]);
+    });
+    socket.onDisconnect.listen((data) => print('[socketIO] disconnect: $data'));
+    socket.onConnectError
+        .listen((data) => print('[socketIO] connectError: $data'));
+    // socket
+    //     .onConnectTimeout((data) => print('[socketIO] connectTimeout: $data'));
+    // socket.onError((data) => print('[socketIO] error: $data'));
+    // socket.on('event', (data) => print('[socketIO] event: $data'));
+
+    socket.on('response').listen((data) {
+      print('[socketIO] responce: $data');
+      if (!mounted) return;
+      Message message = Message({
+        'chatid': 0,
+        'uuid': data['uuid'],
+        'roomid': _roomId,
+        'userid': data['userid'],
+        'nickname': data['nickname'],
+        'text': data['text'],
+        'goodsUsers': data['good'],
+        'created': data['time'],
+      });
+      // MessageWidget messageWidget =
+      //     MessageWidget(message, widget.auth.getUserId(), widget.auth);
+      String t = HtmlUnescape().convert(message.text);
+      setState(() => {
+            if (message.userId == widget.auth.getUserId())
+              {
+                messages_log.insert(
+                    0,
+                    Text(
+                      "\r\n${message.userId}:\r\n" + t,
+                      style: TextStyle(color: Colors.green),
+                      textAlign: TextAlign.right,
+                    ))
+              }
+            else
+              {
+                messages_log.insert(
+                    0,
+                    Text(
+                      "\r\n${message.userId}:\r\n" + t,
+                      style: TextStyle(color: Colors.blue),
+                      textAlign: TextAlign.left,
+                    ))
+              }
+          });
+    });
+    // socket.onAPI.listen(data) async{
+    //   print('[socketIO] API: $data');
+    //   if (data['apiid'] == 'RoomCheck' && !data['res']) {
+    //     connectRoom(socket, roomId);
+    //   }
+    // };
+    // socket.on('destroy', (data) => print('[socketIO] destroy: $data'));
+
+    socket.connect();
+    _sockets[roomId] = socket;
+  }
+
+  void connectRoom(SocketIO socket, String roomId) async {
+    socket.emit('connected', []);
+    print('[socketIO] connect: $roomId');
+    await Future.delayed(Duration(milliseconds: 500));
+    print('[socketIO] emit connected message');
+    socket.emit('API', [
+      {'apiid': 'ConnectCheck'}
+    ]);
+  }
+
+  Future<void> _submitMessage(String text) async {
+    if (text == '') return;
+    _sockets[_roomId].emit('send', [
+      {'value': text}
+    ]);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("チャット"),
-        
-      ),
-      
-      
-      body: 
-      Column(
-         children: <Widget>[
-        Container(
-        height: 600,
-        width:double.infinity,
-         child:ListView.builder(
-          itemCount:  messages_log.length,
-          itemBuilder: (BuildContext context,int index){
-            return messages_log[index];
-          },
-          ),
-        
-        
-      ),
-      Row(
-        
-        children: [
-          Expanded( 
-            child:TextField(
-            keyboardType: TextInputType.multiline,
-            maxLines: 6,
-            minLines: 1,
-            decoration: const InputDecoration(
-              hintText: 'メッセージを入力してください',
+        appBar: AppBar(
+          title: Text("チャット"),
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              height: 600,
+              width: double.infinity,
+              child: ListView.builder(
+                itemCount: messages_log.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return messages_log[index];
+                },
+              ),
             ),
-            onChanged: (text){
-              input_msg=text;
-            },
-            
-          )),
-          IconButton(
-            onPressed:(){
-              setState(() {
-            if(input_msg!=""){
-            chatupdate(input_msg, widget.auth.getUserId());
-            print(input_msg);
-            input_msg="";
-            
-          }
-          
-          
-          });
-            } , 
-          icon: Icon(Icons.add))
-        ],
-      )
-      ],)
-        
-      
-      );
+            Row(
+              children: [
+                Expanded(
+                    child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 6,
+                  minLines: 1,
+                  decoration: const InputDecoration(
+                    hintText: 'メッセージを入力してください',
+                  ),
+                  onChanged: (text) {
+                    input_msg = text;
+                  },
+                )),
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        if (input_msg != "") {
+                          chatupdate(input_msg, widget.auth.getUserId());
+                          print(input_msg);
+                          input_msg = "";
+                        }
+                      });
+                    },
+                    icon: Icon(Icons.add))
+              ],
+            )
+          ],
+        ));
     // final _channel = WebSocket(url)
   }
-
 }
-
 
 class NextPage extends StatelessWidget {
   // ここにイニシャライザを書く
@@ -154,7 +242,10 @@ class NextPage extends StatelessWidget {
         title: Text("チャット"),
       ),
       body: Center(
-        child: Text("Receive Message: "+ name + "\r\nLogin NickName: " + auth.getNickname()),
+        child: Text("Receive Message: " +
+            name +
+            "\r\nLogin NickName: " +
+            auth.getNickname()),
       ),
     );
   }

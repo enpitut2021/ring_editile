@@ -7,6 +7,7 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/usersetting.dart';
 import 'package:ring_sns/page/match.dart';
 
+
 void main() {
   runApp(MyApp());
 }

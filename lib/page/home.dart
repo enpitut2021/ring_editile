@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/main.dart';
+import 'package:ring_sns/page/chathistory.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
 
@@ -86,6 +87,17 @@ class _Home extends State<Home> {
                 );
               },
             ),
+             ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('チャット履歴'),
+                onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatHistory(widget.auth)),
+                );
+              },
+            ),
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('「ドラマ」でマッチング'),
@@ -104,7 +116,9 @@ class _Home extends State<Home> {
             icon: Icon(Icons.chat),
             label: 'Chat',
             backgroundColor: Colors.blue[900],
+            
           ),
+          
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.cyan[400],

@@ -110,6 +110,10 @@ class _ChatDemo extends State<ChatDemo> {
     // socket.onError((data) => print('[socketIO] error: $data'));
     // socket.on('event', (data) => print('[socketIO] event: $data'));
 
+    socket.on('res').listen((data) {
+      print('[socketIO] res: $data');
+    });
+
     socket.on('response').listen((data) {
       print('[socketIO] responce: $data');
       if (!mounted) return;
@@ -162,6 +166,7 @@ class _ChatDemo extends State<ChatDemo> {
   }
 
   void connectRoom(SocketIO socket, String roomId) async {
+    await Future.delayed(Duration(milliseconds: 500));
     socket.emit('connected', []);
     print('[socketIO] connect: $roomId');
     await Future.delayed(Duration(milliseconds: 500));

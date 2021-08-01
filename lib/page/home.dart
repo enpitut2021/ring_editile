@@ -77,7 +77,7 @@ class _Home extends State<Home> {
             ),
             ListTile(
               leading: Icon(Icons.verified_user),
-              title: Text('「ゲーム」でマッチング'),
+              title: Text('テストルームに入る'),
                 onTap: () {
                 Navigator.push(
                   context,

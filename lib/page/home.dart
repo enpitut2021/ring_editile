@@ -8,13 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/mattinngmaker.dart';
 import 'package:ring_sns/page/usersetting.dart';
 
-
-//　by　Masayoshi
-//  by Masayoshi
 class Home extends StatefulWidget {
-  Home(this.auth1);
-  Auth auth1;
-  final Auth auth = new Auth();
+  Home(this.auth);
+  Auth auth;
   @override
   State<StatefulWidget> createState() => _Home();
 }
@@ -45,6 +41,12 @@ class _Home extends State<Home> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    print("ok");
+    print("user_session:${widget.auth.getBearer()}");
   }
 
   @override
@@ -91,7 +93,7 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('テストルームに入る'),
-                onTap: () {
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -99,10 +101,10 @@ class _Home extends State<Home> {
                 );
               },
             ),
-             ListTile(
+            ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('チャット履歴'),
-                onTap: () {
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -128,9 +130,7 @@ class _Home extends State<Home> {
             icon: Icon(Icons.chat),
             label: 'Chat',
             backgroundColor: Colors.blue[900],
-            
           ),
-          
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.cyan[400],

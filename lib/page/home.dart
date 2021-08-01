@@ -3,6 +3,7 @@ import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/main.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/mattinngmaker.dart';
 import 'package:ring_sns/page/usersetting.dart';
 
@@ -18,6 +19,12 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  void deletePassword() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("userId");
+    prefs.remove("password");
+  }
+
   int _selectedIndex = 0;
 
   static TextStyle optionStyle =
@@ -150,6 +157,7 @@ class _Home extends State<Home> {
               leading: Icon(Icons.logout),
               title: Text('Logout'),
               onTap: () {
+                deletePassword();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MyHomePage()),

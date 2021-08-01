@@ -3,6 +3,7 @@ import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/main.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //　by　Masayoshi
 // by Masayoshi
@@ -14,6 +15,12 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  void deletePassword() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("userId");
+    prefs.remove("password");
+  }
+
   int _selectedIndex = 0;
   static TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -33,6 +40,7 @@ class _Home extends State<Home> {
       _selectedIndex = index;
     });
   }
+
   @override
   String privateID = "";
   Widget build(BuildContext context) {
@@ -67,7 +75,7 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('「音楽，Apex」でマッチング'),
-                onTap: () {
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -78,7 +86,7 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('「ゲーム」でマッチング'),
-                onTap: () {
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -138,6 +146,7 @@ class _Home extends State<Home> {
               leading: Icon(Icons.logout),
               title: Text('Logout'),
               onTap: () {
+                deletePassword();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MyHomePage()),

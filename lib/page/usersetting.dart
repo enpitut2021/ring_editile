@@ -16,7 +16,7 @@ class Usersetting extends StatefulWidget {
 
 class _Usersetting extends State<Usersetting> {
   // Auth auth;
-  Auth auth = new Auth();
+  // Auth auth = new Auth();
   String nickname = '';
   String profile_text = '';
   String hobby = '';
@@ -73,7 +73,7 @@ class _Usersetting extends State<Usersetting> {
             ),
             RaisedButton(
                 onPressed: () async {
-                  AccountAPI account = new AccountAPI(auth.getBearer());
+                  AccountAPI account = new AccountAPI(widget.auth.getBearer());
                   await account
                       .updateUserProfile(
                           nickname: nickname,

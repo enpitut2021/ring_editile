@@ -51,15 +51,55 @@ class _Home extends State<Home> {
 
   @override
   String privateID = "";
+
+  
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("ホーム"),
       ),
-      body: Container(
-        width: double.infinity,
+      body: Center(
+        //width: double.infinity,
         child: Column(
           children: [
+            ButtonTheme(
+              minWidth: 200,
+              height:300,
+              child:ElevatedButton(
+              child: Text('マッチングを開始します'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.green,
+                shape: const StadiumBorder(),
+              ),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MattingPage()),
+                );
+              }
+              ),
+            ),
+            
+              Row(children: [
+                Icon(Icons.verified_user),
+                ElevatedButton(
+              child: Text('プロフィールを編集します'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.green,
+                shape: const StadiumBorder(),
+              ),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Usersetting(widget.auth)),
+                );
+              }
+              ),
+              ],),
             // TextField(
             //   decoration: InputDecoration(
             //     hintText: 'Enter a search ID',
@@ -134,7 +174,25 @@ class _Home extends State<Home> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.cyan[400],
-        onTap: _onItemTapped,
+        onTap: (int index){
+          _selectedIndex=index;
+          if(index==0){
+      //go to home
+
+    }else if(index==1){
+      //go to chatlog
+      Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ChatHistory(widget.auth)),
+                );
+
+    }
+
+        },
+        
+        
+        
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -183,4 +241,6 @@ class _Home extends State<Home> {
       ),
     );
   }
+
 }
+

@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/usersetting.dart';
-import 'package:ring_sns/page/match.dart';
+import 'package:ring_sns/page/match-old.dart';
 
 
 void main() {

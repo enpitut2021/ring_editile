@@ -133,8 +133,8 @@ class _ChatDemo extends State<ChatDemo> {
       setState(() => {
             if (message.userId == widget.auth.getUserId())
               {
-                messages_log.insert(
-                    0,
+                messages_log.add(
+                    
                     Text(
                       "\r\n${message.userId}:\r\n" + t,
                       style: TextStyle(color: Colors.green),
@@ -143,8 +143,8 @@ class _ChatDemo extends State<ChatDemo> {
               }
             else
               {
-                messages_log.insert(
-                    0,
+                messages_log.add(
+                    //0,
                     Text(
                       "\r\n${message.userId}:\r\n" + t,
                       style: TextStyle(color: Colors.blue),

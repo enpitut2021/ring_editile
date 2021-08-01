@@ -21,61 +21,35 @@ class _Usersetting extends State<Usersetting> {
   String profile_text = '';
   String hobby = '';
 
-// 以下作業
-//  @override
-//  Widget build(BuildContext context) {
-//   return SizedBox(
-//      height: 115,
-//      width: 115,
-//      child: Stack(
-//        clipBehavior: Clip.none,
-//        fit: StackFit.expand,
-//        children: [
-//          CircleAvatar(
-//            backgroundImage: AssetImage("assets/images/Profile Image.png"),
-//          ),
-//          Positioned(
-//              bottom: 0,
-//              right: -25,
-//              child: RawMaterialButton(
-//                onPressed: () {},
-//               elevation: 2.0,
-//                fillColor: Color(0xFFF5F6F9),
-//                child: Icon(
-//                  Icons.camera_alt_outlined,
-//                  color: Colors.blue,
-//                ),
-//                padding: EdgeInsets.all(15.0),
-//                shape: CircleBorder(),
-//              )),
-//        ],
-//      ),
-//    );
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("のユーザー設定")),
+      appBar: AppBar(title: Text(widget.auth.getUserId() + "のユーザー設定")),
       body: Container(
         width: double.infinity,
         child: Column(
           children: [
-            CircleAvatar(backgroundImage:NetworkImage('https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),),
-//            CircleAvatar(
-//             radius: 60,
-//              backgroundImage: AssetImage("assets/images/Profile Image.png"),
-//             child: Stack(children: [
-//                Align(
-//                  alignment: Alignment.bottomRight,
-//                  child: CircleAvatar(
-//                    radius: 18,
-//                    backgroundColor: Colors.white70,
-//                    child: Icon(CupertinoIcons.camera),
-//                  ),
-//                ),
-//              ]),
-//            ),
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: NetworkImage(
+                  'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
+            ),
+            //  以下、写真取り込み機能のためのフォーマット（実装時間があれば）
+            //  Positioned(
+            //  bottom: 0,
+            //  right: -25,
+            //  child: RawMaterialButton(
+            //  onPressed: () {},
+            //写真取り込み機能はここに
+            //  elevation: 2.0,
+            //  fillColor: Color(0xFFF5F6F9),
+            //  child: Icon(
+            //  Icons.camera_alt_outlined,
+            //  color: Colors.blue,
+            //  ),
+            //  padding: EdgeInsets.all(15.0),
+            //  shape: CircleBorder(),
+            //  )),
             TextField(
               decoration: InputDecoration(hintText: 'ニックネーム'),
               onChanged: (text) {

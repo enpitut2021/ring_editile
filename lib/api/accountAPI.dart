@@ -158,6 +158,7 @@ class User extends API {
   int gender;
   int point;
   int xp;
+  String hobby;
   int limitConnectppGroup;
   int limitNichiclockTask;
   String profileText;
@@ -180,6 +181,7 @@ class User extends API {
     gender = userdata['gender'];
     point = userdata['point'];
     xp = userdata['xp'];
+    hobby = userdata['hobby'];
     limitConnectppGroup = userdata['limit_connectpp_group'];
     limitNichiclockTask = userdata['limit_nichiclock_task'];
     profileText = userdata['profile_text'];

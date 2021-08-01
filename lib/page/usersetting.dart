@@ -22,6 +22,14 @@ class _Usersetting extends State<Usersetting> {
   String hobby = '';
 
   @override
+  void initState() {
+    //for sen
+    nickname = widget.auth.getNickname();
+    profile_text = widget.auth.getDescription();
+    hobby = widget.auth.getHobby();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.auth.getUserId() + "のユーザー設定")),

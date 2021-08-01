@@ -44,8 +44,7 @@ class _ChatDemo extends State<ChatDemo> {
   @override
   void initState() {
     //super.initState();
-    ChatAPI chatapi =
-        new ChatAPI(widget.auth.getBearer());
+    ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
     _roomId = widget.roomId;
     _manager = SocketIOManager();
     print("roomId:$_roomId");
@@ -116,13 +115,13 @@ class _ChatDemo extends State<ChatDemo> {
       if (!mounted) return;
       Message message = Message({
         'chatid': 0,
-        'uuid': data['uuid'],
+        'uuid': data[0]['uuid'],
         'roomid': _roomId,
-        'userid': data['userid'],
-        'nickname': data['nickname'],
-        'text': data['text'],
-        'goodsUsers': data['good'],
-        'created': data['time'],
+        'userid': data[0]['userid'],
+        'nickname': data[0]['nickname'],
+        'text': data[0]['text'],
+        'goodsUsers': data[0]['good'],
+        'created': data[0]['time'],
       });
       // MessageWidget messageWidget =
       //     MessageWidget(message, widget.auth.getUserId(), widget.auth);
@@ -202,7 +201,7 @@ class _ChatDemo extends State<ChatDemo> {
               children: [
                 Expanded(
                     child: new TextField(
-                      controller: textController,
+                  controller: textController,
                   keyboardType: TextInputType.multiline,
                   maxLines: 6,
                   minLines: 1,
@@ -216,9 +215,8 @@ class _ChatDemo extends State<ChatDemo> {
                 IconButton(
                     onPressed: () {
                       setState(() {
-                        input_msg=textController.text;
+                        input_msg = textController.text;
                         if (input_msg != "") {
-                          
                           chatupdate(input_msg, widget.auth.getUserId());
                           print(input_msg);
                           input_msg = "";

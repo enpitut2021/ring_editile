@@ -80,6 +80,7 @@ class AccountAPI extends API {
       String birthday,
       List<String> tags,
       String profileText,
+      String hobby,
       int enableConnectpp,
       int gender}) async {
     String url = 'userprofile';
@@ -88,6 +89,7 @@ class AccountAPI extends API {
       'password': password,
       'birthday': birthday,
       'tags': list2json(tags),
+      'hobby': hobby,
       'profile_text': profileText,
       'enable_connectpp': enableConnectpp,
       'gender': gender

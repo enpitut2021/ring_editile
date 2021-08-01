@@ -3,6 +3,7 @@ import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/main.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
+import 'package:ring_sns/page/usersetting.dart';
 
 //　by　Masayoshi
 // by Masayoshi
@@ -67,7 +68,7 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('「音楽，Apex」でマッチング'),
-                onTap: () {
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -78,7 +79,7 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('「ゲーム」でマッチング'),
-                onTap: () {
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -133,6 +134,13 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Setting'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Usersetting(widget.auth)),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.logout),

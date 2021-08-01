@@ -4,12 +4,16 @@ import 'package:ring_sns/main.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ring_sns/page/mattinngmaker.dart';
+import 'package:ring_sns/page/usersetting.dart';
+
 
 //　by　Masayoshi
-// by Masayoshi
+//  by Masayoshi
 class Home extends StatefulWidget {
-  Home(this.auth);
-  Auth auth;
+  Home(this.auth1);
+  Auth auth1;
+  final Auth auth = new Auth();
   @override
   State<StatefulWidget> createState() => _Home();
 }
@@ -22,6 +26,7 @@ class _Home extends State<Home> {
   }
 
   int _selectedIndex = 0;
+
   static TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
@@ -74,12 +79,11 @@ class _Home extends State<Home> {
             // ),
             ListTile(
               leading: Icon(Icons.verified_user),
-              title: Text('「音楽，Apex」でマッチング'),
+              title: Text('マッチングを開始する'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatDemo('user:6195', widget.auth)),
+                  MaterialPageRoute(builder: (context) => MattingPage()),
                 );
               },
             ),
@@ -141,6 +145,13 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Setting'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Usersetting(widget.auth)),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.logout),

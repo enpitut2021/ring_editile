@@ -14,9 +14,7 @@ class MattingPage extends StatefulWidget {
 }
 
 class _MattingPage extends State<MattingPage> {
-
-
-  String _roomId;
+  String _roomId = "public";
   String input_msg = "";
 
   SocketIOManager _manager;
@@ -35,7 +33,7 @@ class _MattingPage extends State<MattingPage> {
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
     SocketIO socket = await _manager
-        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2083',
+        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2096',
             namespace: '/',
             query: {
               'chatid': roomId,

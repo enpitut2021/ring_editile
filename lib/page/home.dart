@@ -92,12 +92,12 @@ class _Home extends State<Home> {
             ),
             ListTile(
               leading: Icon(Icons.verified_user),
-              title: Text('テストルームに入る'),
+              title: Text('全体交流広場へ'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatDemo('user:6194', widget.auth)),
+                      builder: (context) => ChatDemo('public', widget.auth)),
                 );
               },
             ),

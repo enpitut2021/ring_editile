@@ -4,9 +4,11 @@ import 'package:ring_sns/main.dart';
 import 'chat.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/mattinngmaker.dart';
+import 'package:ring_sns/page/usersetting.dart';
+
 
 //　by　Masayoshi
-// by Masayoshi
+//  by Masayoshi
 class Home extends StatefulWidget {
   Home(this.auth1);
   Auth auth1;
@@ -136,6 +138,13 @@ class _Home extends State<Home> {
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Setting'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Usersetting(widget.auth)),
+                );
+              },
             ),
             ListTile(
               leading: Icon(Icons.logout),

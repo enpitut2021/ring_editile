@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 //import 'package:html_unescape/html_unescape_small.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 
+
+
 class ChatHistory extends StatefulWidget{
   ChatHistory (this.auth);
   Auth auth;
+  IconData icon;
+  String roomid;
   @override
   State<StatefulWidget> createState() => _ChatHistory();
 
@@ -15,13 +20,19 @@ class ChatHistory extends StatefulWidget{
 
 class _ChatHistory extends State<ChatHistory>{
   @override
-  List<Text>  chathis=[
+  List<ListTile>  chathis=[
     
   ];
 
-  void chathistory_update(String chatoom_id){
+  void chathistory_update(String chatroom_id){
+    
     setState(() {
-      chathis.add(Text(chatoom_id));
+      chathis.add(ListTile(
+        title: Text(chatroom_id),
+        onTap: (){
+          print("click");
+        },
+      ));
     });
   }
 

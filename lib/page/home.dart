@@ -112,10 +112,6 @@ class _Home extends State<Home> {
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('「ドラマ」でマッチング'),
-            ),
           ],
         ),
       ),

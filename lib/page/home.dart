@@ -126,18 +126,18 @@ class _Home extends State<Home> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MattingPage()),
+                  MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
                 );
               },
             ),
             ListTile(
               leading: Icon(Icons.verified_user),
-              title: Text('テストルームに入る'),
+              title: Text('全体交流広場へ'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatDemo('user:6194', widget.auth)),
+                      builder: (context) => ChatDemo('public', widget.auth)),
                 );
               },
             ),
@@ -151,10 +151,6 @@ class _Home extends State<Home> {
                       builder: (context) => ChatHistory(widget.auth)),
                 );
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('「ドラマ」でマッチング'),
             ),
           ],
         ),

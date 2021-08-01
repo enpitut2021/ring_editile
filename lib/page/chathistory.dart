@@ -5,35 +5,56 @@ import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
+import 'package:ring_sns/page/chat.dart';
 
-
-
-class ChatHistory extends StatefulWidget{
-  ChatHistory (this.auth);
+class ChatHistory extends StatefulWidget {
+  ChatHistory(this.auth);
   Auth auth;
   IconData icon;
   String roomid;
   @override
   State<StatefulWidget> createState() => _ChatHistory();
-
 }
 
-class _ChatHistory extends State<ChatHistory>{
+class _ChatHistory extends State<ChatHistory> {
   @override
-  List<ListTile>  chathis=[
-    
-  ];
+  List<ListTile> chathis = [];
+  ChatAPI chatapi;
 
-  void chathistory_update(String chatroom_id){
-    
+  void chathistory_update(String chatroom_id) {
     setState(() {
       chathis.add(ListTile(
         title: Text(chatroom_id),
-        onTap: (){
-          print("click");
+        onTap: () {
+
         },
       ));
     });
+  }
+
+  @override
+  void initState() {
+    chatapi = new ChatAPI(widget.auth.getBearer());
+    // print("ok");
+    // print(widget.auth.getBearer());
+    // chatapi.getChatHistory();
+
+    chatapi.getChatHistory().then((Map history) => {
+          history.forEach((roomId, value) {
+            setState(() {
+              chathis.add(ListTile(
+                title: Text(roomId),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatDemo(roomId, widget.auth)),
+                  );
+                },
+              ));
+            });
+          })
+        });
   }
 
   Widget build(BuildContext context) {
@@ -55,15 +76,12 @@ class _ChatHistory extends State<ChatHistory>{
             ),
             Row(
               children: [
-                RaisedButton(onPressed: (){
+                RaisedButton(onPressed: () {
                   chathistory_update("new_room");
                 })
-               
-                
               ],
             )
           ],
         ));
   }
-  
 }

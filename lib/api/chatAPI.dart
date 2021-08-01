@@ -114,7 +114,7 @@ class ChatAPI extends API {
     return response['roomid'];
   }
 
-  Future<List<dynamic>> getChatHistory() async {
+  Future<Map<String, dynamic>> getChatHistory() async {
     String url = 'chat/history';
     dynamic response = await getRequest(url);
     return response;

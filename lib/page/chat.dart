@@ -86,7 +86,7 @@ class _ChatDemo extends State<ChatDemo> {
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
     SocketIO socket = await _manager
-        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:8443',
+        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2053',
             namespace: '/',
             query: {
               'chatid': roomId,
@@ -180,6 +180,8 @@ class _ChatDemo extends State<ChatDemo> {
   }
 
   Widget build(BuildContext context) {
+    final textController = TextEditingController();
+
     return Scaffold(
         appBar: AppBar(
           title: Text("チャット"),
@@ -199,21 +201,24 @@ class _ChatDemo extends State<ChatDemo> {
             Row(
               children: [
                 Expanded(
-                    child: TextField(
+                    child: new TextField(
+                      controller: textController,
                   keyboardType: TextInputType.multiline,
                   maxLines: 6,
                   minLines: 1,
                   decoration: const InputDecoration(
                     hintText: 'メッセージを入力してください',
                   ),
-                  onChanged: (text) {
-                    input_msg = text;
-                  },
+                  // onChanged: (text) {
+                  //   input_msg = text;
+                  // },
                 )),
                 IconButton(
                     onPressed: () {
                       setState(() {
+                        input_msg=textController.text;
                         if (input_msg != "") {
+                          
                           chatupdate(input_msg, widget.auth.getUserId());
                           print(input_msg);
                           input_msg = "";

@@ -80,6 +80,7 @@ class AccountAPI extends API {
       String birthday,
       List<String> tags,
       String profileText,
+      String hobby,
       int enableConnectpp,
       int gender}) async {
     String url = 'userprofile';
@@ -88,6 +89,7 @@ class AccountAPI extends API {
       'password': password,
       'birthday': birthday,
       'tags': list2json(tags),
+      'hobby': hobby,
       'profile_text': profileText,
       'enable_connectpp': enableConnectpp,
       'gender': gender
@@ -158,6 +160,7 @@ class User extends API {
   int gender;
   int point;
   int xp;
+  String hobby;
   int limitConnectppGroup;
   int limitNichiclockTask;
   String profileText;
@@ -180,6 +183,7 @@ class User extends API {
     gender = userdata['gender'];
     point = userdata['point'];
     xp = userdata['xp'];
+    hobby = userdata['hobby'];
     limitConnectppGroup = userdata['limit_connectpp_group'];
     limitNichiclockTask = userdata['limit_nichiclock_task'];
     profileText = userdata['profile_text'];

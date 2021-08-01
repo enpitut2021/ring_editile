@@ -21,6 +21,23 @@ class _Usersetting extends State<Usersetting> {
   String profile_text = '';
   String hobby = '';
 
+  String _nickname = '';
+  String _profile_text = '';
+  String _hobby = '';
+
+  @override
+  void initState() {
+    //for sen
+    setState(() {
+      _nickname = widget.auth.getNickname();
+      _profile_text = widget.auth.getDescription();
+      _hobby = widget.auth.getHobby();
+      nickname = _nickname;
+      profile_text = _profile_text;
+      hobby = _hobby;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +68,7 @@ class _Usersetting extends State<Usersetting> {
             //  shape: CircleBorder(),
             //  )),
             TextField(
+              controller: TextEditingController(text: _nickname),
               decoration: InputDecoration(hintText: 'ニックネーム'),
               onChanged: (text) {
                 nickname = text;
@@ -58,6 +76,7 @@ class _Usersetting extends State<Usersetting> {
               },
             ),
             TextField(
+              controller: TextEditingController(text: _profile_text),
               decoration: InputDecoration(hintText: 'ひとこと'),
               onChanged: (text) {
                 profile_text = text;
@@ -65,6 +84,7 @@ class _Usersetting extends State<Usersetting> {
               },
             ),
             TextField(
+              controller: TextEditingController(text: _hobby),
               decoration: InputDecoration(hintText: '趣味をスペース区切りで入力'),
               onChanged: (text) {
                 hobby = text;
@@ -77,10 +97,13 @@ class _Usersetting extends State<Usersetting> {
                   await account
                       .updateUserProfile(
                           nickname: nickname,
-                          profileText: profile_text + "\r\n" + hobby)
+                          profileText: profile_text,
+                          hobby: hobby)
                       .then((value) {
                     // print(signupres.nickname);
                     // print(signupres.profile_text);
+                        //更新されたユーザー情報を再取得する
+                        widget.auth.getCurrentUser();
                     print(value);
                   });
                 },

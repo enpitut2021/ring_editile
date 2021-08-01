@@ -17,6 +17,8 @@ class Auth extends API {
 
   User getUser() => _user;
 
+  String getHobby() => _user.hobby;
+
   String getNickname() => _user.nickname;
 
   String getUserId() => _user.userId;

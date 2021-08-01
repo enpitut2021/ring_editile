@@ -45,7 +45,7 @@ class _ChatDemo extends State<ChatDemo> {
   void initState() {
     //super.initState();
     ChatAPI chatapi =
-        new ChatAPI('571|NJYSGy11ZN1yTDM6M2J63Z43rYeVLHyRNpLHAqL8');
+        new ChatAPI(widget.auth.getBearer());
     _roomId = widget.roomId;
     _manager = SocketIOManager();
     print("roomId:$_roomId");
@@ -86,7 +86,7 @@ class _ChatDemo extends State<ChatDemo> {
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
     SocketIO socket = await _manager
-        .createInstance(SocketOptions('https://chat2.p0x0q.com:8443',
+        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:8443',
             namespace: '/',
             query: {
               'chatid': roomId,

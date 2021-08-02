@@ -5,6 +5,7 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:html';
 
 class Usersetting extends StatefulWidget {
   //ここにイニシャライザを書く
@@ -52,21 +53,36 @@ class _Usersetting extends State<Usersetting> {
                   'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
             ),
             //  以下、写真取り込み機能のためのフォーマット（実装時間があれば）
-            //  Positioned(
-            //  bottom: 0,
-            //  right: -25,
-            //  child: RawMaterialButton(
-            //  onPressed: () {},
-            //写真取り込み機能はここに
-            //  elevation: 2.0,
-            //  fillColor: Color(0xFFF5F6F9),
-            //  child: Icon(
-            //  Icons.camera_alt_outlined,
-            //  color: Colors.blue,
-            //  ),
-            //  padding: EdgeInsets.all(15.0),
-            //  shape: CircleBorder(),
-            //  )),
+            Positioned(
+                bottom: 0,
+                right: -25,
+                child: RawMaterialButton(
+                  onPressed: () {
+                    void pickupImage() {
+                      InputElement uploadInput = FileUploadInputElement()
+                        ..accept = 'image/*';
+                      uploadInput.click();
+
+                      uploadInput.onChange.listen((event) {
+                        final file = uploadInput.files.first;
+                        final reader = FileReader();
+                        reader.readAsDataUrl(file);
+                        reader.onLoadEnd.listen((event) {
+                          print('done');
+                        });
+                      });
+                    }
+                  },
+                  //写真取り込み機能はここに
+                  elevation: 2.0,
+                  fillColor: Color(0xFFF5F6F9),
+                  child: Icon(
+                    Icons.camera_alt_outlined,
+                    color: Colors.blue,
+                  ),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+                )),
             TextField(
               controller: TextEditingController(text: _nickname),
               decoration: InputDecoration(hintText: 'ニックネーム'),
@@ -102,8 +118,8 @@ class _Usersetting extends State<Usersetting> {
                       .then((value) {
                     // print(signupres.nickname);
                     // print(signupres.profile_text);
-                        //更新されたユーザー情報を再取得する
-                        widget.auth.getCurrentUser();
+                    //更新されたユーザー情報を再取得する
+                    widget.auth.getCurrentUser();
                     print(value);
                   });
                 },

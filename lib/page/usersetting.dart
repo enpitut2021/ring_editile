@@ -58,6 +58,7 @@ class _Usersetting extends State<Usersetting> {
       appBar: AppBar(title: Text(widget.auth.getUserId() + "のユーザー設定")),
       body: Container(
         width: double.infinity,
+        
         child: Column(
           children: [
             CircleAvatar(
@@ -66,10 +67,11 @@ class _Usersetting extends State<Usersetting> {
                   'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
             ),
             //  以下、写真取り込み機能のためのフォーマット（実装時間があれば）
-            Positioned(
-                bottom: 0,
-                right: -25,
-                child: RawMaterialButton(
+            // Positioned(
+            //     bottom: 0,
+            //     right: -25,
+            //     child: 
+                RawMaterialButton(
                   onPressed: () {
                     getImage();
                     print(_image);
@@ -83,7 +85,9 @@ class _Usersetting extends State<Usersetting> {
                   ),
                   padding: EdgeInsets.all(15.0),
                   shape: CircleBorder(),
-                )),
+                )
+                //)
+                ,
             TextField(
               controller: TextEditingController(text: _nickname),
               decoration: InputDecoration(hintText: 'ニックネーム'),

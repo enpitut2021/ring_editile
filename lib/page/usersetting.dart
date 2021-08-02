@@ -26,18 +26,35 @@ class _Usersetting extends State<Usersetting> {
   String _nickname = '';
   String _profile_text = '';
   String _hobby = '';
+  String test;
+
+  AccountAPI _accountAPI;
 
   File _image;
-  getImage() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
-  }
+  //final picker = ImagePicker();
+
+  
+  // Future n_getImage() async {
+  //   print("b");
+  //   final PickedFile _image =
+  //       await ImagePicker().getImage(source: ImageSource.gallery);
+  //   print("a");
+  //   if (_image == null) return;
+  //    final String code = await _accountAPI.uploadUserHeader(_image.path);
+  //    print("a");
+  // }
+  // getImage() async {
+  //   PickedFile pickedFile = await ImagePicker().getImage(
+  //     source: ImageSource.gallery,
+  //   );
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _image = File(pickedFile.path);
+  //     });
+  //   }
+  // }
+  
+  
 
   @override
   void initState() {
@@ -50,6 +67,8 @@ class _Usersetting extends State<Usersetting> {
       profile_text = _profile_text;
       hobby = _hobby;
     });
+     _accountAPI = AccountAPI(widget.auth.getBearer());
+    print(widget.auth.getUserBackgroundURL());
   }
 
   @override
@@ -63,8 +82,10 @@ class _Usersetting extends State<Usersetting> {
           children: [
             CircleAvatar(
               radius: 60,
-              backgroundImage: NetworkImage(
-                  'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
+              // child: _image == null ? NetworkImage(widget.auth.getUserBackgroundURL()) : Image.file(_image),
+              backgroundImage: _image == null ? NetworkImage(widget.auth.getUserBackgroundURL()) : Image.file(_image),
+              // NetworkImage(
+              //     widget.auth.getUserBackgroundURL()),
             ),
             //  以下、写真取り込み機能のためのフォーマット（実装時間があれば）
             // Positioned(
@@ -73,8 +94,9 @@ class _Usersetting extends State<Usersetting> {
             //     child: 
                 RawMaterialButton(
                   onPressed: () {
-                    getImage();
-                    print(_image);
+                    //n_getImage();
+                    //getImage();
+                    print("click");
                   },
                   //写真取り込み機能はここに
                   elevation: 2.0,

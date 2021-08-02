@@ -6,8 +6,9 @@ import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 
 class Match_Result extends StatefulWidget{
-  Match_Result(this.auth);
+  Match_Result(this.auth,this.room_id);
   Auth auth;
+  String room_id;
 
 
   @override
@@ -35,7 +36,7 @@ class _Match_Result extends State<Match_Result>{
     print("matching success");
       Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChatDemo("public",widget.auth)),
+                  MaterialPageRoute(builder: (context) => ChatDemo(widget.room_id,widget.auth)),
                 );
   }
 

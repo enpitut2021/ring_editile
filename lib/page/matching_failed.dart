@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ring_sns/page/mattinngmaker.dart';
 
 class Match_Failed extends StatefulWidget{
   Match_Failed(this.auth);
@@ -44,6 +45,15 @@ class _Match_Failed extends State<Match_Failed>{
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home(widget.auth)),
+                );
+              },
+            ),
+             RaisedButton(
+              child: Text('もう一度マッチング'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
                 );
               },
             ),

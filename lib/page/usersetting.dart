@@ -31,28 +31,28 @@ class _Usersetting extends State<Usersetting> {
   AccountAPI _accountAPI;
 
   File _image;
-  //final picker = ImagePicker();
+  final picker = ImagePicker();
 
   
-  // Future n_getImage() async {
-  //   print("b");
-  //   final PickedFile _image =
-  //       await ImagePicker().getImage(source: ImageSource.gallery);
-  //   print("a");
-  //   if (_image == null) return;
-  //    final String code = await _accountAPI.uploadUserHeader(_image.path);
-  //    print("a");
-  // }
-  // getImage() async {
-  //   PickedFile pickedFile = await ImagePicker().getImage(
-  //     source: ImageSource.gallery,
-  //   );
-  //   if (pickedFile != null) {
-  //     setState(() {
-  //       _image = File(pickedFile.path);
-  //     });
-  //   }
-  // }
+  Future n_getImage() async {
+    print("b");
+    final PickedFile _image =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    print("a");
+    if (_image == null) return;
+     final String code = await _accountAPI.uploadUserHeader(_image.path);
+     print("a");
+  }
+  getImage() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
   
   
 
@@ -94,7 +94,7 @@ class _Usersetting extends State<Usersetting> {
             //     child: 
                 RawMaterialButton(
                   onPressed: () {
-                    //n_getImage();
+                    n_getImage();
                     //getImage();
                     print("click");
                   },

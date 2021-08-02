@@ -92,7 +92,7 @@ class _Home extends State<Home> {
                 CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                  'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
+                  widget.auth.getUserBackgroundURL()),
             ),
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 250, height: 50),

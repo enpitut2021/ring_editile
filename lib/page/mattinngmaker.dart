@@ -92,7 +92,7 @@ class _MattingPage extends State<MattingPage> {
   }
 
   @override
-  final Auth auth = new Auth();
+  //final Auth auth = new Auth();
   var _value = 0.0;
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +120,7 @@ class _MattingPage extends State<MattingPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home(auth)),
+                  MaterialPageRoute(builder: (context) => Home(widget.auth)),
                 );
               },
             ),

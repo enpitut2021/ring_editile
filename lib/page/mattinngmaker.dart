@@ -6,8 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:ring_sns/page/matching_failed.dart';
 import 'package:ring_sns/page/matching_result.dart';
 
-
-
 class MattingPage extends StatefulWidget {
   //ここにイニシャライザを追加1する
   MattingPage(this.auth);
@@ -19,11 +17,11 @@ class MattingPage extends StatefulWidget {
 class _MattingPage extends State<MattingPage> {
   String _roomId = "public";
   String input_msg = "";
-  int sec=10;
+  int sec = 10;
   SocketIOManager _manager;
   Map<String, SocketIO> _sockets = {};
-  bool match_res=false;
-  bool cancel=false;
+  bool match_res = false;
+  bool cancel = false;
 
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [];
@@ -34,38 +32,33 @@ class _MattingPage extends State<MattingPage> {
     _manager = SocketIOManager();
     _initSocket(_roomId, widget.auth.getBearer());
     failed();
-
   }
 
-  void success_navigator(){
+  void success_navigator() {
     setState(() {
-                  match_res=true;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Match_Result(widget.auth,"public")),
-                );
+      match_res = true;
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => Match_Result(widget.auth, "public")),
+    );
   }
 
-  void failed() async{
-   
-    while(!match_res&&sec>0){
+  void failed() async {
+    while (!match_res && sec > 0) {
       await Future.delayed(Duration(milliseconds: 1000));
       setState(() {
         sec -= 1;
-        
       });
-      
     }
-    if(!match_res&&!cancel){
+    if (!match_res && !cancel) {
       print("matching success");
       Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
-                );
+        context,
+        MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
+      );
     }
-    
-
   }
 
   void _initSocket(String roomId, String userSession) async {
@@ -96,8 +89,18 @@ class _MattingPage extends State<MattingPage> {
     // socket.onError((data) => print('[socketIO] error: $data'));
     // socket.on('event', (data) => print('[socketIO] event: $data'));
 
-    socket.on('response').listen((data) {
-      print('[socketIO] responce: $data');
+    socket.on('match').listen((data) {
+      // print("マッチングしました！");
+      print('[socketIO] responce: ${data[0]}');
+
+      String targetUserid = data[0]["userids"][0].toString();
+      if (widget.auth.getUserId() == data[0]) {
+        targetUserid = data[0]["userids"][1];
+      }
+      print("相手ユーザーは${targetUserid}です");
+
+      // await friendRequest()
+
       if (!mounted) return;
     });
     // socket.onAPI.listen(data) async{
@@ -139,8 +142,7 @@ class _MattingPage extends State<MattingPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
+              backgroundImage: NetworkImage(widget.auth.getUserBackgroundURL()),
               radius: 100,
             ),
             Text(
@@ -157,7 +159,7 @@ class _MattingPage extends State<MattingPage> {
             RaisedButton(
               child: Text('マッチングをやめる'),
               onPressed: () {
-                cancel=true;
+                cancel = true;
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home(widget.auth)),
@@ -166,7 +168,7 @@ class _MattingPage extends State<MattingPage> {
             ),
             RaisedButton(
               child: Text('マッチングが成功した'),
-              onPressed: (){
+              onPressed: () {
                 success_navigator();
               },
             ),

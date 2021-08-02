@@ -1,10 +1,12 @@
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ring_sns/page/matching_failed.dart';
 import 'package:ring_sns/page/matching_result.dart';
+import 'package:ring_sns/api/accountAPI.dart';
 
 class MattingPage extends StatefulWidget {
   //ここにイニシャライザを追加1する
@@ -89,7 +91,7 @@ class _MattingPage extends State<MattingPage> {
     // socket.onError((data) => print('[socketIO] error: $data'));
     // socket.on('event', (data) => print('[socketIO] event: $data'));
 
-    socket.on('match').listen((data) {
+    socket.on('match').listen((data) async {
       // print("マッチングしました！");
       print('[socketIO] responce: ${data[0]}');
 
@@ -98,9 +100,15 @@ class _MattingPage extends State<MattingPage> {
         targetUserid = data[0]["userids"][1];
       }
       print("相手ユーザーは${targetUserid}です");
+      ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
+      AccountAPI account = new AccountAPI(widget.auth.getBearer());
 
+      await account.friendRequest(targetUserid);
+      await Future.delayed(Duration(milliseconds: 3000));
+      String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
+      print("相手ユーザーとのRoomIDは${roomid}です");
       // await friendRequest()
-
+      
       if (!mounted) return;
     });
     // socket.onAPI.listen(data) async{

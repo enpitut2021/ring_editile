@@ -22,6 +22,7 @@ class _MattingPage extends State<MattingPage> {
   int sec=10;
   SocketIOManager _manager;
   Map<String, SocketIO> _sockets = {};
+  bool match_res=false;
 
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [];
@@ -36,18 +37,23 @@ class _MattingPage extends State<MattingPage> {
   }
 
   void failed() async{
-    while(sec>0){
+   
+    while(!match_res&&sec>0){
       await Future.delayed(Duration(milliseconds: 1000));
       setState(() {
         sec -= 1;
+        
       });
+      
     }
-    
-    print("matching success");
+    if(!match_res){
+      print("matching success");
       Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
                 );
+    }
+    
 
   }
 
@@ -149,6 +155,9 @@ class _MattingPage extends State<MattingPage> {
             RaisedButton(
               child: Text('マッチングが成功した'),
               onPressed: () {
+                setState(() {
+                  match_res=true;
+                });
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Match_Result(widget.auth)),

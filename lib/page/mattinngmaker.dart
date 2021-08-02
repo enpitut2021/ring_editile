@@ -36,6 +36,16 @@ class _MattingPage extends State<MattingPage> {
 
   }
 
+  void success_navigator(){
+    setState(() {
+                  match_res=true;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Match_Result(widget.auth,"public")),
+                );
+  }
+
   void failed() async{
    
     while(!match_res&&sec>0){
@@ -154,14 +164,8 @@ class _MattingPage extends State<MattingPage> {
             ),
             RaisedButton(
               child: Text('マッチングが成功した'),
-              onPressed: () {
-                setState(() {
-                  match_res=true;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Match_Result(widget.auth)),
-                );
+              onPressed: (){
+                success_navigator();
               },
             ),
           ],

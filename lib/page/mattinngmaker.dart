@@ -3,6 +3,7 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ring_sns/page/matching_result.dart';
 
 
 class MattingPage extends StatefulWidget {
@@ -121,6 +122,15 @@ class _MattingPage extends State<MattingPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home(widget.auth)),
+                );
+              },
+            ),
+            RaisedButton(
+              child: Text('マッチングが成功した'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Match_Result(widget.auth)),
                 );
               },
             ),

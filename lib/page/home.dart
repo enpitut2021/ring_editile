@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/main.dart';
@@ -55,198 +56,216 @@ class _Home extends State<Home> {
   
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("ホーム"),
-      ),
-      body: Center(
-        //width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(""),
-            ConstrainedBox(
-              constraints: BoxConstraints.tightFor(width: 250, height: 100),
-                 child:ElevatedButton(
-              child: Text('マッチングを開始します'),
-              style: ElevatedButton.styleFrom(
-                
-                primary: Colors.white,
-                onPrimary: Colors.green,
-                shape: const StadiumBorder(),
-              ),
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
-                );
-              }
-              ),
-            ),
-            
-            
-            
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(
-                  widget.auth.getUserBackgroundURL()),
-            ),
-            ConstrainedBox(
-              constraints: BoxConstraints.tightFor(width: 250, height: 50),
-              child:
-              ElevatedButton(
-              child: Text('プロフィールを編集します'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                onPrimary: Colors.white,
-                shape: const StadiumBorder(),
-              ),
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Usersetting(widget.auth)),
-                );
-              }
-              ),
-            ),
-                
-              ],),
-              Text(""),
-            // TextField(
-            //   decoration: InputDecoration(
-            //     hintText: 'Enter a search ID',
-            //   ),
-            //   onChanged: (text) {
-            //     // text = privateID;
-            //     privateID = text;
-            //     print(privateID);
-            //   },
-            // ),
-            // RaisedButton(
-            //   child: Text('ID情報渡す'),
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) => ChatDemo(privateID, widget.auth)),
-            //     );
-            //   },
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.verified_user),
-            //   title: Text('マッチングを開始する'),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
-            //     );
-            //   },
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.verified_user),
-            //   title: Text('全体交流広場へ'),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) => ChatDemo('public', widget.auth)),
-            //     );
-            //   },
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.verified_user),
-            //   title: Text('チャット履歴'),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) => ChatHistory(widget.auth)),
-            //     );
-            //   },
-            // ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items:const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.blue[900],
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
-            label: 'Chat',
-            backgroundColor: Colors.blue[900],
+            label: 'chat',
           ),
-        ],
+        ] ,
+        onTap: _onItemTapped,
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.cyan[400],
-        onTap: (int index){
-          _selectedIndex=index;
-          if(index==0){
-      //go to home
+        ), 
+        tabBuilder: (context,index){}
+      
+      );
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: Text("ホーム"),
+    //   ),
+    //   body: Center(
+    //     //width: double.infinity,
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //       children: [
+    //         Text(""),
+    //         ConstrainedBox(
+    //           constraints: BoxConstraints.tightFor(width: 250, height: 100),
+    //              child:ElevatedButton(
+    //           child: Text('マッチングを開始します'),
+    //           style: ElevatedButton.styleFrom(
+                
+    //             primary: Colors.white,
+    //             onPrimary: Colors.green,
+    //             shape: const StadiumBorder(),
+    //           ),
+    //           onPressed: (){
+    //             Navigator.push(
+    //               context,
+    //               MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
+    //             );
+    //           }
+    //           ),
+    //         ),
+            
+            
+            
+    //           Row(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             children: [
+    //             CircleAvatar(
+    //           radius: 30,
+    //           backgroundImage: NetworkImage(
+    //               widget.auth.getUserBackgroundURL()),
+    //         ),
+    //         ConstrainedBox(
+    //           constraints: BoxConstraints.tightFor(width: 250, height: 50),
+    //           child:
+    //           ElevatedButton(
+    //           child: Text('プロフィールを編集します'),
+    //           style: ElevatedButton.styleFrom(
+    //             primary: Colors.green,
+    //             onPrimary: Colors.white,
+    //             shape: const StadiumBorder(),
+    //           ),
+    //           onPressed: (){
+    //             Navigator.push(
+    //               context,
+    //               MaterialPageRoute(
+    //                   builder: (context) => Usersetting(widget.auth)),
+    //             );
+    //           }
+    //           ),
+    //         ),
+                
+    //           ],),
+    //           Text(""),
+    //         // TextField(
+    //         //   decoration: InputDecoration(
+    //         //     hintText: 'Enter a search ID',
+    //         //   ),
+    //         //   onChanged: (text) {
+    //         //     // text = privateID;
+    //         //     privateID = text;
+    //         //     print(privateID);
+    //         //   },
+    //         // ),
+    //         // RaisedButton(
+    //         //   child: Text('ID情報渡す'),
+    //         //   onPressed: () {
+    //         //     Navigator.push(
+    //         //       context,
+    //         //       MaterialPageRoute(
+    //         //           builder: (context) => ChatDemo(privateID, widget.auth)),
+    //         //     );
+    //         //   },
+    //         // ),
+    //         // ListTile(
+    //         //   leading: Icon(Icons.verified_user),
+    //         //   title: Text('マッチングを開始する'),
+    //         //   onTap: () {
+    //         //     Navigator.push(
+    //         //       context,
+    //         //       MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
+    //         //     );
+    //         //   },
+    //         // ),
+    //         // ListTile(
+    //         //   leading: Icon(Icons.verified_user),
+    //         //   title: Text('全体交流広場へ'),
+    //         //   onTap: () {
+    //         //     Navigator.push(
+    //         //       context,
+    //         //       MaterialPageRoute(
+    //         //           builder: (context) => ChatDemo('public', widget.auth)),
+    //         //     );
+    //         //   },
+    //         // ),
+    //         // ListTile(
+    //         //   leading: Icon(Icons.verified_user),
+    //         //   title: Text('チャット履歴'),
+    //         //   onTap: () {
+    //         //     Navigator.push(
+    //         //       context,
+    //         //       MaterialPageRoute(
+    //         //           builder: (context) => ChatHistory(widget.auth)),
+    //         //     );
+    //         //   },
+    //         // ),
+    //       ],
+    //     ),
+    //   ),
+    //   bottomNavigationBar: BottomNavigationBar(
+    //     items: <BottomNavigationBarItem>[
+    //       BottomNavigationBarItem(
+    //         icon: Icon(Icons.home),
+    //         label: 'Home',
+    //         backgroundColor: Colors.blue[900],
+    //       ),
+    //       BottomNavigationBarItem(
+    //         icon: Icon(Icons.chat),
+    //         label: 'Chat',
+    //         backgroundColor: Colors.blue[900],
+    //       ),
+    //     ],
+    //     currentIndex: _selectedIndex,
+    //     selectedItemColor: Colors.cyan[400],
+    //     onTap: (int index){
+    //       _selectedIndex=index;
+    //       if(index==0){
+    //   //go to home
 
-    }else if(index==1){
-      //go to chatlog
-      Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatHistory(widget.auth)),
-                );
-    }
-        },        
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Ring',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.notifications),
-              title: Text('Notification'),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Setting'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Usersetting(widget.auth)),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () {
-                deletePassword();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+    // }else if(index==1){
+    //   //go to chatlog
+    //   Navigator.push(
+    //               context,
+    //               MaterialPageRoute(
+    //                   builder: (context) => ChatHistory(widget.auth)),
+    //             );
+    // }
+    //     },        
+    //   ),
+    //   endDrawer: Drawer(
+    //     child: ListView(
+    //       padding: EdgeInsets.zero,
+    //       children: <Widget>[
+    //         DrawerHeader(
+    //           decoration: BoxDecoration(
+    //             color: Colors.blue,
+    //           ),
+    //           child: Text(
+    //             'Ring',
+    //             style: TextStyle(
+    //               color: Colors.white,
+    //               fontSize: 24,
+    //             ),
+    //           ),
+    //         ),
+    //         ListTile(
+    //           leading: Icon(Icons.notifications),
+    //           title: Text('Notification'),
+    //         ),
+    //         ListTile(
+    //           leading: Icon(Icons.settings),
+    //           title: Text('Setting'),
+    //           onTap: () {
+    //             Navigator.push(
+    //               context,
+    //               MaterialPageRoute(
+    //                   builder: (context) => Usersetting(widget.auth)),
+    //             );
+    //           },
+    //         ),
+    //         ListTile(
+    //           leading: Icon(Icons.logout),
+    //           title: Text('Logout'),
+    //           onTap: () {
+    //             deletePassword();
+    //             Navigator.push(
+    //               context,
+    //               MaterialPageRoute(builder: (context) => MyHomePage()),
+    //             );
+    //           },
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
 }

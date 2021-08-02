@@ -65,12 +65,12 @@ class _Home extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(""),
-            ButtonTheme(
-              minWidth: 200,
-              height:300,
-              child:ElevatedButton(
+            ConstrainedBox(
+              constraints: BoxConstraints.tightFor(width: 250, height: 100),
+                 child:ElevatedButton(
               child: Text('マッチングを開始します'),
               style: ElevatedButton.styleFrom(
+                
                 primary: Colors.white,
                 onPrimary: Colors.green,
                 shape: const StadiumBorder(),
@@ -85,19 +85,23 @@ class _Home extends State<Home> {
             ),
             
             
+            
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                 CircleAvatar(
-              radius: 15,
+              radius: 30,
               backgroundImage: NetworkImage(
                   'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
             ),
-                ElevatedButton(
+            ConstrainedBox(
+              constraints: BoxConstraints.tightFor(width: 250, height: 50),
+              child:
+              ElevatedButton(
               child: Text('プロフィールを編集します'),
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                onPrimary: Colors.green,
+                primary: Colors.green,
+                onPrimary: Colors.white,
                 shape: const StadiumBorder(),
               ),
               onPressed: (){
@@ -108,6 +112,8 @@ class _Home extends State<Home> {
                 );
               }
               ),
+            ),
+                
               ],),
               Text(""),
             // TextField(

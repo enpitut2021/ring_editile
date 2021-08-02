@@ -23,6 +23,7 @@ class _MattingPage extends State<MattingPage> {
   SocketIOManager _manager;
   Map<String, SocketIO> _sockets = {};
   bool match_res=false;
+  bool cancel=false;
 
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [];
@@ -56,7 +57,7 @@ class _MattingPage extends State<MattingPage> {
       });
       
     }
-    if(!match_res){
+    if(!match_res&&!cancel){
       print("matching success");
       Navigator.push(
                   context,
@@ -156,6 +157,7 @@ class _MattingPage extends State<MattingPage> {
             RaisedButton(
               child: Text('マッチングをやめる'),
               onPressed: () {
+                cancel=true;
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Home(widget.auth)),

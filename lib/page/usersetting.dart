@@ -5,7 +5,8 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:html';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Usersetting extends StatefulWidget {
   //ここにイニシャライザを書く
@@ -25,6 +26,18 @@ class _Usersetting extends State<Usersetting> {
   String _nickname = '';
   String _profile_text = '';
   String _hobby = '';
+
+  File _image;
+  getImage() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -58,20 +71,8 @@ class _Usersetting extends State<Usersetting> {
                 right: -25,
                 child: RawMaterialButton(
                   onPressed: () {
-                    void pickupImage() {
-                      InputElement uploadInput = FileUploadInputElement()
-                        ..accept = 'image/*';
-                      uploadInput.click();
-
-                      uploadInput.onChange.listen((event) {
-                        final file = uploadInput.files.first;
-                        final reader = FileReader();
-                        reader.readAsDataUrl(file);
-                        reader.onLoadEnd.listen((event) {
-                          print('done');
-                        });
-                      });
-                    }
+                    getImage();
+                    print(_image);
                   },
                   //写真取り込み機能はここに
                   elevation: 2.0,

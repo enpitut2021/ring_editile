@@ -76,7 +76,7 @@ class _Home extends State<Home> {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MattingPage()),
+                  MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
                 );
               }
               ),

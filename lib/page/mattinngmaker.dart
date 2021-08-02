@@ -3,6 +3,9 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ring_sns/page/matching_failed.dart';
+import 'package:ring_sns/page/matching_result.dart';
+
 
 
 class MattingPage extends StatefulWidget {
@@ -16,7 +19,7 @@ class MattingPage extends StatefulWidget {
 class _MattingPage extends State<MattingPage> {
   String _roomId = "public";
   String input_msg = "";
-
+  int sec=10;
   SocketIOManager _manager;
   Map<String, SocketIO> _sockets = {};
 
@@ -28,6 +31,24 @@ class _MattingPage extends State<MattingPage> {
   void initState() {
     _manager = SocketIOManager();
     _initSocket(_roomId, widget.auth.getBearer());
+    failed();
+
+  }
+
+  void failed() async{
+    while(sec>0){
+      await Future.delayed(Duration(milliseconds: 1000));
+      setState(() {
+        sec -= 1;
+      });
+    }
+    
+    print("matching success");
+      Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
+                );
+
   }
 
   void _initSocket(String roomId, String userSession) async {
@@ -92,7 +113,7 @@ class _MattingPage extends State<MattingPage> {
   }
 
   @override
-  final Auth auth = new Auth();
+  //final Auth auth = new Auth();
   var _value = 0.0;
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,6 +130,7 @@ class _MattingPage extends State<MattingPage> {
               'マッチング相手を探しています',
               style: Theme.of(context).textTheme.headline6,
             ),
+            Text(sec.toString()),
             CircularProgressIndicator(
               value: _value,
             ),
@@ -120,7 +142,16 @@ class _MattingPage extends State<MattingPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home(auth)),
+                  MaterialPageRoute(builder: (context) => Home(widget.auth)),
+                );
+              },
+            ),
+            RaisedButton(
+              child: Text('マッチングが成功した'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Match_Result(widget.auth)),
                 );
               },
             ),

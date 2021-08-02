@@ -62,7 +62,9 @@ class _Home extends State<Home> {
       body: Center(
         //width: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Text(""),
             ButtonTheme(
               minWidth: 200,
               height:300,
@@ -82,8 +84,15 @@ class _Home extends State<Home> {
               ),
             ),
             
-              Row(children: [
-                Icon(Icons.verified_user),
+            
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                CircleAvatar(
+              radius: 15,
+              backgroundImage: NetworkImage(
+                  'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
+            ),
                 ElevatedButton(
               child: Text('プロフィールを編集します'),
               style: ElevatedButton.styleFrom(
@@ -100,6 +109,7 @@ class _Home extends State<Home> {
               }
               ),
               ],),
+              Text(""),
             // TextField(
             //   decoration: InputDecoration(
             //     hintText: 'Enter a search ID',
@@ -120,38 +130,38 @@ class _Home extends State<Home> {
             //     );
             //   },
             // ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('マッチングを開始する'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('全体交流広場へ'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatDemo('public', widget.auth)),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('チャット履歴'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatHistory(widget.auth)),
-                );
-              },
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.verified_user),
+            //   title: Text('マッチングを開始する'),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => MattingPage(widget.auth)),
+            //     );
+            //   },
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.verified_user),
+            //   title: Text('全体交流広場へ'),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => ChatDemo('public', widget.auth)),
+            //     );
+            //   },
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.verified_user),
+            //   title: Text('チャット履歴'),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //           builder: (context) => ChatHistory(widget.auth)),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
@@ -182,13 +192,8 @@ class _Home extends State<Home> {
                   MaterialPageRoute(
                       builder: (context) => ChatHistory(widget.auth)),
                 );
-
     }
-
-        },
-        
-        
-        
+        },        
       ),
       endDrawer: Drawer(
         child: ListView(

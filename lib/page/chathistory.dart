@@ -74,13 +74,13 @@ class _ChatHistory extends State<ChatHistory> {
                 },
               ),
             ),
-            Row(
-              children: [
-                RaisedButton(onPressed: () {
-                  chathistory_update("new_room");
-                })
-              ],
-            )
+            // Row(
+            //   children: [
+            //     RaisedButton(onPressed: () {
+            //       chathistory_update("new_room");
+            //     })
+            //   ],
+            // )
           ],
         ));
   }

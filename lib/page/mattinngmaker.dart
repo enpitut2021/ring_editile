@@ -98,9 +98,10 @@ class _MattingPage extends State<MattingPage> {
       print('[socketIO] responce: ${data[0]}');
 
       if (check_dup == true) {
-        print("マッチングの処理を１回やったので，無視して切断する");
+        // print("マッチングの処理を１回やったので，無視して切断する");
         //切断の処理
-        return;
+        // return;
+        // #これやるとだめになるので，無視する
       }
 
       String targetUserid = data[0]["userids"][0].toString();

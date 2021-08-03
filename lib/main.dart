@@ -79,6 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => Home(auth)),
         );
       } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage(auth)),
+        );
         print("ログイン失敗");
       }
     });

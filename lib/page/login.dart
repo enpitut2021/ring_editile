@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/home.dart';
+import 'package:ring_sns/page/regist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -42,22 +43,41 @@ class _LoginPage extends State<LoginPage> {
       appBar: AppBar(
         title: Text('login page'),
       ),
-      body: Container(
-        width: double.infinity,
+      body: 
+      Center(
+        child:
+      Container(
+        width: 300,
         child: Column(
           children: <Widget>[
+            Text(""),
+            Text(""),
+            Text(""),
             TextField(
               decoration: InputDecoration(
+                
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                      color: Colors.blueGrey[200],
+                    )),
                 labelText: 'ID',
               ),
               onChanged: (text) {
                 id = text;
               },
             ),
+            Text(""),
             TextField(
               obscureText: !_showPassword,
               controller: _passwordTextController,
               decoration: InputDecoration(
+                
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                      color: Colors.blueGrey[200],
+                    )),
                 labelText: "Password",
                 suffixIcon: IconButton(
                   icon: Icon(_showPassword
@@ -84,11 +104,17 @@ class _LoginPage extends State<LoginPage> {
               errormsg,
               style: TextStyle(color: Colors.red),
             ),
-            RaisedButton(
-              child: Text('Login now'),
-              onPressed: () async {
-                //ここにログインを行うコードを追加する
-                final hobbyText = myController.text;
+            ConstrainedBox(
+              constraints: BoxConstraints.tightFor(width: 100, height: 50),
+              child: ElevatedButton(
+                  child: Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    onPrimary: Colors.white,
+                    shape: const StadiumBorder(),
+                  ),
+                  onPressed: () async {
+                    final hobbyText = myController.text;
                 Auth auth = new Auth();
                 LoginErrorMessage res = await auth.signIn(id, pass);
                 if (res.userId == "" && res.password == "") {
@@ -104,11 +130,42 @@ class _LoginPage extends State<LoginPage> {
                     errormsg += res.password;
                   });
                 }
-              },
+                  }),
             ),
+             TextButton(
+        onPressed: (){
+          Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AccountSignUp()),
+                  );
+        },
+        child:Text("Sign up")
+      ),
+            // RaisedButton(
+            //   child: Text('Login now'),
+            //   onPressed: () async {
+            //     //ここにログインを行うコードを追加する
+            //     final hobbyText = myController.text;
+            //     Auth auth = new Auth();
+            //     LoginErrorMessage res = await auth.signIn(id, pass);
+            //     if (res.userId == "" && res.password == "") {
+            //       if (_flag) {
+            //         savePassword(id, pass);
+            //       }
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(builder: (context) => Home(auth)),
+            //       );
+            //     } else {
+            //       setState(() {
+            //         errormsg += res.password;
+            //       });
+            //     }
+            //   },
+            // ),
           ],
         ),
-      ),
+      ),)
     );
   }
 }

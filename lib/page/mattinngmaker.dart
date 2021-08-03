@@ -43,7 +43,7 @@ class _MattingPage extends State<MattingPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => Match_Result(widget.auth, "public")),
+          builder: (context) => Match_Result(widget.auth, "public", "admin")),
     );
   }
 
@@ -55,7 +55,7 @@ class _MattingPage extends State<MattingPage> {
       });
     }
     if (!match_res && !cancel) {
-      print("matching success");
+      print("matching failed");
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
@@ -107,13 +107,29 @@ class _MattingPage extends State<MattingPage> {
       await Future.delayed(Duration(milliseconds: 3000));
 
       account.getFriendRequestList().then((response) {
-        response.forEach((friend) {
-          print(friend);
+        print("リクエストしました");
+        print(response.runtimeType);
+        print(response[0]);
+        response.forEach((friendRequest) {
+          // print("フレンド");
+          print(friendRequest['send_userid']);
         });
       });
 
-      String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
-      print("相手ユーザーとのRoomIDは${roomid}です");
+      // String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
+      // print("相手ユーザーとのRoomIDは${roomid}です");
+      // if(roomid == null){
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
+      // );
+      // }else{
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //       builder: (context) => Match_Result(widget.auth, roomid, targetUserid)),
+      // );
+      // }
       // await friendRequest()
 
       if (!mounted) return;

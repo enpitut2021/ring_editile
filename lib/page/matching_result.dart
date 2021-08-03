@@ -5,39 +5,39 @@ import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 
-class Match_Result extends StatefulWidget{
-  Match_Result(this.auth,this.room_id);
+class Match_Result extends StatefulWidget {
+  Match_Result(this.auth, this.room_id, this.target_userid);
   Auth auth;
   String room_id;
-
+  String target_userid;
 
   @override
   State<StatefulWidget> createState() => _Match_Result();
-  
 }
 
-class _Match_Result extends State<Match_Result>{
-  int sec=5;
+class _Match_Result extends State<Match_Result> {
+  int sec = 5;
   String infomsg = "秒後チャットルームに入ります";
   //bool match_res=false;
 
-  void initState(){
+  void initState() {
     nextpage();
   }
 
-  void nextpage() async{
-    while(sec>0){
+  void nextpage() async {
+    while (sec > 0) {
       await Future.delayed(Duration(milliseconds: 1000));
       setState(() {
         sec -= 1;
       });
     }
-    
+
     print("matching success");
-      Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChatDemo(widget.room_id,widget.auth)),
-                );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ChatDemo(widget.room_id, widget.auth)),
+    );
   }
 
   @override
@@ -48,8 +48,7 @@ class _Match_Result extends State<Match_Result>{
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
+              backgroundImage: NetworkImage(widget.auth.getUserIdBackgroundURL(widget.target_userid)),
               radius: 100,
             ),
             Text(
@@ -57,8 +56,8 @@ class _Match_Result extends State<Match_Result>{
               style: Theme.of(context).textTheme.headline6,
             ),
 
-            Text(sec.toString()+infomsg),
-            
+            Text(sec.toString() + infomsg),
+
             //Divider(),
             // Indeterminate
             //CircularProgressIndicator(),
@@ -71,15 +70,9 @@ class _Match_Result extends State<Match_Result>{
                 );
               },
             ),
-            
-            
-           
           ],
         ),
       ),
     );
-    
   }
-  
 }
-  

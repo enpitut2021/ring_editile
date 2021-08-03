@@ -25,6 +25,7 @@ class _MattingPage extends State<MattingPage> {
   bool match_res = false;
   bool cancel = false;
   String match_text = 'マッチング相手を探しています';
+  bool check_dup = false;
 
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [];
@@ -96,13 +97,25 @@ class _MattingPage extends State<MattingPage> {
       // print("マッチングしました！");
       print('[socketIO] responce: ${data[0]}');
 
+      if (check_dup == true) {
+        print("マッチングの処理を１回やったので，無視して切断する");
+        //切断の処理
+        return;
+      }
+
       String targetUserid = data[0]["userids"][0].toString();
       if (widget.auth.getUserId() == targetUserid) {
         targetUserid = data[0]["userids"][1].toString();
       }
+
       setState(() {
-              match_text = "$targetUseridとマッチングしています";
-            });
+        check_dup = true; //2回目以降の受信は無視する
+        match_res = true; //マッチングに成功したわけではないが，後に失敗したら以降は遷移処理をするため，これで良い。
+      });
+
+      setState(() {
+        match_text = "$targetUseridとマッチングしています";
+      });
       print("相手ユーザーは${targetUserid}です");
       ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
       AccountAPI account = new AccountAPI(widget.auth.getBearer());
@@ -119,20 +132,16 @@ class _MattingPage extends State<MattingPage> {
         account.acceptFriendRequest(friendRequest['send_userid'], true);
       });
       setState(() {
-              match_text = "相手からの反応を待機しています";
-            });
+        match_text = "相手からの反応を待機しています";
+      });
       await Future.delayed(Duration(milliseconds: 3000));
 
       String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
       setState(() {
-              match_text = "チャットルーム${roomid}に入室します";
-            });
+        match_text = "チャットルーム${roomid}に入室します";
+      });
       print("相手ユーザーとのRoomIDは${roomid}です");
       if (roomid == null) {
-        setState(() {
-          match_res = true;
-        });
-
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),

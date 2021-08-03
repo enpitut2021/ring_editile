@@ -21,6 +21,7 @@ class _MattingPage extends State<MattingPage> {
   String input_msg = "";
   int sec = 30;
   SocketIOManager _manager;
+  SocketIO socket;
   Map<String, SocketIO> _sockets = {};
   bool match_res = false;
   bool cancel = false;
@@ -58,6 +59,7 @@ class _MattingPage extends State<MattingPage> {
     }
     if (!match_res && !cancel) {
       print("matching failed");
+      await _manager.clearInstance(socket);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
@@ -67,7 +69,7 @@ class _MattingPage extends State<MattingPage> {
 
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
-    SocketIO socket = await _manager
+    socket = await _manager
         .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2096',
             namespace: '/',
             query: {
@@ -142,6 +144,9 @@ class _MattingPage extends State<MattingPage> {
         match_text = "チャットルーム${roomid}に入室します";
       });
       print("相手ユーザーとのRoomIDは${roomid}です");
+
+      await _manager.clearInstance(socket);
+
       if (roomid == null) {
         Navigator.push(
           context,
@@ -167,7 +172,7 @@ class _MattingPage extends State<MattingPage> {
     // socket.on('destroy', (data) => print('[socketIO] destroy: $data'));
 
     socket.connect();
-    _sockets[roomId] = socket;
+    // _sockets[roomId] = socket;
   }
 
   void connectRoom(SocketIO socket, String roomId) async {
@@ -214,7 +219,8 @@ class _MattingPage extends State<MattingPage> {
             CircularProgressIndicator(),
             RaisedButton(
               child: Text('マッチングをやめる'),
-              onPressed: () {
+              onPressed: () async{
+                await _manager.clearInstance(socket);
                 cancel = true;
                 Navigator.push(
                   context,
@@ -224,7 +230,8 @@ class _MattingPage extends State<MattingPage> {
             ),
             RaisedButton(
               child: Text('マッチングが成功した'),
-              onPressed: () {
+              onPressed: () async{
+                await _manager.clearInstance(socket);
                 success_navigator();
               },
             ),

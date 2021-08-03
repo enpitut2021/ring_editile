@@ -93,71 +93,64 @@ class _MattingPage extends State<MattingPage> {
     // socket.onError((data) => print('[socketIO] error: $data'));
     // socket.on('event', (data) => print('[socketIO] event: $data'));
 
-    // socket.on('match').listen((data) async {
-    //   // print("マッチングしました！");
-    //   print('[socketIO] responce: ${data[0]}');
+    socket.on('match').listen((data) async {
+      // print("マッチングしました！");
+      print('[socketIO] responce: ${data[0]}');
 
-    //   if (check_dup == true) {
-    //     // print("マッチングの処理を１回やったので，無視して切断する");
-    //     //切断の処理
-    //     // return;
-    //     // #これやるとだめになるので，無視する
-    //   }
+      String targetUserid = data[0]["userids"][0].toString();
+      if (widget.auth.getUserId() == targetUserid) {
+        targetUserid = data[0]["userids"][1].toString();
+      }
 
-    //   String targetUserid = data[0]["userids"][0].toString();
-    //   if (widget.auth.getUserId() == targetUserid) {
-    //     targetUserid = data[0]["userids"][1].toString();
-    //   }
+      setState(() {
+        // check_dup = true; //2回目以降の受信は無視する
+        match_res = true; //マッチングに成功したわけではないが，後に失敗したら以降は遷移処理をするため，これで良い。
+      });
 
-    //   setState(() {
-    //     check_dup = true; //2回目以降の受信は無視する
-    //     match_res = true; //マッチングに成功したわけではないが，後に失敗したら以降は遷移処理をするため，これで良い。
-    //   });
+      setState(() {
+        match_text = "$targetUseridとマッチングしています";
+      });
+      print("相手ユーザーは${targetUserid}です");
+      ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
+      AccountAPI account = new AccountAPI(widget.auth.getBearer());
 
-    //   setState(() {
-    //     match_text = "$targetUseridとマッチングしています";
-    //   });
-    //   print("相手ユーザーは${targetUserid}です");
-    //   ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
-    //   AccountAPI account = new AccountAPI(widget.auth.getBearer());
+      await account.friendRequest(targetUserid);
+      await Future.delayed(Duration(milliseconds: 3000));
 
-    //   await account.friendRequest(targetUserid);
-    //   await Future.delayed(Duration(milliseconds: 3000));
+      match_text = "チャットルームを作成しています";
+      List<dynamic> response = await account.getFriendRequestList();
+      print("リクエストしました");
+      print(response.runtimeType);
+      response.forEach((friendRequest) {
+        print(friendRequest['send_userid']);
+        account.acceptFriendRequest(friendRequest['send_userid'], true);
+      });
+      setState(() {
+        match_text = "相手からの反応を待機しています";
+      });
+      await Future.delayed(Duration(milliseconds: 3000));
 
-    //   match_text = "チャットルームを作成しています";
-    //   List<dynamic> response = await account.getFriendRequestList();
-    //   print("リクエストしました");
-    //   print(response.runtimeType);
-    //   response.forEach((friendRequest) {
-    //     print(friendRequest['send_userid']);
-    //     account.acceptFriendRequest(friendRequest['send_userid'], true);
-    //   });
-    //   setState(() {
-    //     match_text = "相手からの反応を待機しています";
-    //   });
-    //   await Future.delayed(Duration(milliseconds: 3000));
+      String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
+      setState(() {
+        match_text = "チャットルーム${roomid}に入室します";
+      });
+      print("相手ユーザーとのRoomIDは${roomid}です");
+      // if (roomid == null) {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
+      //   );
+      // } else {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //         builder: (context) =>
+      //             Match_Result(widget.auth, roomid, targetUserid)),
+      //   );
+      // }
 
-    //   String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
-    //   setState(() {
-    //     match_text = "チャットルーム${roomid}に入室します";
-    //   });
-    //   print("相手ユーザーとのRoomIDは${roomid}です");
-    //   if (roomid == null) {
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
-    //     );
-    //   } else {
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(
-    //           builder: (context) =>
-    //               Match_Result(widget.auth, roomid, targetUserid)),
-    //     );
-    //   }
-
-    //   if (!mounted) return;
-    // });
+      if (!mounted) return;
+    });
     // socket.onAPI.listen(data) async{
     //   print('[socketIO] API: $data');
     //   if (data['apiid'] == 'RoomCheck' && !data['res']) {

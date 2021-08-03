@@ -96,8 +96,8 @@ class _MattingPage extends State<MattingPage> {
       print('[socketIO] responce: ${data[0]}');
 
       String targetUserid = data[0]["userids"][0].toString();
-      if (widget.auth.getUserId() == data[0]) {
-        targetUserid = data[0]["userids"][1];
+      if (widget.auth.getUserId() == targetUserid) {
+        targetUserid = data[0]["userids"][1].toString();
       }
       print("相手ユーザーは${targetUserid}です");
       ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
@@ -106,31 +106,30 @@ class _MattingPage extends State<MattingPage> {
       await account.friendRequest(targetUserid);
       await Future.delayed(Duration(milliseconds: 3000));
 
-      account.getFriendRequestList().then((response) {
-        print("リクエストしました");
-        print(response.runtimeType);
-        print(response[0]);
-        response.forEach((friendRequest) {
-          // print("フレンド");
-          print(friendRequest['send_userid']);
-        });
+      List<dynamic> response = await account.getFriendRequestList();
+      print("リクエストしました");
+      print(response.runtimeType);
+      response.forEach((friendRequest) {
+        print(friendRequest['send_userid']);
+        account.acceptFriendRequest(friendRequest['send_userid'], true);
       });
 
-      // String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
-      // print("相手ユーザーとのRoomIDは${roomid}です");
-      // if(roomid == null){
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
-      // );
-      // }else{
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //       builder: (context) => Match_Result(widget.auth, roomid, targetUserid)),
-      // );
-      // }
-      // await friendRequest()
+      await Future.delayed(Duration(milliseconds: 3000));
+
+      String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
+      print("相手ユーザーとのRoomIDは${roomid}です");
+      if(roomid == null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
+      );
+      }else{
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Match_Result(widget.auth, roomid, targetUserid)),
+      );
+      }
 
       if (!mounted) return;
     });

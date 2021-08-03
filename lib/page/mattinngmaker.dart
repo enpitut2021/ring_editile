@@ -105,10 +105,17 @@ class _MattingPage extends State<MattingPage> {
 
       await account.friendRequest(targetUserid);
       await Future.delayed(Duration(milliseconds: 3000));
+
+      account.getFriendRequestList().then((response) {
+        response.forEach((friend) {
+          print(friend);
+        });
+      });
+
       String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
       print("相手ユーザーとのRoomIDは${roomid}です");
       // await friendRequest()
-      
+
       if (!mounted) return;
     });
     // socket.onAPI.listen(data) async{
@@ -124,6 +131,7 @@ class _MattingPage extends State<MattingPage> {
   }
 
   void connectRoom(SocketIO socket, String roomId) async {
+    await Future.delayed(Duration(milliseconds: 500));
     socket.emit('connected', []);
     print('[socketIO] connect: $roomId');
     await Future.delayed(Duration(milliseconds: 500));

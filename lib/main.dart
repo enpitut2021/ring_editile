@@ -7,7 +7,6 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/usersetting.dart';
 import 'package:ring_sns/page/match-old.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -109,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AccountSignUp()),
+                      builder: (context) => AccountSignUp(new Auth())),
                 );
               },
             ),
@@ -159,7 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AccountSignUp()),
+                      builder: (context) => AccountSignUp(new Auth())),
                 );
               },
             ),

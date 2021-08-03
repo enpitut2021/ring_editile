@@ -40,132 +40,128 @@ class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('login page'),
-      ),
-      body: 
-      Center(
-        child:
-      Container(
-        width: 300,
-        child: Column(
-          children: <Widget>[
-            Text(""),
-            Text(""),
-            Text(""),
-            TextField(
-              decoration: InputDecoration(
-                
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      color: Colors.blueGrey[200],
-                    )),
-                labelText: 'ID',
-              ),
-              onChanged: (text) {
-                id = text;
-              },
-            ),
-            Text(""),
-            TextField(
-              obscureText: !_showPassword,
-              controller: _passwordTextController,
-              decoration: InputDecoration(
-                
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      color: Colors.blueGrey[200],
-                    )),
-                labelText: "Password",
-                suffixIcon: IconButton(
-                  icon: Icon(_showPassword
-                      ? FontAwesomeIcons.solidEye
-                      : FontAwesomeIcons.solidEyeSlash),
-                  onPressed: () {
-                    this.setState(() {
-                      _showPassword = !_showPassword;
-                    });
+        appBar: AppBar(
+          title: Text('login page'),
+        ),
+        body: Center(
+          child: Container(
+            width: 300,
+            child: Column(
+              children: <Widget>[
+                Text(""),
+                Text(""),
+                Text(""),
+                TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey[200],
+                        )),
+                    labelText: 'ID',
+                  ),
+                  onChanged: (text) {
+                    id = text;
                   },
                 ),
-              ),
-              onChanged: (text) {
-                pass = text;
-              },
-            ),
-            new CheckboxListTile(
-              activeColor: Colors.blue,
-              title: Text('remember login'),
-              value: _flag,
-              onChanged: _handleCheckbox,
-            ),
-            Text(
-              errormsg,
-              style: TextStyle(color: Colors.red),
-            ),
-            ConstrainedBox(
-              constraints: BoxConstraints.tightFor(width: 100, height: 50),
-              child: ElevatedButton(
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
-                    onPrimary: Colors.white,
-                    shape: const StadiumBorder(),
+                Text(""),
+                TextField(
+                  obscureText: !_showPassword,
+                  controller: _passwordTextController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: BorderSide(
+                          color: Colors.blueGrey[200],
+                        )),
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                      icon: Icon(_showPassword
+                          ? FontAwesomeIcons.solidEye
+                          : FontAwesomeIcons.solidEyeSlash),
+                      onPressed: () {
+                        this.setState(() {
+                          _showPassword = !_showPassword;
+                        });
+                      },
+                    ),
                   ),
-                  onPressed: () async {
-                    final hobbyText = myController.text;
-                Auth auth = new Auth();
-                LoginErrorMessage res = await auth.signIn(id, pass);
-                if (res.userId == "" && res.password == "") {
-                  if (_flag) {
-                    savePassword(id, pass);
-                  }
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home(auth)),
-                  );
-                } else {
-                  setState(() {
-                    errormsg += res.password;
-                  });
-                }
-                  }),
+                  onChanged: (text) {
+                    pass = text;
+                  },
+                ),
+                new CheckboxListTile(
+                  activeColor: Colors.blue,
+                  title: Text('remember login'),
+                  value: _flag,
+                  onChanged: _handleCheckbox,
+                ),
+                Text(
+                  errormsg,
+                  style: TextStyle(color: Colors.red),
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints.tightFor(width: 100, height: 50),
+                  child: ElevatedButton(
+                      child: Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        onPrimary: Colors.white,
+                        shape: const StadiumBorder(),
+                      ),
+                      onPressed: () async {
+                        final hobbyText = myController.text;
+                        Auth auth = new Auth();
+                        LoginErrorMessage res = await auth.signIn(id, pass);
+                        if (res.userId == "" && res.password == "") {
+                          if (_flag) {
+                            savePassword(id, pass);
+                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home(auth)),
+                          );
+                        } else {
+                          setState(() {
+                            errormsg += res.password;
+                          });
+                        }
+                      }),
+                ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AccountSignUp(new Auth())),
+                      );
+                    },
+                    child: Text("Sign up")),
+                // RaisedButton(
+                //   child: Text('Login now'),
+                //   onPressed: () async {
+                //     //ここにログインを行うコードを追加する
+                //     final hobbyText = myController.text;
+                //     Auth auth = new Auth();
+                //     LoginErrorMessage res = await auth.signIn(id, pass);
+                //     if (res.userId == "" && res.password == "") {
+                //       if (_flag) {
+                //         savePassword(id, pass);
+                //       }
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(builder: (context) => Home(auth)),
+                //       );
+                //     } else {
+                //       setState(() {
+                //         errormsg += res.password;
+                //       });
+                //     }
+                //   },
+                // ),
+              ],
             ),
-             TextButton(
-        onPressed: (){
-          Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AccountSignUp()),
-                  );
-        },
-        child:Text("Sign up")
-      ),
-            // RaisedButton(
-            //   child: Text('Login now'),
-            //   onPressed: () async {
-            //     //ここにログインを行うコードを追加する
-            //     final hobbyText = myController.text;
-            //     Auth auth = new Auth();
-            //     LoginErrorMessage res = await auth.signIn(id, pass);
-            //     if (res.userId == "" && res.password == "") {
-            //       if (_flag) {
-            //         savePassword(id, pass);
-            //       }
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => Home(auth)),
-            //       );
-            //     } else {
-            //       setState(() {
-            //         errormsg += res.password;
-            //       });
-            //     }
-            //   },
-            // ),
-          ],
-        ),
-      ),)
-    );
+          ),
+        ));
   }
 }

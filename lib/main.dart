@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AccountSignUp()),
+                      builder: (context) => AccountSignUp(new Auth())),
                 );
               },
             ),
@@ -163,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AccountSignUp()),
+                      builder: (context) => AccountSignUp(new Auth())),
                 );
               },
             ),

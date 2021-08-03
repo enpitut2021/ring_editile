@@ -19,11 +19,13 @@ class MattingPage extends StatefulWidget {
 class _MattingPage extends State<MattingPage> {
   String _roomId = "public";
   String input_msg = "";
-  int sec = 10;
+  int sec = 30;
   SocketIOManager _manager;
   Map<String, SocketIO> _sockets = {};
   bool match_res = false;
   bool cancel = false;
+  String match_text = 'マッチング相手を探しています';
+  bool check_dup = false;
 
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [];
@@ -43,7 +45,7 @@ class _MattingPage extends State<MattingPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => Match_Result(widget.auth, "public")),
+          builder: (context) => Match_Result(widget.auth, "public", "admin")),
     );
   }
 
@@ -55,7 +57,7 @@ class _MattingPage extends State<MattingPage> {
       });
     }
     if (!match_res && !cancel) {
-      print("matching success");
+      print("matching failed");
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
@@ -95,20 +97,65 @@ class _MattingPage extends State<MattingPage> {
       // print("マッチングしました！");
       print('[socketIO] responce: ${data[0]}');
 
-      String targetUserid = data[0]["userids"][0].toString();
-      if (widget.auth.getUserId() == data[0]) {
-        targetUserid = data[0]["userids"][1];
+      if (check_dup == true) {
+        // print("マッチングの処理を１回やったので，無視して切断する");
+        //切断の処理
+        // return;
+        // #これやるとだめになるので，無視する
       }
+
+      String targetUserid = data[0]["userids"][0].toString();
+      if (widget.auth.getUserId() == targetUserid) {
+        targetUserid = data[0]["userids"][1].toString();
+      }
+
+      setState(() {
+        check_dup = true; //2回目以降の受信は無視する
+        match_res = true; //マッチングに成功したわけではないが，後に失敗したら以降は遷移処理をするため，これで良い。
+      });
+
+      setState(() {
+        match_text = "$targetUseridとマッチングしています";
+      });
       print("相手ユーザーは${targetUserid}です");
       ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
       AccountAPI account = new AccountAPI(widget.auth.getBearer());
 
       await account.friendRequest(targetUserid);
       await Future.delayed(Duration(milliseconds: 3000));
+
+      match_text = "チャットルームを作成しています";
+      List<dynamic> response = await account.getFriendRequestList();
+      print("リクエストしました");
+      print(response.runtimeType);
+      response.forEach((friendRequest) {
+        print(friendRequest['send_userid']);
+        account.acceptFriendRequest(friendRequest['send_userid'], true);
+      });
+      setState(() {
+        match_text = "相手からの反応を待機しています";
+      });
+      await Future.delayed(Duration(milliseconds: 3000));
+
       String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
+      setState(() {
+        match_text = "チャットルーム${roomid}に入室します";
+      });
       print("相手ユーザーとのRoomIDは${roomid}です");
-      // await friendRequest()
-      
+      if (roomid == null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Match_Result(widget.auth, roomid, targetUserid)),
+        );
+      }
+
       if (!mounted) return;
     });
     // socket.onAPI.listen(data) async{
@@ -124,6 +171,7 @@ class _MattingPage extends State<MattingPage> {
   }
 
   void connectRoom(SocketIO socket, String roomId) async {
+    await Future.delayed(Duration(milliseconds: 500));
     socket.emit('connected', []);
     print('[socketIO] connect: $roomId');
     await Future.delayed(Duration(milliseconds: 500));
@@ -154,7 +202,7 @@ class _MattingPage extends State<MattingPage> {
               radius: 100,
             ),
             Text(
-              'マッチング相手を探しています',
+              match_text,
               style: Theme.of(context).textTheme.headline6,
             ),
             Text(sec.toString()),

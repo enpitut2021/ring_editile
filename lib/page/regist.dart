@@ -16,7 +16,6 @@ class AccountSignUp extends StatefulWidget {
 
 class _AccountSignUp extends State<AccountSignUp> {
   // Auth auth;
-  Auth auth = new Auth();
   String user_id = '';
   String password = '';
   String error_msg = '';
@@ -52,7 +51,7 @@ class _AccountSignUp extends State<AccountSignUp> {
                 RaisedButton(
                     onPressed: () async {
                       LoginErrorMessage signupres =
-                          await auth.signUp(user_id, password);
+                          await widget.auth.signUp(user_id, password);
                       print(signupres.userId);
                       print(signupres.password);
                       if (signupres.userId == 'ok' &&

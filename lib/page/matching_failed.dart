@@ -26,7 +26,7 @@ class _Match_Failed extends State<Match_Failed>{
           children: <Widget>[
             CircleAvatar(
               backgroundImage: NetworkImage(
-                  'https://user-imgs.p0x0q.com/thumbnail/user/1.jpg'),
+                  'https://cupy.p0x0q.com/wrgzcw3y.png'),
               radius: 100,
             ),
             Text(

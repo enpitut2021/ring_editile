@@ -143,24 +143,21 @@ class _Usersetting extends State<Usersetting> {
                     onPrimary: Colors.white,
                     shape: const StadiumBorder(),
                   ),
-                  onPressed: () {
-                    onPressed:
+                  onPressed: 
                     () async {
-                      AccountAPI account =
-                          new AccountAPI(widget.auth.getBearer());
-                      await account
-                          .updateUserProfile(
-                              nickname: nickname,
-                              profileText: profile_text,
-                              hobby: hobby)
-                          .then((value) {
-                        // print(signupres.nickname);
-                        // print(signupres.profile_text);
-                        //更新されたユーザー情報を再取得する
-                        widget.auth.getCurrentUser();
-                        print(value);
-                      });
-                    };
+                      AccountAPI account = new AccountAPI(widget.auth.getBearer());
+                  await account
+                      .updateUserProfile(
+                          nickname: nickname,
+                          profileText: profile_text,
+                          hobby: hobby)
+                      .then((value) {
+                    // print(signupres.nickname);
+                    // print(signupres.profile_text);
+                    //更新されたユーザー情報を再取得する
+                    widget.auth.getCurrentUser();
+                    print(value);
+                  });
                   }),
             ),
             // RaisedButton(

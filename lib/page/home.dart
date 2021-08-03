@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/main.dart';
@@ -55,6 +56,24 @@ class _Home extends State<Home> {
   
 
   Widget build(BuildContext context) {
+    // return CupertinoTabScaffold(
+    //   tabBar: CupertinoTabBar(
+    //     items:const <BottomNavigationBarItem>[
+    //       BottomNavigationBarItem(
+    //         icon: Icon(Icons.home),
+    //         label: 'Home',
+    //       ),
+    //       BottomNavigationBarItem(
+    //         icon: Icon(Icons.chat),
+    //         label: 'chat',
+    //       ),
+    //     ] ,
+    //     onTap: _onItemTapped,
+    //     currentIndex: _selectedIndex,
+    //     ), 
+    //     tabBuilder: (context,index){}
+      
+    //   );
     return Scaffold(
       appBar: AppBar(
         title: Text("ホーム"),
@@ -184,7 +203,7 @@ class _Home extends State<Home> {
             backgroundColor: Colors.blue[900],
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: 0,
         selectedItemColor: Colors.cyan[400],
         onTap: (int index){
           _selectedIndex=index;

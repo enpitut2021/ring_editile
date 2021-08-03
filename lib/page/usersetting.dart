@@ -33,16 +33,16 @@ class _Usersetting extends State<Usersetting> {
   File _image;
   final picker = ImagePicker();
 
-  
   Future n_getImage() async {
     print("b");
     final PickedFile _image =
         await ImagePicker().getImage(source: ImageSource.gallery);
     print("a");
     if (_image == null) return;
-     final String code = await _accountAPI.uploadUserHeader(_image.path);
-     print("a");
+    final String code = await _accountAPI.uploadUserHeader(_image.path);
+    print("a");
   }
+
   getImage() async {
     PickedFile pickedFile = await ImagePicker().getImage(
       source: ImageSource.gallery,
@@ -53,8 +53,6 @@ class _Usersetting extends State<Usersetting> {
       });
     }
   }
-  
-  
 
   @override
   void initState() {
@@ -67,7 +65,7 @@ class _Usersetting extends State<Usersetting> {
       profile_text = _profile_text;
       hobby = _hobby;
     });
-     _accountAPI = AccountAPI(widget.auth.getBearer());
+    _accountAPI = AccountAPI(widget.auth.getBearer());
     print(widget.auth.getUserBackgroundURL());
   }
 
@@ -77,13 +75,14 @@ class _Usersetting extends State<Usersetting> {
       appBar: AppBar(title: Text(widget.auth.getUserId() + "のユーザー設定")),
       body: Container(
         width: double.infinity,
-        
         child: Column(
           children: [
             CircleAvatar(
               radius: 60,
               // child: _image == null ? NetworkImage(widget.auth.getUserBackgroundURL()) : Image.file(_image),
-              backgroundImage: _image == null ? NetworkImage(widget.auth.getUserBackgroundURL()) : Image.file(_image),
+              backgroundImage: _image == null
+                  ? NetworkImage(widget.auth.getUserBackgroundURL())
+                  : Image.file(_image),
               // NetworkImage(
               //     widget.auth.getUserBackgroundURL()),
             ),
@@ -91,25 +90,25 @@ class _Usersetting extends State<Usersetting> {
             // Positioned(
             //     bottom: 0,
             //     right: -25,
-            //     child: 
-                RawMaterialButton(
-                  onPressed: () {
-                    n_getImage();
-                    //getImage();
-                    print("click");
-                  },
-                  //写真取り込み機能はここに
-                  elevation: 2.0,
-                  fillColor: Color(0xFFF5F6F9),
-                  child: Icon(
-                    Icons.camera_alt_outlined,
-                    color: Colors.blue,
-                  ),
-                  padding: EdgeInsets.all(15.0),
-                  shape: CircleBorder(),
-                )
-                //)
-                ,
+            //     child:
+            RawMaterialButton(
+              onPressed: () {
+                n_getImage();
+                //getImage();
+                print("click");
+              },
+              //写真取り込み機能はここに
+              elevation: 2.0,
+              fillColor: Color(0xFFF5F6F9),
+              child: Icon(
+                Icons.camera_alt_outlined,
+                color: Colors.blue,
+              ),
+              padding: EdgeInsets.all(15.0),
+              shape: CircleBorder(),
+            )
+            //)
+            ,
             TextField(
               controller: TextEditingController(text: _nickname),
               decoration: InputDecoration(hintText: 'ニックネーム'),
@@ -134,9 +133,19 @@ class _Usersetting extends State<Usersetting> {
                 print('hobby:$hobby');
               },
             ),
-            RaisedButton(
-                onPressed: () async {
-                  AccountAPI account = new AccountAPI(widget.auth.getBearer());
+            Text(''),
+            ConstrainedBox(
+              constraints: BoxConstraints.tightFor(width: 100, height: 50),
+              child: ElevatedButton(
+                  child: Text('save'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    onPrimary: Colors.white,
+                    shape: const StadiumBorder(),
+                  ),
+                  onPressed: 
+                    () async {
+                      AccountAPI account = new AccountAPI(widget.auth.getBearer());
                   await account
                       .updateUserProfile(
                           nickname: nickname,
@@ -149,8 +158,25 @@ class _Usersetting extends State<Usersetting> {
                     widget.auth.getCurrentUser();
                     print(value);
                   });
-                },
-                child: Text('save')),
+                  }),
+            ),
+            // RaisedButton(
+            //     onPressed: () async {
+            //       AccountAPI account = new AccountAPI(widget.auth.getBearer());
+            //       await account
+            //           .updateUserProfile(
+            //               nickname: nickname,
+            //               profileText: profile_text,
+            //               hobby: hobby)
+            //           .then((value) {
+            //         // print(signupres.nickname);
+            //         // print(signupres.profile_text);
+            //         //更新されたユーザー情報を再取得する
+            //         widget.auth.getCurrentUser();
+            //         print(value);
+            //       });
+            //     },
+            //     child: Text('save')),
           ],
         ),
       ),

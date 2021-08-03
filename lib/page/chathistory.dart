@@ -6,6 +6,7 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/page/chat.dart';
+import 'package:ring_sns/page/home.dart';
 
 class ChatHistory extends StatefulWidget {
   ChatHistory(this.auth);
@@ -74,6 +75,7 @@ class _ChatHistory extends State<ChatHistory> {
                 },
               ),
             ),
+            
             // Row(
             //   children: [
             //     RaisedButton(onPressed: () {
@@ -82,6 +84,42 @@ class _ChatHistory extends State<ChatHistory> {
             //   ],
             // )
           ],
-        ));
+
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.blue[900],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'Chat',
+            backgroundColor: Colors.blue[900],
+          ),
+        ],
+        currentIndex: 1,
+        selectedItemColor: Colors.cyan[400],
+        onTap: (int index){
+          //_selectedIndex=index;
+          if(index==0){
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Home(widget.auth)),
+                );
+      //go to home
+
+    }else if(index==1){
+      //go to chatlog
+      // Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //                 builder: (context) => ChatHistory(widget.auth)),
+      //           );
+    }
+        },        
+      ),);
   }
 }

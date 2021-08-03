@@ -7,6 +7,7 @@ import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
+import 'package:speech_bubble/speech_bubble.dart';
 
 class ChatDemo extends StatefulWidget {
   ChatDemo(this.roomId, this.auth);
@@ -25,7 +26,7 @@ class _ChatDemo extends State<ChatDemo> {
   Map<String, SocketIO> _sockets = {};
 
   // ignore: non_constant_identifier_names
-  List<Text> messages_log = [];
+  List<Widget> messages_log = [];
   var current_count;
   ChatAPI nChatapi;
 
@@ -62,19 +63,50 @@ class _ChatDemo extends State<ChatDemo> {
           if (message.userId == widget.auth.getUserId()) {
             messages_log.insert(
                 0,
-                Text(
-                  "\r\n${message.userId}:\r\n" + text,
-                  style: TextStyle(color: Colors.green),
-                  textAlign: TextAlign.right,
-                ));
+                Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                  SpeechBubble(
+                      nipLocation: NipLocation.BOTTOM_RIGHT,
+                      color: Colors.green,
+                      child: Text(
+                        "\r\n${message.userId}:\r\n" + text,
+                        // style: TextStyle(color: Colors.green),
+                        textAlign: TextAlign.right,
+                      )),
+                  Text(''),
+                ])
+                //  Text(
+                //   "\r\n${message.userId}:\r\n" + text,
+                //   style: TextStyle(color: Colors.green),
+
+                //   textAlign: TextAlign.right,
+                // )
+                );
           } else {
             messages_log.insert(
                 0,
-                Text(
-                  "\r\n${message.userId}:\r\n" + text,
-                  style: TextStyle(color: Colors.blue),
-                  textAlign: TextAlign.left,
-                ));
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  SpeechBubble(
+                      nipLocation: NipLocation.BOTTOM_LEFT,
+                      color: Colors.blueGrey[200],
+                      child: Text(
+                        "\r\n${message.userId}:\r\n" + text,
+                        // style: TextStyle(color: Colors.green),
+                        textAlign: TextAlign.left,
+                      )),
+                  Text(''),
+                ])
+                //  Text(
+                //   "\r\n${message.userId}:\r\n" + text,
+                //   style: TextStyle(color: Colors.green),
+
+                //   textAlign: TextAlign.right,
+                // )
+                );
+            // SpeechBubble(
+            //   "\r\n${message.userId}:\r\n" + text,
+            //   style: TextStyle(color: Colors.blue),
+            //   textAlign: TextAlign.left,
+            // ));
           }
         });
       });
@@ -133,23 +165,47 @@ class _ChatDemo extends State<ChatDemo> {
       setState(() => {
             if (message.userId == widget.auth.getUserId())
               {
-                messages_log.add(
-                    
-                    Text(
-                      "\r\n${message.userId}:\r\n" + t,
-                      style: TextStyle(color: Colors.green),
-                      textAlign: TextAlign.right,
-                    ))
+                messages_log.add(Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                      SpeechBubble(
+                          nipLocation: NipLocation.BOTTOM_RIGHT,
+                          color: Colors.green,
+                          child: Text(
+                            "\r\n${message.userId}:\r\n" + t,
+                            // style: TextStyle(color: Colors.green),
+                            textAlign: TextAlign.right,
+                          )),
+                      Text(''),
+                    ])
+                    //  Text(
+                    //   "\r\n${message.userId}:\r\n" + text,
+                    //   style: TextStyle(color: Colors.green),
+
+                    //   textAlign: TextAlign.right,
+                    // )
+                    // Text(
+                    //   "\r\n${message.userId}:\r\n" + t,
+                    //   style: TextStyle(color: Colors.green),
+                    //   textAlign: TextAlign.right,
+                    // )
+                    )
               }
             else
               {
-                messages_log.add(
-                    //0,
-                    Text(
-                      "\r\n${message.userId}:\r\n" + t,
-                      style: TextStyle(color: Colors.blue),
-                      textAlign: TextAlign.left,
-                    ))
+                messages_log.add(Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SpeechBubble(
+                          nipLocation: NipLocation.BOTTOM_LEFT,
+                          color: Colors.blueGrey[200],
+                          child: Text(
+                            "\r\n${message.userId}:\r\n" + t,
+                            // style: TextStyle(color: Colors.green),
+                            textAlign: TextAlign.left,
+                          )),
+                      Text(''),
+                    ]))
               }
           });
     });
@@ -194,7 +250,7 @@ class _ChatDemo extends State<ChatDemo> {
           children: <Widget>[
             Container(
               height: 600,
-              width: double.infinity,
+              width: 400,
               child: ListView.builder(
                 itemCount: messages_log.length,
                 itemBuilder: (BuildContext context, int index) {

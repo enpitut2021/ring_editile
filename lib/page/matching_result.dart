@@ -48,11 +48,12 @@ class _Match_Result extends State<Match_Result> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             CircleAvatar(
-              backgroundImage: NetworkImage(widget.auth.getUserIdBackgroundURL(widget.target_userid)),
+              backgroundImage: NetworkImage(
+                  widget.auth.getUserIdBackgroundURL(widget.target_userid)),
               radius: 100,
             ),
             Text(
-              'OOさんとマッチングしました',
+              '${widget.target_userid}さんとマッチングしました',
               style: Theme.of(context).textTheme.headline6,
             ),
 

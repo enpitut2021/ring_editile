@@ -19,11 +19,12 @@ class MattingPage extends StatefulWidget {
 class _MattingPage extends State<MattingPage> {
   String _roomId = "public";
   String input_msg = "";
-  int sec = 10;
+  int sec = 30;
   SocketIOManager _manager;
   Map<String, SocketIO> _sockets = {};
   bool match_res = false;
   bool cancel = false;
+  String match_text = 'マッチング相手を探しています';
 
   // ignore: non_constant_identifier_names
   List<Text> messages_log = [];
@@ -99,6 +100,9 @@ class _MattingPage extends State<MattingPage> {
       if (widget.auth.getUserId() == targetUserid) {
         targetUserid = data[0]["userids"][1].toString();
       }
+      setState(() {
+              match_text = "$targetUseridとマッチングしています";
+            });
       print("相手ユーザーは${targetUserid}です");
       ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
       AccountAPI account = new AccountAPI(widget.auth.getBearer());
@@ -106,6 +110,7 @@ class _MattingPage extends State<MattingPage> {
       await account.friendRequest(targetUserid);
       await Future.delayed(Duration(milliseconds: 3000));
 
+      match_text = "チャットルームを作成しています";
       List<dynamic> response = await account.getFriendRequestList();
       print("リクエストしました");
       print(response.runtimeType);
@@ -113,22 +118,32 @@ class _MattingPage extends State<MattingPage> {
         print(friendRequest['send_userid']);
         account.acceptFriendRequest(friendRequest['send_userid'], true);
       });
-
+      setState(() {
+              match_text = "相手からの反応を待機しています";
+            });
       await Future.delayed(Duration(milliseconds: 3000));
 
       String roomid = await chatapi.getRoomIdFriendChat(targetUserid);
+      setState(() {
+              match_text = "チャットルーム${roomid}に入室します";
+            });
       print("相手ユーザーとのRoomIDは${roomid}です");
-      if(roomid == null){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
-      );
-      }else{
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Match_Result(widget.auth, roomid, targetUserid)),
-      );
+      if (roomid == null) {
+        setState(() {
+          match_res = true;
+        });
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  Match_Result(widget.auth, roomid, targetUserid)),
+        );
       }
 
       if (!mounted) return;
@@ -177,7 +192,7 @@ class _MattingPage extends State<MattingPage> {
               radius: 100,
             ),
             Text(
-              'マッチング相手を探しています',
+              match_text,
               style: Theme.of(context).textTheme.headline6,
             ),
             Text(sec.toString()),

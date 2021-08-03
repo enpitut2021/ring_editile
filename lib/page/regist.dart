@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/api/API.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/home.dart';
+import 'package:ring_sns/page/login.dart';
 
 class AccountSignUp extends StatefulWidget {
   //ここにイニシャライザを書く
-  AccountSignUp(this.auth);
-  Auth auth;
+  //AccountSignUp(this.auth);
+  //Auth auth;
 
   @override
   State<StatefulWidget> createState() => _AccountSignUp();
@@ -58,7 +59,7 @@ class _AccountSignUp extends State<AccountSignUp> {
                           signupres.password == 'ok') {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Home(auth)),
+                          MaterialPageRoute(builder: (context) => LoginPage(new Auth())),
                         );
                       } else {
                         if (signupres.userId != 'ok' && uid_error == false) {

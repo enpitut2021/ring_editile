@@ -8,6 +8,7 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:speech_bubble/speech_bubble.dart';
+import 'package:ring_sns/page/home.dart';
 
 class ChatDemo extends StatefulWidget {
   ChatDemo(this.roomId, this.auth);
@@ -244,7 +245,18 @@ class _ChatDemo extends State<ChatDemo> {
 
     return Scaffold(
         appBar: AppBar(
+          leading:
+            IconButton(onPressed: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Home(widget.auth)),
+                );
+            }, icon: Icon(Icons.west))
+          ,
           title: Text("チャット"),
+          automaticallyImplyLeading: false,
+          
         ),
         body: Column(
           children: <Widget>[

@@ -77,6 +77,7 @@ class _Usersetting extends State<Usersetting> {
         width: double.infinity,
         child: Column(
           children: [
+            Text(''),
             CircleAvatar(
               radius: 60,
               // child: _image == null ? NetworkImage(widget.auth.getUserBackgroundURL()) : Image.file(_image),
@@ -91,6 +92,7 @@ class _Usersetting extends State<Usersetting> {
             //     bottom: 0,
             //     right: -25,
             //     child:
+            Text(''),
             RawMaterialButton(
               onPressed: () {
                 n_getImage();
@@ -109,30 +111,70 @@ class _Usersetting extends State<Usersetting> {
             )
             //)
             ,
+            Text(''),
+            Text(''),
             TextField(
               controller: TextEditingController(text: _nickname),
-              decoration: InputDecoration(hintText: 'ニックネーム'),
+              decoration: InputDecoration(
+                  hintText: 'ニックネーム',
+                  labelText: 'ニックネーム',
+                  // filled: true,
+                  // fillColor: Colors.grey.shade200,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blueGrey[100],
+                      ))),
               onChanged: (text) {
                 nickname = text;
                 print('nickname:$nickname');
               },
             ),
+            Text(''),
             TextField(
               controller: TextEditingController(text: _profile_text),
-              decoration: InputDecoration(hintText: 'ひとこと'),
+              decoration: InputDecoration(
+                hintText: 'ひとこと',
+                labelText: 'ひとこと',
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                      color: Colors.blueGrey[200],
+                    )),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                    )),
+              ),
               onChanged: (text) {
                 profile_text = text;
                 print('profile_text:$profile_text');
               },
             ),
+            Text(''),
             TextField(
               controller: TextEditingController(text: _hobby),
-              decoration: InputDecoration(hintText: '趣味をスペース区切りで入力'),
+              decoration: InputDecoration(
+                hintText: '趣味をスペース区切りで入力',
+                labelText: '趣味をスペースで区切りで入力',
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                      color: Colors.blueGrey[200],
+                    )),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                    )),
+              ),
               onChanged: (text) {
                 hobby = text;
                 print('hobby:$hobby');
               },
             ),
+            Text(''),
             Text(''),
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 100, height: 50),
@@ -143,21 +185,21 @@ class _Usersetting extends State<Usersetting> {
                     onPrimary: Colors.white,
                     shape: const StadiumBorder(),
                   ),
-                  onPressed: 
-                    () async {
-                      AccountAPI account = new AccountAPI(widget.auth.getBearer());
-                  await account
-                      .updateUserProfile(
-                          nickname: nickname,
-                          profileText: profile_text,
-                          hobby: hobby)
-                      .then((value) {
-                    // print(signupres.nickname);
-                    // print(signupres.profile_text);
-                    //更新されたユーザー情報を再取得する
-                    widget.auth.getCurrentUser();
-                    print(value);
-                  });
+                  onPressed: () async {
+                    AccountAPI account =
+                        new AccountAPI(widget.auth.getBearer());
+                    await account
+                        .updateUserProfile(
+                            nickname: nickname,
+                            profileText: profile_text,
+                            hobby: hobby)
+                        .then((value) {
+                      // print(signupres.nickname);
+                      // print(signupres.profile_text);
+                      //更新されたユーザー情報を再取得する
+                      widget.auth.getCurrentUser();
+                      print(value);
+                    });
                   }),
             ),
             // RaisedButton(

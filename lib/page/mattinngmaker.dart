@@ -219,7 +219,7 @@ class _MattingPage extends State<MattingPage> {
             CircularProgressIndicator(),
             RaisedButton(
               child: Text('マッチングをやめる'),
-              onPressed: () async{
+              onPressed: () async {
                 await _manager.clearInstance(socket);
                 cancel = true;
                 Navigator.push(
@@ -230,7 +230,7 @@ class _MattingPage extends State<MattingPage> {
             ),
             RaisedButton(
               child: Text('マッチングが成功した'),
-              onPressed: () async{
+              onPressed: () async {
                 await _manager.clearInstance(socket);
                 success_navigator();
               },

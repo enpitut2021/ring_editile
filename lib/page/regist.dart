@@ -55,7 +55,7 @@ class _AccountSignUp extends State<AccountSignUp> {
                       if (signupres.userId=='ok'&&signupres.password=='ok'){
                         Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Home()),
+                        MaterialPageRoute(builder: (context) => Home(widget.auth)),
                 );
                       }else{
                         

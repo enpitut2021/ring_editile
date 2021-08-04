@@ -17,14 +17,14 @@ class MattingPage extends StatefulWidget {
 }
 
 class _MattingPage extends State<MattingPage> {
-  String _roomId = "public";
+  String _roomId = "public-match-server";
   String input_msg = "";
   int sec = 30;
   SocketIOManager _manager;
   Map<String, SocketIO> _sockets = {};
   bool match_res = false;
   bool cancel = false;
-  String match_text = 'マッチング相手を探しています';
+  String match_text = 'マッチングサーバーに接続しています';
   bool check_dup = false;
 
   // ignore: non_constant_identifier_names
@@ -32,10 +32,8 @@ class _MattingPage extends State<MattingPage> {
   var current_count;
 
   @override
-  void initState() {
-    _manager = SocketIOManager();
+  void initState(){
     _initSocket(_roomId, widget.auth.getBearer());
-    failed();
   }
 
   void success_navigator() {
@@ -58,6 +56,7 @@ class _MattingPage extends State<MattingPage> {
     }
     if (!match_res && !cancel) {
       print("matching failed");
+      await _manager.clearInstance(_sockets[_roomId]);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => Match_Failed(widget.auth)),
@@ -67,8 +66,9 @@ class _MattingPage extends State<MattingPage> {
 
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
-    SocketIO socket = await _manager
-        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2096',
+    _manager = SocketIOManager();
+    final socket = await _manager
+        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2053',
             namespace: '/',
             query: {
               'chatid': roomId,
@@ -78,6 +78,11 @@ class _MattingPage extends State<MattingPage> {
             transports: [Transports.webSocket]));
     socket.onConnect.listen((data) async {
       print("接続完了");
+      setState(() {
+        match_text = "マッチング相手を探しています";
+      });
+
+      failed();
       connectRoom(socket, roomId);
       // socket.emit('connected', []);
       // print('[socketIO] connect: $_roomId');
@@ -142,6 +147,9 @@ class _MattingPage extends State<MattingPage> {
         match_text = "チャットルーム${roomid}に入室します";
       });
       print("相手ユーザーとのRoomIDは${roomid}です");
+
+      await _manager.clearInstance(_sockets[_roomId]);
+
       if (roomid == null) {
         Navigator.push(
           context,
@@ -214,7 +222,8 @@ class _MattingPage extends State<MattingPage> {
             CircularProgressIndicator(),
             RaisedButton(
               child: Text('マッチングをやめる'),
-              onPressed: () {
+              onPressed: () async {
+                await _manager.clearInstance(_sockets[_roomId]);
                 cancel = true;
                 Navigator.push(
                   context,
@@ -224,7 +233,8 @@ class _MattingPage extends State<MattingPage> {
             ),
             RaisedButton(
               child: Text('マッチングが成功した'),
-              onPressed: () {
+              onPressed: () async {
+                await _manager.clearInstance(_sockets[_roomId]);
                 success_navigator();
               },
             ),

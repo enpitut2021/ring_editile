@@ -101,6 +101,7 @@ class _MattingPage extends State<MattingPage> {
     socket.on('match').listen((data) async {
       // print("マッチングしました！");
       print('[socketIO] responce: ${data[0]}');
+      await _manager.clearInstance(_sockets[_roomId]);
 
       if (check_dup == true) {
         // print("マッチングの処理を１回やったので，無視して切断する");
@@ -147,8 +148,6 @@ class _MattingPage extends State<MattingPage> {
         match_text = "チャットルーム${roomid}に入室します";
       });
       print("相手ユーザーとのRoomIDは${roomid}です");
-
-      await _manager.clearInstance(_sockets[_roomId]);
 
       if (roomid == null) {
         Navigator.push(

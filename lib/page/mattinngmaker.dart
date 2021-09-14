@@ -43,7 +43,7 @@ class _MattingPage extends State<MattingPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => Match_Result(widget.auth, "public", "admin")),
+          builder: (context) => Match_Result(widget.auth, "public","sc081")),
     );
   }
 
@@ -231,7 +231,7 @@ class _MattingPage extends State<MattingPage> {
               },
             ),
             RaisedButton(
-              child: Text('マッチングが成功した'),
+              child: Text('だれとも話せる交流広場へ'),
               onPressed: () async {
                 await _manager.clearInstance(_sockets[_roomId]);
                 success_navigator();

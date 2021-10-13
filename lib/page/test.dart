@@ -6,7 +6,7 @@ import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 
 class test extends StatefulWidget {
-   test(this.auth);
+  test(this.auth);
   Auth auth;
 
   @override
@@ -14,7 +14,6 @@ class test extends StatefulWidget {
 }
 
 class _test extends State<test> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +21,8 @@ class _test extends State<test> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-          Text("ok!")
+            TextField(),
+            RaisedButton(child: Text('tap'), onPressed: () {}),
           ],
         ),
       ),

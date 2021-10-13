@@ -4,6 +4,7 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/page/regist.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ring_sns/page/test.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -124,7 +125,7 @@ class _LoginPage extends State<LoginPage> {
                   }
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Home(auth)),
+                    MaterialPageRoute(builder: (context) => test(auth)),
                   );
                 } else {
                   setState(() {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ring_sns/page/test_result.dart';
 
 class test extends StatefulWidget {
   test(this.auth);
@@ -22,7 +23,13 @@ class _test extends State<test> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             TextField(),
-            RaisedButton(child: Text('tap'), onPressed: () {}),
+            RaisedButton(child: Text('投稿'), onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => test_result(widget.auth)),
+                );
+            }),
           ],
         ),
       ),

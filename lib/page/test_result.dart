@@ -5,8 +5,9 @@ import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/page/test.dart';
 
 class test_result extends StatefulWidget {
-  test_result(this.auth);
+  test_result(this.auth, this.name);
   Auth auth;
+  String name;
 
   @override
   State<StatefulWidget> createState() => _testresult();
@@ -19,9 +20,7 @@ class _testresult extends State<test_result> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text('投稿が完了しました')
-          ],
+          children: <Widget>[Text(widget.name)],
         ),
       ),
     );

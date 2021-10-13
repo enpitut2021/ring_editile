@@ -23,13 +23,15 @@ class _test extends State<test> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             TextField(),
-            RaisedButton(child: Text('投稿'), onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => test_result(widget.auth)),
-                );
-            }),
+            RaisedButton(
+                child: Text('投稿'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => test_result(widget.auth, 'テスト')),
+                  );
+                }),
           ],
         ),
       ),

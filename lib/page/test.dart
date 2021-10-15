@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ring_sns/page/test_result.dart';
 
 class test extends StatefulWidget {
-   test(this.auth);
+  test(this.auth);
   Auth auth;
+  String  msg;
 
   @override
   State<StatefulWidget> createState() => _test();
 }
 
 class _test extends State<test> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,20 @@ class _test extends State<test> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-          Text("ok!")
+            TextField(
+              onChanged: (text){
+                widget.msg=text;
+              },
+            ),
+            RaisedButton(
+                child: Text('投稿'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => test_result(widget.auth, widget.msg)),
+                  );
+                }),
           ],
         ),
       ),

@@ -9,6 +9,7 @@ import 'package:ring_sns/page/test_result.dart';
 class test extends StatefulWidget {
   test(this.auth);
   Auth auth;
+  String  msg;
 
   @override
   State<StatefulWidget> createState() => _test();
@@ -22,14 +23,18 @@ class _test extends State<test> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            TextField(),
+            TextField(
+              onChanged: (text){
+                widget.msg=text;
+              },
+            ),
             RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => test_result(widget.auth, 'テスト')),
+                        builder: (context) => test_result(widget.auth, widget.msg)),
                   );
                 }),
           ],

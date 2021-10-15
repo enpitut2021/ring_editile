@@ -6,9 +6,9 @@ import 'package:ring_sns/page/test.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 
 class test_result extends StatefulWidget {
-  test_result(this.auth, this.name);
+  test_result(this.auth);
   Auth auth;
-  String name;
+  
 
   @override
   State<StatefulWidget> createState() => _testresult();
@@ -30,7 +30,7 @@ class _testresult extends State<test_result> {
           Column(children: [
             Row(
               children: [
-                Text(post.text),
+                Text(post.updated + ": " + post.text),
               ]
             ),
           ],));
@@ -58,7 +58,7 @@ class _testresult extends State<test_result> {
       body: Column(children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[Text(widget.name)],
+          //children: <Widget>[Text("test")],
         ),
         Container(
           height: 600,

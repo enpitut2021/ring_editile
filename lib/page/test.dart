@@ -38,7 +38,18 @@ class _test extends State<test> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            test_result(widget.auth, widget.msg)),
+                            test_result(widget.auth)),
+                  );
+                }),
+                RaisedButton(
+                child: Text('投稿一覧画面へ'),
+                onPressed: () {
+                  
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            test_result(widget.auth)),
                   );
                 }),
           ],

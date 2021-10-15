@@ -5,11 +5,12 @@ import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ring_sns/page/test_result.dart';
+import 'package:ring_sns/api/accountAPI.dart';
 
 class test extends StatefulWidget {
   test(this.auth);
   Auth auth;
-  String  msg;
+  String msg;
 
   @override
   State<StatefulWidget> createState() => _test();
@@ -24,17 +25,20 @@ class _test extends State<test> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             TextField(
-              onChanged: (text){
-                widget.msg=text;
+              onChanged: (text) {
+                widget.msg = text;
               },
             ),
             RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
+                  AccountAPI a = new AccountAPI(widget.auth.getBearer());
+                  a.postUserPost(widget.msg, '');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => test_result(widget.auth, widget.msg)),
+                        builder: (context) =>
+                            test_result(widget.auth, widget.msg)),
                   );
                 }),
           ],

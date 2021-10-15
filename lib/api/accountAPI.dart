@@ -150,6 +150,47 @@ class AccountAPI extends API {
     dynamic userdata = await getRequest(url);
     return User(userdata);
   }
+
+  Future<List<Post>> getUserPostList() async {
+    String url = 'user/post';
+    dynamic response = await getRequest(url);
+    if (response == null) return [];
+    List<Post> postList = [];
+    response.forEach((post) {
+      postList.add(Post(post));
+    });
+    return postList;
+  }
+
+  Future<dynamic> postUserPost(String text, String imageUrl) async {
+    String url = 'user/post';
+    Map<String, dynamic> queryParameters = {
+      'text': text,
+      'image_url': imageUrl,
+    };
+    return await postRequest(url, queryParameters);
+  }
+}
+
+
+
+
+class Post {
+  int id;
+  int user;
+  String text;
+  String created;
+  String updated;
+  String imageUrl;
+
+  Post(Map<String, dynamic> post) {
+    id = post['id'] ?? 0;
+    user = post['user'] ?? 0;
+    text = post['text'] ?? '';
+    created = post['created'] ?? '';
+    updated = post['updated'] ?? '';
+    imageUrl = post['image_url'] ?? '';
+  }
 }
 
 class User extends API {

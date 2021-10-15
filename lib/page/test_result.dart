@@ -3,6 +3,7 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/page/test.dart';
+import 'package:ring_sns/api/accountAPI.dart';
 
 class test_result extends StatefulWidget {
   test_result(this.auth, this.name);
@@ -22,14 +23,16 @@ bool Press=false;
 
   @override
   void initState(){
-    post_test.insert(0, 
-    Column(children: [
-      Row(
-        children: [
-          Text(widget.name),
-        ]
-      ),
-    ],));
+    AccountAPI a = new AccountAPI(widget.auth.getBearer());
+                  a.getUserPostList();
+    // post_test.insert(0, 
+    // Column(children: [
+    //   Row(
+    //     children: [
+    //       Text(widget.name),
+    //     ]
+    //   ),
+    // ],));
     
     
     

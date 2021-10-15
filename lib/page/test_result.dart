@@ -26,10 +26,11 @@ bool Press=false;
     Column(children: [
       Row(
         children: [
-          Text("Test Message"),
+          Text(widget.name),
         ]
       ),
     ],));
+    
     
     
   }

@@ -26,16 +26,18 @@ class _testresult extends State<test_result> {
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
     a.getUserPostList().then((posts) {
       posts.forEach((Post post) {
-        // print(post.text);
-        //   post_test.insert(0,
-        //   Column(children: [
-        //     Row(
-        //       children: [
-        //         Text(post.text),
-        //       ]
-        //     ),
-        //   ],));
+          post_test.add(
+          Column(children: [
+            Row(
+              children: [
+                Text(post.text),
+              ]
+            ),
+          ],));
       });
+      setState(() {
+              
+            });
     });
   }
 

@@ -9,7 +9,7 @@ class GroupAPI extends API {
   GroupAPI(String bearer) : super(bearer);
 
   String getThumbnailURL(int groupId) =>
-      'https://restapi-enpit.p0x0q.com/api/images/group/thumbnail/group_id/${groupId.toString()}/show?i';
+      'https://restapi-editile.p0x0q.com/api/images/group/thumbnail/group_id/${groupId.toString()}/show?i';
 
   Future<List<User>> getMemberList(int groupId) async {
     String url = 'group/member/manage/${groupId.toString()}';

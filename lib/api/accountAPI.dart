@@ -156,7 +156,7 @@ class AccountAPI extends API {
     dynamic response = await getRequest(url);
     if (response == null) return [];
     List<Post> postList = [];
-    response.forEach((post) {
+    response["data"].forEach((post) {
       postList.add(Post(post));
     });
     return postList;

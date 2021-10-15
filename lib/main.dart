@@ -3,6 +3,7 @@ import 'package:ring_sns/page/regist.dart';
 import 'package:ring_sns/page/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/home.dart';
+import 'package:ring_sns/page/test.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/usersetting.dart';
 import 'package:ring_sns/page/match-old.dart';
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Home(auth)),
+          MaterialPageRoute(builder: (context) => test(auth)),
         );
       } else {
         Navigator.push(

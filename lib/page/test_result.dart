@@ -58,7 +58,7 @@ class _testresult extends State<test_result> {
       body: Column(children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[Text("test")],
+          //children: <Widget>[Text("test")],
         ),
         Container(
           height: 600,

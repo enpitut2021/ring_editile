@@ -18,6 +18,7 @@ class test_result extends StatefulWidget {
 class _testresult extends State<test_result> {
   List<Widget> post_test = [];
   Color _iconcolor = Colors.black;
+  List<int> post_ids = [];
   List<bool> post_press = [];
   bool Press = false;
 
@@ -38,6 +39,7 @@ class _testresult extends State<test_result> {
             ]),
           ],
         ));
+        post_ids.add(post.post_id);
         post_press.add(false);
       });
       setState(() {});
@@ -110,6 +112,7 @@ class _testresult extends State<test_result> {
                   IconButton(
                     onPressed: () {
                       setState(() {
+                        print(post_ids[index]);
                         post_press[index] = !post_press[index];
                       });
                     },

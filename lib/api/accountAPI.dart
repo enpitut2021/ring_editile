@@ -197,7 +197,7 @@ class AccountAPI extends API {
 }
 
 class Post {
-  int id;
+  int post_id;
   int user;
   String text;
   String created;
@@ -205,7 +205,7 @@ class Post {
   String imageUrl;
 
   Post(Map<String, dynamic> post) {
-    id = post['id'] ?? 0;
+    post_id = post['post_id'] ?? 0;
     user = post['user'] ?? 0;
     text = post['text'] ?? '';
     created = post['created'] ?? '';

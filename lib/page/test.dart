@@ -10,7 +10,8 @@ import 'package:ring_sns/api/accountAPI.dart';
 class test extends StatefulWidget {
   test(this.auth);
   Auth auth;
-  String msg="";
+  String msg = "";
+  String e_msg = "";
 
   @override
   State<StatefulWidget> createState() => _test();
@@ -29,32 +30,35 @@ class _test extends State<test> {
                 widget.msg = text;
               },
             ),
+            Text(
+              widget.e_msg,
+              style: TextStyle(color: Colors.red),
+            ),
             RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
-                  a.postUserPost(widget.msg, '');
-                  if(widget.msg!=""){
+                  // a.postUserPost(widget.msg, '');
+                  if (widget.msg != "") {
+                    a.postUserPost(widget.msg, '');
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            test_result(widget.auth)),
-                  );
-                  }else{
-                    
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => test_result(widget.auth)),
+                    );
+                  } else {
+                    setState(() {
+                      widget.e_msg = '文字を入力してください';
+                    });
                   }
-                  
                 }),
-                RaisedButton(
+            RaisedButton(
                 child: Text('投稿一覧画面へ'),
                 onPressed: () {
-                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            test_result(widget.auth)),
+                        builder: (context) => test_result(widget.auth)),
                   );
                 }),
           ],

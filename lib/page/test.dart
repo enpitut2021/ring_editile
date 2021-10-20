@@ -10,7 +10,7 @@ import 'package:ring_sns/api/accountAPI.dart';
 class test extends StatefulWidget {
   test(this.auth);
   Auth auth;
-  String msg;
+  String msg="";
 
   @override
   State<StatefulWidget> createState() => _test();
@@ -34,12 +34,17 @@ class _test extends State<test> {
                 onPressed: () {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   a.postUserPost(widget.msg, '');
-                  Navigator.push(
+                  if(widget.msg!=""){
+                    Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
                             test_result(widget.auth)),
                   );
+                  }else{
+                    
+                  }
+                  
                 }),
                 RaisedButton(
                 child: Text('投稿一覧画面へ'),

@@ -17,11 +17,18 @@ class test_result extends StatefulWidget {
 class _testresult extends State<test_result> {
   List<Widget> post_test = [];
   Color _iconcolor = Colors.black;
-  bool Press = false;
+  List<bool> post_press =[];
+  bool Press=false;
+ 
+  
+
 
   @override
   void initState() {
+    Color icon_color = Colors.black;
+    Press=false;
     print("data");
+    bool temp_p=this.Press;
     print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
     a.getUserPostList().then((posts) {
@@ -34,6 +41,7 @@ class _testresult extends State<test_result> {
               ]
             ),
           ],));
+          post_press.add(false);
       });
       setState(() {
               
@@ -65,9 +73,8 @@ class _testresult extends State<test_result> {
           width: 400,
           child: ListView.builder(
             itemCount: post_test.length,
-            itemBuilder: (BuildContext context, int index) {
-              return post_test[index];
-            },
+            itemBuilder: (BuildContext context, int index) 
+            => _buildButtonTileView(post_test[index],index),
           ),
         ),
         Column(
@@ -83,6 +90,31 @@ class _testresult extends State<test_result> {
           ],
         )
       ]),
+    );
+  }
+
+  Widget _buildButtonTileView(Widget title,int index){
+    return Card(
+      child: Column(children: <Widget>[
+        ListTile(
+          title:title,
+          
+          trailing:IconButton(
+            onPressed: (){
+              
+              
+              setState(() {
+                post_press[index]=!post_press[index];
+                
+              });
+              
+
+            },
+            icon: Icon(Icons.favorite,color:post_press[index]?Colors.red:Colors.black),
+            
+          )
+        )
+      ],),
     );
   }
 }

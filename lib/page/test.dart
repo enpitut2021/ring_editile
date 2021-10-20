@@ -6,6 +6,8 @@ import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ring_sns/page/test_result.dart';
 import 'package:ring_sns/api/accountAPI.dart';
+import 'package:ring_sns/page/picture.dart';
+
 
 class test extends StatefulWidget {
   test(this.auth);
@@ -51,6 +53,21 @@ class _test extends State<test> {
                         builder: (context) =>
                             test_result(widget.auth)),
                   );
+                }),
+                RaisedButton(
+                child: Text('画像試しへ'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute<void>(
+                  builder: (BuildContext context) {
+                    return RegisterProfile(auth: widget.auth);
+                  },
+                ));
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute<void>(
+                  //       builder: (BuildContext context) =>
+                  //           RegisterProfile(widget.auth)),
+                  // );
                 }),
           ],
         ),

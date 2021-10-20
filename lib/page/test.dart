@@ -63,7 +63,18 @@ class _test extends State<test> {
                 ),
               ),
             TextField(
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 5),
+                enabledBorder: OutlineInputBorder(
+
+                    borderSide: BorderSide(
+                      
+                      color: Colors.blueGrey[200],
+                    )),
+                labelText: 'テキスト',
+              ),
               onChanged: (text) {
+                
                 widget.msg = text;
               },
             ),

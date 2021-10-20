@@ -37,9 +37,7 @@ class _testresult extends State<test_result> {
           Column(children: [
             Row(
               children: [
-                Text(post.text),
-                
-                
+                Text(post.updated + ": " + post.text),
               ]
             ),
           ],));

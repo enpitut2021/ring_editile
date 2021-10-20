@@ -6,6 +6,8 @@ import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ring_sns/page/test_result.dart';
 import 'package:ring_sns/api/accountAPI.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class test extends StatefulWidget {
   test(this.auth);
@@ -18,6 +20,9 @@ class test extends StatefulWidget {
 }
 
 class _test extends State<test> {
+  File _image;
+  final _picker = ImagePicker();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +30,38 @@ class _test extends State<test> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            Container(
+                width: 150,
+                height: 150,
+                margin: const EdgeInsets.only(top: 90),
+                child: _displaySelectionImageOrGrayImage()
+              ),
+              Container(
+                width: 144,
+                height: 50,
+                margin: const EdgeInsets.only(top: 47),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffa4269),
+                  border: Border.all(
+                    width: 2,
+                    color: const Color(0xff000000),
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: FlatButton(
+                  onPressed: () => _getImageFromGallery(),
+                  child: const Text(
+                    '写真を選ぶ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xffffffff),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      height: 1.2,
+                    ),
+                  ),
+                ),
+              ),
             TextField(
               onChanged: (text) {
                 widget.msg = text;
@@ -65,5 +102,66 @@ class _test extends State<test> {
         ),
       ),
     );
+  }
+    Widget _displaySelectionImageOrGrayImage() {
+    if (_image == null) {
+      return Container(
+        decoration: BoxDecoration(
+          color: const Color(0xffdfdfdf),
+          border: Border.all(
+            width: 2,
+            color: const Color(0xff000000),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: const Color(0xff000000),
+          ),
+        ),
+        child: ClipRRect(
+          child: Image.file(
+            _image,
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _displayInSelectedImage() {
+    if (_image == null) {
+      return Column();
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 20, right: 20),
+              child: InkWell(
+                child: Image.asset(
+                  'assets/images/ic_send.png',
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
+  Future _getImageFromGallery() async {
+    final _pickedFile = await _picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (_pickedFile != null) {
+        _image = File(_pickedFile.path);
+      }
+    });
   }
 }

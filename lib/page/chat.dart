@@ -9,6 +9,7 @@ import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 import 'package:ring_sns/page/chathistory.dart';
+import 'package:ring_sns/page/test_result.dart';
 
 class ChatDemo extends StatefulWidget {
   ChatDemo(this.roomId, this.auth);
@@ -245,18 +246,17 @@ class _ChatDemo extends State<ChatDemo> {
 
     return Scaffold(
         appBar: AppBar(
-          leading:
-            IconButton(onPressed: (){
-              Navigator.push(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChatHistory(widget.auth)),
+                      builder: (context) => test_result(widget.auth)),
                 );
-            }, icon: Icon(Icons.west))
-          ,
+              },
+              icon: Icon(Icons.west)),
           title: Text("チャット"),
           automaticallyImplyLeading: false,
-          
         ),
         body: Column(
           children: <Widget>[

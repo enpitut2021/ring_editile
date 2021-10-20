@@ -152,7 +152,7 @@ class AccountAPI extends API {
   }
 
   Future<List<Post>> getUserPostList() async {
-    String url = 'user/post';
+    String url = 'user/post/manage';
     dynamic response = await getRequest(url);
     if (response == null) return [];
     List<Post> postList = [];
@@ -163,17 +163,38 @@ class AccountAPI extends API {
   }
 
   Future<dynamic> postUserPost(String text, String imageUrl) async {
-    String url = 'user/post';
+    String url = 'user/post/manage';
     Map<String, dynamic> queryParameters = {
       'text': text,
       'image_url': imageUrl,
     };
     return await postRequest(url, queryParameters);
   }
+
+  Future<List<PostLike>> getUserLikeList() async {
+    String url = 'user/post/like';
+    dynamic response = await getRequest(url);
+    if (response == null) return [];
+    List<PostLike> postList = [];
+    response["data"].forEach((post) {
+      postList.add(PostLike(post));
+    });
+    return postList;
+  }
+
+  Future<dynamic> postUserLikePost(int postId, bool isLike) async {
+    if (isLike == true) {
+      String url = 'user/post/like';
+      Map<String, dynamic> queryParameters = {
+        'post_id': postId.toString(),
+      };
+      return await postRequest(url, queryParameters);
+    } else {
+      String url = 'user/post/like/${postId.toString()}';
+      return await deleteRequest(url);
+    }
+  }
 }
-
-
-
 
 class Post {
   int id;
@@ -190,6 +211,22 @@ class Post {
     created = post['created'] ?? '';
     updated = post['updated'] ?? '';
     imageUrl = post['image_url'] ?? '';
+  }
+}
+
+class PostLike {
+  int likeId;
+  int postId;
+  int user;
+  String created;
+  String updated;
+
+  PostLike(Map<String, dynamic> post) {
+    likeId = post['like_id'] ?? 0;
+    postId = post['post_id'] ?? 0;
+    user = post['user'] ?? 0;
+    created = post['created'] ?? '';
+    updated = post['updated'] ?? '';
   }
 }
 

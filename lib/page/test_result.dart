@@ -34,9 +34,9 @@ class _testresult extends State<test_result> {
       posts.forEach((Post post) {
         post_test.add(Column(
           children: [
-            Row(children: [
+              // Image.network('https://picsum.photos/250?image=9'),
+              // Image.network(post.imageUrl),
               Text(post.updated + ": " + post.text),
-            ]),
           ],
         ));
         post_ids.add(post.post_id);

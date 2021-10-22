@@ -22,7 +22,7 @@ class _testresult extends State<test_result> {
   List<bool> post_press = [];
 
   bool Press = false;
-  int checker=-1;
+  int checker = -1;
 
   @override
   void initState() {
@@ -35,30 +35,28 @@ class _testresult extends State<test_result> {
     a.getUserPostList().then((posts) {
       posts.forEach((Post post) {
         post_test.add(Column(
-          children: [     
-            Row(             
-              children: [
-                Expanded(child: Text(post.updated + ": " + post.text)),             
+          children: [
+            Row(children: [
+              Expanded(child: Text(post.updated + ": " + post.text)),
             ]),
           ],
         ));
 
         post_ids.add(post.post_id);
- 
+
         post_press.add(false);
       });
       // print(a.getUserLikeList());
-    //   a.getUserLikeList().then((p_like) {
-    //   p_like.forEach((PostLike posts) { 
-    //     print(posts.postId);
-    //     // post_press[post_ids.indexOf(posts.postId).toInt()]=true;
-    //   });
-    // });
-    print(post_press);
-      
+      //   a.getUserLikeList().then((p_like) {
+      //   p_like.forEach((PostLike posts) {
+      //     print(posts.postId);
+      //     // post_press[post_ids.indexOf(posts.postId).toInt()]=true;
+      //   });
+      // });
+      print(post_press);
+
       setState(() {});
     });
-    
   }
 
   Widget build(BuildContext context) {
@@ -127,13 +125,16 @@ class _testresult extends State<test_result> {
                   IconButton(
                     onPressed: () {
                       AccountAPI a = new AccountAPI(widget.auth.getBearer());
+
+                      a.getUserNumInfo(1).then((User user) {
+                        print(user.nickname);
+                      });
+
                       setState(() {
-                        
                         print(post_ids[index]);
                         post_press[index] = !post_press[index];
                       });
                       a.postUserLikePost(post_ids[index], post_press[index]);
-                      
                     },
                     icon: Icon(Icons.favorite,
                         color: post_press[index] ? Colors.red : Colors.black),

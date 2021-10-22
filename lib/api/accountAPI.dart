@@ -144,6 +144,11 @@ class AccountAPI extends API {
     dynamic userdata = await getRequest(url);
     return User(userdata);
   }
+  Future<User> getUserNumInfo(int userId) async {
+    String url = 'user/show/$userId';
+    dynamic userdata = await getRequest(url);
+    return User(userdata);
+  }
 
   Future<User> getProfile() async {
     String url = 'userprofile';

@@ -64,6 +64,9 @@ class _test extends State<test> {
               ),
             TextField(
               decoration: InputDecoration(
+
+                //errorText: widget.e_msg,
+                
                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),
                 enabledBorder: OutlineInputBorder(
 
@@ -71,8 +74,9 @@ class _test extends State<test> {
                       
                       color: Colors.blueGrey[200],
                     )),
-                labelText: 'テキスト',
+                labelText: '投稿',
               ),
+              autofocus: true,
               onChanged: (text) {
                 
                 widget.msg = text;

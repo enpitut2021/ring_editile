@@ -46,6 +46,7 @@ class _testresult extends State<test_result> {
           ));
           post_ids.add(post.post_id);
           post_press.add(false);
+          setState(() {});
         });
       });
       // print(a.getUserLikeList());
@@ -56,8 +57,6 @@ class _testresult extends State<test_result> {
       //   });
       // });
       //print(post_press);
-
-      setState(() {});
     });
   }
 

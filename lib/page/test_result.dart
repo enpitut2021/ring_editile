@@ -35,7 +35,7 @@ class _testresult extends State<test_result> {
         post_test.add(Column(
           children: [
               // Image.network('https://picsum.photos/250?image=9'),
-              // Image.network(post.imageUrl),
+              Image.network(post.imageUrl),
               Text(post.updated + ": " + post.text),
           ],
         ));

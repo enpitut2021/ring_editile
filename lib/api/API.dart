@@ -6,12 +6,12 @@ class API {
   final Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://restapi-editile.p0x0q.com/api/',
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
+      connectTimeout: 50000,
+      receiveTimeout: 30000,
     ),
   );
   String bearer;
-  String baseUrl = 'https://restapi-neo.p0x0q.com/api/';
+  String baseUrl = 'https://restapi-editile.p0x0q.com/api/';
   API([this.bearer]);
 
   String getBearer() => bearer;

@@ -38,15 +38,22 @@ class _testresult extends State<test_result> {
         print(post.imageUrl);
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
+           // post_test.add(Column(
+          //   children: [
+          //     Row(children: [
+          //       Expanded(child: Text(u_id + ": " + post.text)),
+          //       // Image.network('https://picsum.photos/250?image=9%27'),
+          //       Image.network(post.imageUrl),
+          //     ]),
+          //   ],
+          // ));
           post_test.add(Column(
-            children: [
-              Row(children: [
-                Expanded(child: Text(u_id + ": " + post.text)),
-                // Image.network('https://picsum.photos/250?image=9%27'),
-                Image.network("https://cupy.p0x0q.com/40hdmrqg.png"),
-              ]),
-            ],
-          ));
+          children: [
+              // Image.network('https://picsum.photos/250?image=9%27),
+              Image.network(post.imageUrl),
+              Text(u_id + ": " + post.text),
+          ],
+        ));
           post_ids.add(post.post_id);
           post_press.add(false);
           setState(() {});

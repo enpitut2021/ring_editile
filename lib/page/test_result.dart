@@ -35,12 +35,15 @@ class _testresult extends State<test_result> {
     String u_id;
     a.getUserPostList().then((posts) {
       posts.forEach((Post post) {
+        print(post.imageUrl);
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
           post_test.add(Column(
             children: [
               Row(children: [
                 Expanded(child: Text(u_id + ": " + post.text)),
+                // Image.network('https://picsum.photos/250?image=9%27'),
+                Image.network(post.imageUrl),
               ]),
             ],
           ));

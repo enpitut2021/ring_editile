@@ -34,22 +34,19 @@ class _testresult extends State<test_result> {
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
     String u_id;
     a.getUserPostList().then((posts) {
-      
       posts.forEach((Post post) {
-        a.getUserNumInfo(post.user).then((User user){
-          u_id=user.userId;
+        a.getUserNumInfo(post.user).then((User user) {
+          u_id = user.userId;
+          post_test.add(Column(
+            children: [
+              Row(children: [
+                Expanded(child: Text(u_id + ": " + post.text)),
+              ]),
+            ],
+          ));
+          post_ids.add(post.post_id);
+          post_press.add(false);
         });
-        post_test.add(Column(
-          children: [
-            Row(children: [
-              Expanded(child: Text(u_id + ": " + post.text)),
-            ]),
-          ],
-        ));
-
-        post_ids.add(post.post_id);
-
-        post_press.add(false);
       });
       // print(a.getUserLikeList());
       //   a.getUserLikeList().then((p_like) {

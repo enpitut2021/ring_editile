@@ -32,12 +32,17 @@ class _testresult extends State<test_result> {
     bool temp_p = this.Press;
     print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
+    String u_id;
     a.getUserPostList().then((posts) {
+      
       posts.forEach((Post post) {
+        a.getUserNumInfo(post.user).then((User user){
+          u_id=user.userId;
+        });
         post_test.add(Column(
           children: [
             Row(children: [
-              Expanded(child: Text(post.updated + ": " + post.text)),
+              Expanded(child: Text(u_id + ": " + post.text)),
             ]),
           ],
         ));
@@ -53,7 +58,7 @@ class _testresult extends State<test_result> {
       //     // post_press[post_ids.indexOf(posts.postId).toInt()]=true;
       //   });
       // });
-      print(post_press);
+      //print(post_press);
 
       setState(() {});
     });
@@ -127,11 +132,12 @@ class _testresult extends State<test_result> {
                       AccountAPI a = new AccountAPI(widget.auth.getBearer());
 
                       a.getUserNumInfo(1).then((User user) {
+                        print("1");
                         print(user.nickname);
                       });
 
                       setState(() {
-                        print(post_ids[index]);
+                        //print(post_ids[index]);
                         post_press[index] = !post_press[index];
                       });
                       a.postUserLikePost(post_ids[index], post_press[index]);

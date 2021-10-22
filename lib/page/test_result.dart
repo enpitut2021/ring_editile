@@ -43,7 +43,7 @@ class _testresult extends State<test_result> {
               Row(children: [
                 Expanded(child: Text(u_id + ": " + post.text)),
                 // Image.network('https://picsum.photos/250?image=9%27'),
-                Image.network(post.imageUrl),
+                Image.network("https://cupy.p0x0q.com/40hdmrqg.png"),
               ]),
             ],
           ));

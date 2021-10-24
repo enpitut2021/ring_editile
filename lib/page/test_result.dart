@@ -18,7 +18,7 @@ class test_result extends StatefulWidget {
 class _testresult extends State<test_result> {
   List<Widget> post_test = [];
   Color _iconcolor = Colors.black;
-  List<int> post_ids = [];
+  List<int> postIds = [];
   List<bool> post_press = [];
 
   bool Press = false;
@@ -54,7 +54,7 @@ class _testresult extends State<test_result> {
               Text(u_id + ": " + post.text),
           ],
         ));
-          post_ids.add(post.post_id);
+          postIds.add(post.postId);
           post_press.add(false);
           setState(() {});
         });
@@ -63,7 +63,7 @@ class _testresult extends State<test_result> {
       //   a.getUserLikeList().then((p_like) {
       //   p_like.forEach((PostLike posts) {
       //     print(posts.postId);
-      //     // post_press[post_ids.indexOf(posts.postId).toInt()]=true;
+      //     // post_press[postIds.indexOf(posts.postId).toInt()]=true;
       //   });
       // });
       //print(post_press);
@@ -143,10 +143,10 @@ class _testresult extends State<test_result> {
                       });
 
                       setState(() {
-                        //print(post_ids[index]);
+                        //print(postIds[index]);
                         post_press[index] = !post_press[index];
                       });
-                      a.postUserLikePost(post_ids[index], post_press[index]);
+                      a.postUserLikePost(postIds[index], post_press[index]);
                     },
                     icon: Icon(Icons.favorite,
                         color: post_press[index] ? Colors.red : Colors.black),

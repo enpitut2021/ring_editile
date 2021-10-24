@@ -182,7 +182,7 @@ class AccountAPI extends API {
     dynamic response = await getRequest(url);
     if (response == null) return [];
     List<PostLike> postList = [];
-    response["data"].forEach((post) {
+    response.forEach((post) {
       postList.add(PostLike(post));
     });
     return postList;

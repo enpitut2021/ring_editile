@@ -96,11 +96,11 @@ class _test extends State<test> {
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
                     a.postUserPost(widget.msg, '');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => test_result(widget.auth)),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => test_result(widget.auth)),
+                    // );
                   } else {
                     setState(() {
                       widget.e_msg = '文字を入力してください';

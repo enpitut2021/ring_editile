@@ -103,6 +103,7 @@ class _testresult extends State<test_result> {
           height: 600,
           width: 400,
           child: ListView.builder(
+            shrinkWrap: true,
             itemCount: post_test.length,
             itemBuilder: (BuildContext context, int index) =>
                 _buildButtonTileView(post_test[index], index),
@@ -128,11 +129,11 @@ class _testresult extends State<test_result> {
     return Card(
       child: Column(
         children: <Widget>[
-          ListTile(
-              title: title,
-              trailing: Wrap(
-                children: <Widget>[
-                  IconButton(
+          title,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
                     icon: Icon(Icons.chat),
                     onPressed: () {
                       Navigator.push(
@@ -161,8 +162,74 @@ class _testresult extends State<test_result> {
                     icon: Icon(Icons.favorite,
                         color: post_press[index] ? Colors.red : Colors.black),
                   ),
-                ],
-              ))
+            ],
+          ),
+          // IconButton(
+          //           icon: Icon(Icons.chat),
+          //           onPressed: () {
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(
+          //                   builder: (context) =>
+          //                       ChatDemo("public", widget.auth)),
+          //             );
+          //           },
+          //         ),
+          //         IconButton(
+          //           onPressed: () {
+          //             AccountAPI a = new AccountAPI(widget.auth.getBearer());
+
+          //             a.getUserNumInfo(1).then((User user) {
+          //               print("1");
+          //               print(user.nickname);
+          //             });
+
+          //             setState(() {
+          //               //print(post_ids[index]);
+          //               post_press[index] = !post_press[index];
+          //             });
+          //             a.postUserLikePost(post_ids[index], post_press[index]);
+          //           },
+          //           icon: Icon(Icons.favorite,
+          //               color: post_press[index] ? Colors.red : Colors.black),
+          //         ),
+          
+          // ListTile(
+          //     title: title,
+              
+          //     trailing: Wrap(
+          //       children: <Widget>[
+          //         IconButton(
+          //           icon: Icon(Icons.chat),
+          //           onPressed: () {
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(
+          //                   builder: (context) =>
+          //                       ChatDemo("public", widget.auth)),
+          //             );
+          //           },
+          //         ),
+          //         IconButton(
+          //           onPressed: () {
+          //             AccountAPI a = new AccountAPI(widget.auth.getBearer());
+
+          //             a.getUserNumInfo(1).then((User user) {
+          //               print("1");
+          //               print(user.nickname);
+          //             });
+
+          //             setState(() {
+          //               //print(post_ids[index]);
+          //               post_press[index] = !post_press[index];
+          //             });
+          //             a.postUserLikePost(post_ids[index], post_press[index]);
+          //           },
+          //           icon: Icon(Icons.favorite,
+          //               color: post_press[index] ? Colors.red : Colors.black),
+          //         ),
+          //       ],
+          //     ))
         ],
       ),
     );

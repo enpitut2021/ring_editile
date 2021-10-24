@@ -8,6 +8,7 @@ import 'package:ring_sns/page/test_result.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:ring_sns/api/cupyAPI.dart';
 
 class test extends StatefulWidget {
   test(this.auth);
@@ -89,6 +90,8 @@ class _test extends State<test> {
             RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
+                  CupyAPI b = new CupyAPI(widget.auth.getBearer());
+                  b.uploadImage(_image.path);
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {

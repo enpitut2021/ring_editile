@@ -11,7 +11,7 @@ class API {
     ),
   );
   String bearer;
-
+  String baseUrl = 'https://restapi-editile.p0x0q.com/api/';
   API([this.bearer]);
 
   String getBearer() => bearer;

@@ -213,6 +213,7 @@ class Post {
 
   Post(Map<String, dynamic> post) {
     postId = post['post_id'] ?? 0;
+    roomId = post['room_id'] ?? 'public';//roomIdは必ず紐づくものだが，万が一紐付いていなかったらpublicにする
     user = post['user'] ?? 0;
     text = post['text'] ?? '';
     created = post['created'] ?? '';

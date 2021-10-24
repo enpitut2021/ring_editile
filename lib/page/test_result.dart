@@ -50,13 +50,23 @@ class _testresult extends State<test_result> {
           post_test.add(Column(
           children: [
               // Image.network('https://picsum.photos/250?image=9%27),
-              Image.network(post.imageUrl),
+              Image.network(post.imageUrl,errorBuilder: (c,o,s){
+                return Text("[画像がありません]");
+              },),
               Text(u_id + ": " + post.text),
           ],
         ));
           post_ids.add(post.post_id);
           post_press.add(false);
           setState(() {});
+        });
+      });
+      a.getUserLikeList().then((p_like){
+        p_like.forEach((PostLike p) { 
+          if(post_ids.indexOf(p.postId)!=-1){
+            post_press[post_ids.indexOf(p.postId)]=true;
+          }
+          
         });
       });
       // print(a.getUserLikeList());

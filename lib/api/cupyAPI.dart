@@ -21,10 +21,6 @@ class CupyAPI extends API {
       Response<dynamic> response = await dio.post(
         url,
         data: formData,
-        options: Options(
-        followRedirects: false,
-        validateStatus: (status) {return status <500;}
-        ),
       );
       print('[$url] response: $response');
       return response.data;
@@ -34,7 +30,7 @@ class CupyAPI extends API {
     }
   }
 
-  Future<String> uploadImage(String imageFilePath) async {
+  Future<String> _uploadImage(String imageFilePath) async {
     String url = 'images/upload/cupy';
     FormData formData = FormData.fromMap({
       'name': 'image_file',
@@ -85,6 +81,6 @@ class CupyAPI extends API {
       if (cloppedImageFile == null) return '';
       imagePath = cloppedImageFile.path;
     }
-    return await uploadImage(imagePath);
+    return await _uploadImage(imagePath);
   }
 }

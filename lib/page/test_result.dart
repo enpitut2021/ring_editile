@@ -63,8 +63,8 @@ class _testresult extends State<test_result> {
       });
       a.getUserLikeList().then((p_like){
         p_like.forEach((PostLike p) { 
-          if(post_ids.indexOf(p.postId)!=-1){
-            post_press[post_ids.indexOf(p.postId)]=true;
+          if(postIds.indexOf(p.postId)!=-1){
+            post_press[postIds.indexOf(p.postId)]=true;
           }
           
         });

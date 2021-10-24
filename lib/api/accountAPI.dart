@@ -231,7 +231,7 @@ class PostLike {
 
   PostLike(Map<String, dynamic> post) {
     likeId = post['like_id'] ?? 0;
-    postId = post['postId'] ?? 0;
+    postId = post['post_id'] ?? 0;
     user = post['user'] ?? 0;
     created = post['created'] ?? '';
     updated = post['updated'] ?? '';

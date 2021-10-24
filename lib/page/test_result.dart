@@ -22,7 +22,7 @@ class _testresult extends State<test_result> {
   List<bool> post_press = [];
 
   bool Press = false;
-  int checker=-1;
+  int checker = -1;
 
   @override
   void initState() {
@@ -32,33 +32,42 @@ class _testresult extends State<test_result> {
     bool temp_p = this.Press;
     print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
+    String u_id;
     a.getUserPostList().then((posts) {
       posts.forEach((Post post) {
-        post_test.add(Column(
-          children: [     
-            Row(             
-              children: [
-                Expanded(child: Text(post.updated + ": " + post.text)),             
-            ]),
+        print(post.imageUrl);
+        a.getUserNumInfo(post.user).then((User user) {
+          u_id = user.userId;
+           // post_test.add(Column(
+          //   children: [
+          //     Row(children: [
+          //       Expanded(child: Text(u_id + ": " + post.text)),
+          //       // Image.network('https://picsum.photos/250?image=9%27'),
+          //       Image.network(post.imageUrl),
+          //     ]),
+          //   ],
+          // ));
+          post_test.add(Column(
+          children: [
+              // Image.network('https://picsum.photos/250?image=9%27),
+              Image.network(post.imageUrl),
+              Text(u_id + ": " + post.text),
           ],
         ));
-
-        post_ids.add(post.post_id);
- 
-        post_press.add(false);
+          post_ids.add(post.post_id);
+          post_press.add(false);
+          setState(() {});
+        });
       });
       // print(a.getUserLikeList());
-    //   a.getUserLikeList().then((p_like) {
-    //   p_like.forEach((PostLike posts) { 
-    //     print(posts.postId);
-    //     // post_press[post_ids.indexOf(posts.postId).toInt()]=true;
-    //   });
-    // });
-    print(post_press);
-      
-      setState(() {});
+      //   a.getUserLikeList().then((p_like) {
+      //   p_like.forEach((PostLike posts) {
+      //     print(posts.postId);
+      //     // post_press[post_ids.indexOf(posts.postId).toInt()]=true;
+      //   });
+      // });
+      //print(post_press);
     });
-    
   }
 
   Widget build(BuildContext context) {
@@ -127,13 +136,17 @@ class _testresult extends State<test_result> {
                   IconButton(
                     onPressed: () {
                       AccountAPI a = new AccountAPI(widget.auth.getBearer());
+
+                      a.getUserNumInfo(1).then((User user) {
+                        print("1");
+                        print(user.nickname);
+                      });
+
                       setState(() {
-                        
-                        print(post_ids[index]);
+                        //print(post_ids[index]);
                         post_press[index] = !post_press[index];
                       });
                       a.postUserLikePost(post_ids[index], post_press[index]);
-                      
                     },
                     icon: Icon(Icons.favorite,
                         color: post_press[index] ? Colors.red : Colors.black),

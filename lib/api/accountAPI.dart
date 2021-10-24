@@ -192,7 +192,7 @@ class AccountAPI extends API {
     if (isLike == true) {
       String url = 'user/post/like';
       Map<String, dynamic> queryParameters = {
-        'postId': postId.toString(),
+        'post_id': postId.toString(),
       };
       return await postRequest(url, queryParameters);
     } else {

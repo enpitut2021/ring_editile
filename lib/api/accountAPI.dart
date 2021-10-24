@@ -144,6 +144,7 @@ class AccountAPI extends API {
     dynamic userdata = await getRequest(url);
     return User(userdata);
   }
+
   Future<User> getUserNumInfo(int userId) async {
     String url = 'user/show/$userId';
     dynamic userdata = await getRequest(url);
@@ -202,15 +203,17 @@ class AccountAPI extends API {
 }
 
 class Post {
-  int post_id;
+  int postId;
   int user;
   String text;
   String created;
   String updated;
   String imageUrl;
+  String roomId;
 
   Post(Map<String, dynamic> post) {
-    post_id = post['post_id'] ?? 0;
+    postId = post['post_id'] ?? 0;
+    roomId = post['room_id'] ?? 'public';//roomIdは必ず紐づくものだが，万が一紐付いていなかったらpublicにする
     user = post['user'] ?? 0;
     text = post['text'] ?? '';
     created = post['created'] ?? '';
@@ -228,7 +231,7 @@ class PostLike {
 
   PostLike(Map<String, dynamic> post) {
     likeId = post['like_id'] ?? 0;
-    postId = post['post_id'] ?? 0;
+    postId = post['postId'] ?? 0;
     user = post['user'] ?? 0;
     created = post['created'] ?? '';
     updated = post['updated'] ?? '';

@@ -8,6 +8,7 @@ import 'package:ring_sns/page/test_result.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:ring_sns/api/cupyAPI.dart';
 
 class test extends StatefulWidget {
   test(this.auth);
@@ -20,9 +21,10 @@ class test extends StatefulWidget {
 }
 
 class _test extends State<test> {
-  File _image;
+  // File _image;
+  String _imageUrl;
   final _picker = ImagePicker();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,51 +36,46 @@ class _test extends State<test> {
                 width: 150,
                 height: 150,
                 margin: const EdgeInsets.only(top: 90),
-                child: _displaySelectionImageOrGrayImage()
-              ),
-              Container(
-                width: 144,
-                height: 50,
-                margin: const EdgeInsets.only(top: 47),
-                decoration: BoxDecoration(
-                  color: const Color(0xfffa4269),
-                  border: Border.all(
-                    width: 2,
-                    color: const Color(0xff000000),
-                  ),
-                  borderRadius: BorderRadius.circular(15),
+                child: _displaySelectionImageOrGrayImage()),
+            Container(
+              width: 144,
+              height: 50,
+              margin: const EdgeInsets.only(top: 47),
+              decoration: BoxDecoration(
+                color: const Color(0xfffa4269),
+                border: Border.all(
+                  width: 2,
+                  color: const Color(0xff000000),
                 ),
-                child: FlatButton(
-                  onPressed: () => _getImageFromGallery(),
-                  child: const Text(
-                    '写真を選ぶ',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xffffffff),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      height: 1.2,
-                    ),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: FlatButton(
+                onPressed: () => _getImageFromGallery(),
+                child: const Text(
+                  '写真を選ぶ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xffffffff),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                    height: 1.2,
                   ),
                 ),
               ),
+            ),
             TextField(
               decoration: InputDecoration(
-
                 //errorText: widget.e_msg,
-                
+
                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),
                 enabledBorder: OutlineInputBorder(
-
                     borderSide: BorderSide(
-                      
-                      color: Colors.blueGrey[200],
-                    )),
+                  color: Colors.blueGrey[200],
+                )),
                 labelText: '投稿',
               ),
               autofocus: true,
               onChanged: (text) {
-                
                 widget.msg = text;
               },
             ),
@@ -92,12 +89,13 @@ class _test extends State<test> {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
-                    a.postUserPost(widget.msg, '');
+                    a.postUserPost(widget.msg, _imageUrl).then((value) => {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => test_result(widget.auth)),
-                    );
+                    )
+                    });
                   } else {
                     setState(() {
                       widget.e_msg = '文字を入力してください';
@@ -118,8 +116,9 @@ class _test extends State<test> {
       ),
     );
   }
-    Widget _displaySelectionImageOrGrayImage() {
-    if (_image == null) {
+
+  Widget _displaySelectionImageOrGrayImage() {
+    if (_imageUrl == null) {
       return Container(
         decoration: BoxDecoration(
           color: const Color(0xffdfdfdf),
@@ -138,8 +137,8 @@ class _test extends State<test> {
           ),
         ),
         child: ClipRRect(
-          child: Image.file(
-            _image,
+          child: Image.network(
+            _imageUrl,
             fit: BoxFit.fill,
           ),
         ),
@@ -148,7 +147,7 @@ class _test extends State<test> {
   }
 
   Widget _displayInSelectedImage() {
-    if (_image == null) {
+    if (_imageUrl == null) {
       return Column();
     } else {
       return Column(
@@ -171,12 +170,8 @@ class _test extends State<test> {
   }
 
   Future _getImageFromGallery() async {
-    final _pickedFile = await _picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (_pickedFile != null) {
-        _image = File(_pickedFile.path);
-      }
-    });
+    CupyAPI b = new CupyAPI(widget.auth.getBearer());
+    String imageUrl = await b.uploadImageWithPicker();
+    setState(() => _imageUrl = imageUrl);
   }
 }

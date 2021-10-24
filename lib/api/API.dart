@@ -3,16 +3,25 @@ import 'package:dio/dio.dart';
 import 'dart:async';
 
 class API {
-  final Dio dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://restapi-editile.p0x0q.com/api/',
-      connectTimeout: 5000,
-      receiveTimeout: 3000,
-    ),
-  );
   String bearer;
 
-  API([this.bearer]);
+  Dio dio;
+  final String baseUrl = 'https://restapi-editile.p0x0q.com/api/';
+
+  API([this.bearer]) {
+    dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+        connectTimeout: 50000,
+        receiveTimeout: 3000,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $bearer',
+        },
+        contentType: 'application/json',
+      ),
+    );
+  }
 
   String getBearer() => bearer;
 

@@ -21,6 +21,10 @@ class CupyAPI extends API {
       Response<dynamic> response = await dio.post(
         url,
         data: formData,
+        options: Options(
+        followRedirects: false,
+        validateStatus: (status) {return status <500;}
+        ),
       );
       print('[$url] response: $response');
       return response.data;

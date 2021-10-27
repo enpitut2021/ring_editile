@@ -98,14 +98,6 @@ class _testresult extends State<test_result> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => test(widget.auth)),
-              );
-            },
-            icon: Icon(Icons.west)),
         title: Text("投稿一覧画面"),
         automaticallyImplyLeading: false,
       ),

@@ -28,6 +28,19 @@ class _test extends State<test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => test_result(widget.auth)),
+              );
+            },
+            icon: Icon(Icons.close)),
+        title: Text("投稿画面"),
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -90,27 +103,27 @@ class _test extends State<test> {
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
                     a.postUserPost(widget.msg, _imageUrl).then((value) => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => test_result(widget.auth)),
-                    )
-                    });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => test_result(widget.auth)),
+                          )
+                        });
                   } else {
                     setState(() {
                       widget.e_msg = '文字を入力してください';
                     });
                   }
                 }),
-            RaisedButton(
-                child: Text('投稿一覧画面へ'),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => test_result(widget.auth)),
-                  );
-                }),
+            // RaisedButton(
+            //     child: Text('投稿一覧画面へ'),
+            //     onPressed: () {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (context) => test_result(widget.auth)),
+            //       );
+            //     }),
           ],
         ),
       ),

@@ -6,6 +6,8 @@ import 'package:ring_sns/page/test.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/page/chat.dart';
+import 'package:ring_sns/page/chathistory.dart';
+
 
 class test_result extends StatefulWidget {
   test_result(this.auth);
@@ -21,6 +23,8 @@ class _testresult extends State<test_result> {
   List<int> postIds = [];
   List<bool> post_press = [];
   List<int> post_like = [];
+  List<String> roomid= [];
+  List<String> post_msg=[];
 
   bool Press = false;
   int checker = -1;
@@ -63,11 +67,15 @@ class _testresult extends State<test_result> {
             ],
           ));
           postIds.add(post.postId);
+          post_msg.add(post.text);
+          print("roomid is");
+          print(post.roomId);
           // print("a");
-          print(post_like);
+          // print(post_like);
 
           post_press.add(false);
           print(post_press);
+          roomid.add(post.roomId);
           post_like.forEach((int p_l) {
             if (postIds.indexOf(p_l) != -1) {
               post_press[postIds.indexOf(p_l)] = true;
@@ -152,7 +160,7 @@ class _testresult extends State<test_result> {
             backgroundColor: Colors.blue[900],
           ),
         ],
-        currentIndex: 1,
+        currentIndex: 0,
         selectedItemColor: Colors.cyan[400],
         onTap: (int index) {
           //_selectedIndex=index;
@@ -164,12 +172,12 @@ class _testresult extends State<test_result> {
             //go to home
 
           } else if (index == 1) {
-            //go to chatlog
-            // Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //                 builder: (context) => ChatHistory(widget.auth)),
-            //           );
+           
+            Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChatHistory(widget.auth)),
+                      );
           }
         },
       ),
@@ -190,7 +198,7 @@ class _testresult extends State<test_result> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ChatDemo("public", widget.auth)),
+                        builder: (context) => ChatDemo(roomid[index], widget.auth)),
                   );
                 },
               ),

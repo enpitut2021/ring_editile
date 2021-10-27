@@ -46,7 +46,7 @@ class _ChatHistory extends State<ChatHistory> {
           history.forEach((roomId, value) {
             setState(() {
               chathis.add(ListTile(
-                title: Text("test"),
+                title: Text(roomId),
                 onTap: () {
                   Navigator.push(
                     context,

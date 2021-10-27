@@ -7,12 +7,14 @@ import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
+import 'package:ring_sns/page/test_result.dart';
 
 class ChatHistory extends StatefulWidget {
   ChatHistory(this.auth);
   Auth auth;
   IconData icon;
   String roomid;
+  String msg;
   @override
   State<StatefulWidget> createState() => _ChatHistory();
 }
@@ -44,7 +46,7 @@ class _ChatHistory extends State<ChatHistory> {
           history.forEach((roomId, value) {
             setState(() {
               chathis.add(ListTile(
-                title: Text(roomId),
+                title: Text("test"),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -107,7 +109,7 @@ class _ChatHistory extends State<ChatHistory> {
             Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Home(widget.auth)),
+                      builder: (context) => test_result(widget.auth)),
                 );
       //go to home
 

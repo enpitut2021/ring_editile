@@ -136,14 +136,14 @@ class _testresult extends State<test_result> {
         ),
         Column(
           children: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    this.Press = !this.Press;
-                    this._iconcolor = this.Press ? Colors.red : Colors.black;
-                  });
-                },
-                icon: Icon(Icons.favorite, color: this._iconcolor))
+            // IconButton(
+            //     onPressed: () {
+            //       setState(() {
+            //         this.Press = !this.Press;
+            //         this._iconcolor = this.Press ? Colors.red : Colors.black;
+            //       });
+            //     },
+            //     icon: Icon(Icons.favorite, color: this._iconcolor))
           ],
         )
       ]),

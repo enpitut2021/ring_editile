@@ -7,7 +7,7 @@ import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/chathistory.dart';
-import 'package:ring_sns/page/usersetting.dart';
+
 
 class test_result extends StatefulWidget {
   test_result(this.auth);
@@ -23,8 +23,8 @@ class _testresult extends State<test_result> {
   List<int> postIds = [];
   List<bool> post_press = [];
   List<int> post_like = [];
-  List<String> roomid = [];
-  List<String> post_msg = [];
+  List<String> roomid= [];
+  List<String> post_msg=[];
 
   bool Press = false;
   int checker = -1;
@@ -108,22 +108,6 @@ class _testresult extends State<test_result> {
       appBar: AppBar(
         title: Text("投稿一覧画面"),
         automaticallyImplyLeading: false,
-        leading: RaisedButton(
-          color: Colors.white,
-          shape: const CircleBorder(
-            side: BorderSide(
-              color: Colors.black,
-              width: 1,
-              style: BorderStyle.solid,
-            ),
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Usersetting(widget.auth)),
-            );
-          },
-        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -137,11 +121,12 @@ class _testresult extends State<test_result> {
       ),
       body: Column(children: <Widget>[
         Column(
+          
           mainAxisAlignment: MainAxisAlignment.center,
           //children: <Widget>[Text("test")],
         ),
         Container(
-          height: 600,
+          height: 500,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,
@@ -188,10 +173,12 @@ class _testresult extends State<test_result> {
             //go to home
 
           } else if (index == 1) {
+           
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChatHistory(widget.auth)),
-            );
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChatHistory(widget.auth)),
+                      );
           }
         },
       ),
@@ -212,8 +199,7 @@ class _testresult extends State<test_result> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            ChatDemo(roomid[index], widget.auth)),
+                        builder: (context) => ChatDemo(roomid[index], widget.auth)),
                   );
                 },
               ),

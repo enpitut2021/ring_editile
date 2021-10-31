@@ -23,8 +23,8 @@ class ChatHistory extends StatefulWidget {
 class _ChatHistory extends State<ChatHistory> {
   @override
   List<ListTile> chathis = [];
-  List<String> r_id = [];
-  List<String> r_msg = [];
+  List<String> r_id=[];
+  List<String> r_msg=[];
   ChatAPI chatapi;
 
   void chathistory_update(String chatroom_id) {
@@ -40,11 +40,11 @@ class _ChatHistory extends State<ChatHistory> {
   void initState() {
     chatapi = new ChatAPI(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
-    a.getUserPostList().then((posts) {
+    a.getUserPostList().then((posts){
       posts.forEach((Post post) {
         r_id.add(post.roomId);
         r_msg.add(post.text);
-      });
+       });
     });
     // print("ok");
     // print(widget.auth.getBearer());
@@ -52,21 +52,21 @@ class _ChatHistory extends State<ChatHistory> {
 
     chatapi.getChatHistory().then((Map history) => {
           history.forEach((roomId, value) {
-            int d = -1;
-            d = r_id.indexOf(roomId);
-            if (d != -1) {
-              setState(() {
-                chathis.add(ListTile(
-                  title: Text(r_msg[d]),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChatDemo(roomId, widget.auth)),
-                    );
-                  },
-                ));
-              });
+            int d=-1;
+            d=r_id.indexOf(roomId);
+            if(d!=-1){
+               setState(() {
+              chathis.add(ListTile(
+                title: Text(r_msg[d]),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatDemo(roomId, widget.auth)),
+                  );
+                },
+              ));
+            });
             }
             // setState(() {
             //   chathis.add(ListTile(
@@ -101,7 +101,6 @@ class _ChatHistory extends State<ChatHistory> {
     return Scaffold(
       appBar: AppBar(
         title: Text("チャット"),
-        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: <Widget>[

@@ -212,11 +212,11 @@ class _Home extends State<Home> {
 
     }else if(index==1){
       //go to chatlog
-      Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatHistory(widget.auth)),
-                );
+      // Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //                 builder: (context) => ChatHistory(widget.auth)),
+      //           );
     }
         },        
       ),

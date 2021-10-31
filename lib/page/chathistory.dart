@@ -59,11 +59,7 @@ class _ChatHistory extends State<ChatHistory> {
             if(d!=-1){
                setState(() {
               chathis.add(ListTile(
-<<<<<<< HEAD
                 title: Text(r_msg[d]),
-=======
-                title: Text(roomId),
->>>>>>> 48a23badeef4f7394c272f7e4466ada9b89d11da
                 onTap: () {
                   Navigator.push(
                     context,

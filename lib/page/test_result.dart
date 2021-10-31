@@ -121,12 +121,13 @@ class _testresult extends State<test_result> {
       ),
       body: Column(children: <Widget>[
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          
+          mainAxisAlignment: MainAxisAlignment.center,
           //children: <Widget>[Text("test")],
         ),
         Container(
-          height: 600,
-          width: 400,
+          height: 500,
+          width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: post_test.length,

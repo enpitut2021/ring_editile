@@ -7,6 +7,8 @@ import 'package:ring_sns/page/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:adhara_socket_io/adhara_socket_io.dart';
+import 'package:ring_sns/api/cupyAPI.dart';
 
 class Usersetting extends StatefulWidget {
   //ここにイニシャライザを書く
@@ -22,7 +24,7 @@ class _Usersetting extends State<Usersetting> {
   String nickname = '';
   String profile_text = '';
   String hobby = '';
-
+  String _imageUrl;
   String _nickname = '';
   String _profile_text = '';
   String _hobby = '';
@@ -76,43 +78,42 @@ class _Usersetting extends State<Usersetting> {
       body: Container(
         width: double.infinity,
         child: Column(
-          children: [
-            Text(''),
-            CircleAvatar(
-              radius: 60,
-              // child: _image == null ? NetworkImage(widget.auth.getUserBackgroundURL()) : Image.file(_image),
-              backgroundImage: _image == null
-                  ? NetworkImage(widget.auth.getUserBackgroundURL())
-                  : Image.file(_image),
-              // NetworkImage(
-              //     widget.auth.getUserBackgroundURL()),
-            ),
-            //  以下、写真取り込み機能のためのフォーマット（実装時間があれば）
-            // Positioned(
-            //     bottom: 0,
-            //     right: -25,
-            //     child:
-            Text(''),
-            RawMaterialButton(
-              onPressed: () {
-                n_getImage();
-                //getImage();
-                print("click");
-              },
-              //写真取り込み機能はここに
-              elevation: 2.0,
-              fillColor: Color(0xFFF5F6F9),
-              child: Icon(
-                Icons.camera_alt_outlined,
-                color: Colors.blue,
+          children: <Widget>[
+            Container(
+                width: 150,
+                height: 150,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                margin: const EdgeInsets.only(top: 30),
+                child: _displaySelectionImageOrGrayImage()),
+            Container(
+              width: 144,
+              height: 50,
+              margin: const EdgeInsets.only(top: 47),
+              decoration: BoxDecoration(
+                color: const Color(0xfffa4269),
+                border: Border.all(
+                  width: 2,
+                  color: const Color(0xff000000),
+                ),
+                borderRadius: BorderRadius.circular(15),
               ),
-              padding: EdgeInsets.all(15.0),
-              shape: CircleBorder(),
-            )
-            //)
-            ,
-            Text(''),
-            Text(''),
+              child: FlatButton(
+                onPressed: () => _getImageFromGallery(),
+                child: const Text(
+                  '写真を選ぶ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xffffffff),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                    height: 1.2,
+                  ),
+                ),
+              ),
+            ),
+            Text(""),
             TextField(
               controller: TextEditingController(text: _nickname),
               decoration: InputDecoration(
@@ -223,5 +224,63 @@ class _Usersetting extends State<Usersetting> {
         ),
       ),
     );
+  }
+
+  Widget _displaySelectionImageOrGrayImage() {
+    if (_imageUrl == null) {
+      return Container(
+        decoration: BoxDecoration(
+          color: const Color(0xffdfdfdf),
+          border: Border.all(
+            width: 2,
+            color: const Color(0xff000000),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: const Color(0xff000000),
+          ),
+        ),
+        child: ClipRRect(
+          child: Image.network(
+            _imageUrl,
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _displayInSelectedImage() {
+    if (_imageUrl == null) {
+      return Column();
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 20, right: 20),
+              child: InkWell(
+                child: Image.asset(
+                  'assets/images/ic_send.png',
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
+  Future _getImageFromGallery() async {
+    CupyAPI b = new CupyAPI(widget.auth.getBearer());
+    String imageUrl = await b.uploadImageWithPicker();
+    setState(() => _imageUrl = imageUrl);
   }
 }

@@ -9,6 +9,7 @@ import 'package:ring_sns/api/accountAPI.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:ring_sns/api/cupyAPI.dart';
+import 'package:geolocator/geolocator.dart';
 
 class test extends StatefulWidget {
   test(this.auth);
@@ -24,6 +25,24 @@ class _test extends State<test> {
   // File _image;
   String _imageUrl;
   final _picker = ImagePicker();
+  String _location= "nodata";
+
+  Future<void> getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high
+    );
+    print("緯度: " + position.latitude.toString());
+    print("経度: " + position.longitude.toString());
+    print(position);
+    setState(() {
+      _location = position.toString();
+    });
+  }
+
+  void initState(){
+    getLocation();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +114,9 @@ class _test extends State<test> {
             Text(
               widget.e_msg,
               style: TextStyle(color: Colors.red),
+            ),
+            Text(
+              "$_location,"
             ),
             RaisedButton(
                 child: Text('投稿'),

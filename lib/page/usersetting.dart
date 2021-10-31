@@ -85,7 +85,7 @@ class _Usersetting extends State<Usersetting> {
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                 ),
-                margin: const EdgeInsets.only(top: 90),
+                margin: const EdgeInsets.only(top: 30),
                 child: _displaySelectionImageOrGrayImage()),
             Container(
               width: 144,

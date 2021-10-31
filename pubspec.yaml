@@ -35,7 +35,7 @@ dependencies:
   image_picker: ^0.8.2
   speech_bubble: ^0.0.5
   image_cropper: ^1.4.1
-  geolocator: ^7.0.3
+  geolocator: ^7.7.1
 
 dev_dependencies:
   flutter_test:

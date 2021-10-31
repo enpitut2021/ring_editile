@@ -8,6 +8,7 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/page/test_result.dart';
+import 'package:ring_sns/api/accountAPI.dart';
 
 class ChatHistory extends StatefulWidget {
   ChatHistory(this.auth);
@@ -22,6 +23,8 @@ class ChatHistory extends StatefulWidget {
 class _ChatHistory extends State<ChatHistory> {
   @override
   List<ListTile> chathis = [];
+  List<String> r_id=[];
+  List<String> r_msg=[];
   ChatAPI chatapi;
 
   void chathistory_update(String chatroom_id) {
@@ -36,15 +39,25 @@ class _ChatHistory extends State<ChatHistory> {
   @override
   void initState() {
     chatapi = new ChatAPI(widget.auth.getBearer());
+    AccountAPI a = new AccountAPI(widget.auth.getBearer());
+    a.getUserPostList().then((posts){
+      posts.forEach((Post post) {
+        r_id.add(post.roomId);
+        r_msg.add(post.text);
+       });
+    });
     // print("ok");
     // print(widget.auth.getBearer());
     // chatapi.getChatHistory();
 
     chatapi.getChatHistory().then((Map history) => {
           history.forEach((roomId, value) {
-            setState(() {
+            int d=-1;
+            d=r_id.indexOf(roomId);
+            if(d!=-1){
+               setState(() {
               chathis.add(ListTile(
-                title: Text(roomId),
+                title: Text(r_msg[d]),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -54,6 +67,19 @@ class _ChatHistory extends State<ChatHistory> {
                 },
               ));
             });
+            }
+            // setState(() {
+            //   chathis.add(ListTile(
+            //     title: Text(widget.msg),
+            //     onTap: () {
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (context) => ChatDemo(roomId, widget.auth)),
+            //       );
+            //     },
+            //   ));
+            // });
           })
         });
 

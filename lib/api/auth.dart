@@ -25,6 +25,9 @@ class Auth extends API {
 
   String getDescription() => _user.profileText;
 
+  String getUserThumbnailURL() =>
+      'https://restapi-editile.p0x0q.com/api/images/user/thumbnail/user/${_user.user.toString()}/show?i';
+
   String getUserBackgroundURL() =>
       'https://restapi-editile.p0x0q.com/api/images/user/background/user/${_user.user.toString()}/show?i';
   String getUserIdBackgroundURL(String target_userid) =>

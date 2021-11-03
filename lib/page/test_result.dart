@@ -122,6 +122,7 @@ class _testresult extends State<test_result> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lime[100],
       appBar: AppBar(
         title: Text("投稿一覧画面"),
         automaticallyImplyLeading: false,
@@ -142,23 +143,38 @@ class _testresult extends State<test_result> {
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => test(widget.auth)),
-          );
-        },
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+          
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => test(widget.auth)),
+      //     );
+      //   },
+      // ),
       body: Column(children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           //children: <Widget>[Text("test")],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(onPressed: (){}, 
+            icon: Icon(Icons.article_rounded),iconSize: 50,),
+            IconButton(onPressed: (){
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChatHistory(widget.auth)),
+            );
+            }, 
+            icon: Icon(Icons.chat),iconSize: 50,),
+          ],
+        ),
         Container(
-          height: 600,
+          height: 500,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,
@@ -167,57 +183,87 @@ class _testresult extends State<test_result> {
                 _buildButtonTileView(post_test[index], index),
           ),
         ),
-        Column(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // IconButton(
-            //     onPressed: () {
-            //       setState(() {
-            //         this.Press = !this.Press;
-            //         this._iconcolor = this.Press ? Colors.red : Colors.black;
-            //       });
-            //     },
-            //     icon: Icon(Icons.favorite, color: this._iconcolor))
-          ],
-        )
+            FloatingActionButton(
+              backgroundColor: Colors.white,
+              child: Icon(Icons.add_location_rounded,size: 30,color: Colors.black,),
+              onPressed: (){
+                Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => test(widget.auth)),
+          );
+              },
+              )
+          ],),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              FloatingActionButton(
+              backgroundColor: Colors.black,
+              child: Icon(Icons.auto_stories_rounded,size: 40,color: Colors.white,),
+              onPressed: (){
+                Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => test(widget.auth)),
+          );
+              },),
+              FloatingActionButton(
+              backgroundColor: Colors.black,
+              child: Icon(Icons.border_color_outlined,size: 40,color: Colors.white,),
+              onPressed: (){
+                Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => test(widget.auth)),
+          );
+              },),
+            ],
+          )
       ]),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.blue[900],
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-            backgroundColor: Colors.blue[900],
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.cyan[400],
-        onTap: (int index) {
-          //_selectedIndex=index;
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => test(widget.auth)),
-            );
-            //go to home
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //       backgroundColor: Colors.blue[900],
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.chat),
+      //       label: 'Chat',
+      //       backgroundColor: Colors.blue[900],
+      //     ),
+      //   ],
+      //   currentIndex: 0,
+      //   selectedItemColor: Colors.cyan[400],
+      //   onTap: (int index) {
+      //     //_selectedIndex=index;
+      //     if (index == 0) {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => test(widget.auth)),
+      //       );
+      //       //go to home
 
-          } else if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChatHistory(widget.auth)),
-            );
-          }
-        },
-      ),
+      //     } else if (index == 1) {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => ChatHistory(widget.auth)),
+      //       );
+      //     }
+      //   },
+      // ),
     );
   }
 
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
-      child: Column(
+      color: Colors.brown[100],
+      child: InkWell(
+        //onTap: (){},
+        onDoubleTap: (){},
+
+        child: Column(
         children: <Widget>[
           title,
           Row(
@@ -256,6 +302,49 @@ class _testresult extends State<test_result> {
           ),
         ],
       ),
-    );
+      ),
+      
+      
+      // child: Column(
+      //   children: <Widget>[
+      //     title,
+      //     Row(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         IconButton(
+      //           icon: Icon(Icons.chat),
+      //           onPressed: () {
+      //             Navigator.push(
+      //               context,
+      //               MaterialPageRoute(
+      //                   builder: (context) =>
+      //                       ChatDemo(roomid[index], widget.auth)),
+      //             );
+      //           },
+      //         ),
+      //         IconButton(
+      //           onPressed: () {
+      //             AccountAPI a = new AccountAPI(widget.auth.getBearer());
+
+      //             a.getUserNumInfo(1).then((User user) {
+      //               print("1");
+      //               print(user.nickname);
+      //             });
+
+      //             setState(() {
+      //               //print(postIds[index]);
+      //               post_press[index] = !post_press[index];
+      //             });
+      //             a.postUserLikePost(postIds[index], post_press[index]);
+      //           },
+      //           icon: Icon(Icons.favorite,
+      //               color: post_press[index] ? Colors.red : Colors.black),
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
+    )
+    ;
   }
 }

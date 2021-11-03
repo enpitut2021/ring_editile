@@ -12,7 +12,7 @@ import 'package:image_cropper/image_cropper.dart';
 
 class Usersetting extends StatefulWidget {
   //ここにイニシャライザを書く
-  Usersetting(this.auth);
+  Usersetting(this.auth,this.reload);
   Auth auth;
   final Function reload;
   @override

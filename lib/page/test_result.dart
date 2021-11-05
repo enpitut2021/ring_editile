@@ -55,8 +55,22 @@ class _testresult extends State<test_result> {
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
           post_test.add(Column(
-            children: [
-              // Image.network('https://picsum.photos/250?image=9%27),
+            children: <Widget>[
+              FittedBox(
+                child: Container(
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    shape: BoxShape.circle,
+                    // border: Border.all(color: Colors.white30, width: 6),
+                    // image: DecorationImage(
+                    //   fit: BoxFit.fill,
+                    //   image: NetworkImage(imageUrl),
+                    // ),
+                  ),
+                ),
+              ),
               Image.network(
                 post.imageUrl,
                 errorBuilder: (c, o, s) {
@@ -86,11 +100,11 @@ class _testresult extends State<test_result> {
           setState(() {});
         });
       });
-      a.getUserLikeList().then((p_like){
+      a.getUserLikeList().then((p_like) {
         p_like.forEach((PostLike p) {
           print(p.postId);
-          if(postIds.indexOf(p.postId)!=-1){
-            post_press[postIds.indexOf(p.postId)]=true;
+          if (postIds.indexOf(p.postId) != -1) {
+            post_press[postIds.indexOf(p.postId)] = true;
           }
           setState(() {});
         });

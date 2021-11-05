@@ -267,8 +267,14 @@ class _Usersetting extends State<Usersetting> {
     // }
 
     CupyAPI b = new CupyAPI(widget.auth.getBearer());
-    String imageUrl = await b.uploadImageWithPicker(false, "images/upload/user");
-    setState(() => {});
+    String imageUrl = await b.callImagePicker();
+    AccountAPI a = new AccountAPI(widget.auth.getBearer());
+    a.uploadUserIcon(imageUrl).then((value) => {
+      widget.auth.reloadUser().then((value) => {
+        setState(() => {})
+      })
+    });
+    
 
     // Widget _displaySelectionImageOrGrayImage() {
     //   if (_imageUrl == null) {

@@ -3,22 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/api/API.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/api/accountAPI.dart';
+import 'package:ring_sns/api/cupyAPI.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
-import 'package:ring_sns/api/cupyAPI.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class Usersetting extends StatefulWidget {
   //ここにイニシャライザを書く
-  Usersetting(this.auth);
+  Usersetting(@required this.auth, this.reload);
   Auth auth;
+  final Function reload;
   @override
   State<StatefulWidget> createState() => _Usersetting();
 }
 
 class _Usersetting extends State<Usersetting> {
+  final GlobalKey<ScaffoldState> _scaffoldstate = GlobalKey<ScaffoldState>();
   // Auth auth;
   // Auth auth = new Auth();
   String nickname = '';
@@ -29,6 +32,7 @@ class _Usersetting extends State<Usersetting> {
   String _profile_text = '';
   String _hobby = '';
   String test;
+  bool _loading = false;
 
   AccountAPI _accountAPI;
 
@@ -45,16 +49,16 @@ class _Usersetting extends State<Usersetting> {
     print("a");
   }
 
-  getImage() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
-  }
+  // getImage() async {
+  //   PickedFile pickedFile = await ImagePicker().getImage(
+  //     source: ImageSource.gallery,
+  //   );
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _image = File(pickedFile.path);
+  //     });
+  //   }
+  // }
 
   @override
   void initState() {
@@ -86,7 +90,7 @@ class _Usersetting extends State<Usersetting> {
                   shape: BoxShape.circle,
                 ),
                 margin: const EdgeInsets.only(top: 30),
-                child: _displaySelectionImageOrGrayImage()),
+                child: widget.auth.getUserIcon()),
             Container(
               width: 144,
               height: 50,
@@ -100,7 +104,7 @@ class _Usersetting extends State<Usersetting> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: FlatButton(
-                onPressed: () => _getImageFromGallery(),
+                onPressed: () => _uploadUserIcon(),
                 child: const Text(
                   '写真を選ぶ',
                   textAlign: TextAlign.center,
@@ -226,61 +230,108 @@ class _Usersetting extends State<Usersetting> {
     );
   }
 
-  Widget _displaySelectionImageOrGrayImage() {
-    if (_imageUrl == null) {
-      return Container(
-        decoration: BoxDecoration(
-          color: const Color(0xffdfdfdf),
-          border: Border.all(
-            width: 2,
-            color: const Color(0xff000000),
-          ),
-        ),
-      );
-    } else {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 2,
-            color: const Color(0xff000000),
-          ),
-        ),
-        child: ClipRRect(
-          child: Image.network(
-            _imageUrl,
-            fit: BoxFit.fill,
-          ),
-        ),
-      );
-    }
-  }
-
-  Widget _displayInSelectedImage() {
-    if (_imageUrl == null) {
-      return Column();
-    } else {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 20, right: 20),
-              child: InkWell(
-                child: Image.asset(
-                  'assets/images/ic_send.png',
-                ),
-              ),
-            ),
-          ),
+  Future<File> _imageCrop(PickedFile image) async {
+    return ImageCropper.cropImage(
+        sourcePath: image.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
         ],
-      );
-    }
+        androidUiSettings: AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.deepOrange,
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        iosUiSettings: IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ));
   }
 
-  Future _getImageFromGallery() async {
+  void _uploadUserIcon() async {
+    // final PickedFile image =
+    //     await ImagePicker().getImage(source: ImageSource.gallery);
+    // if (image == null) return;
+    // File croppedImage = await _imageCrop(image);
+    // final String code = await _accountAPI.uploadUserIcon(croppedImage.path);
+    // if (code == 'ok') {
+    //   _scaffoldstate.currentState.showSnackBar(
+    //       SnackBar(content: Text('画像をアップロードしました\n(反映には時間がかかることがあります)')));
+    //   if (widget.reload != null) widget.reload();
+    // } else {
+    //   _scaffoldstate.currentState
+    //       .showSnackBar(SnackBar(content: Text('画像のアップロードに失敗しました')));
+    // }
+
     CupyAPI b = new CupyAPI(widget.auth.getBearer());
-    String imageUrl = await b.uploadImageWithPicker();
-    setState(() => _imageUrl = imageUrl);
+    String imageUrl = await b.callImagePicker();
+    AccountAPI a = new AccountAPI(widget.auth.getBearer());
+    a.uploadUserIcon(imageUrl).then((value) => {
+      widget.auth.reloadUser().then((value) => {
+        setState(() => {})
+      })
+    });
+    
+
+    // Widget _displaySelectionImageOrGrayImage() {
+    //   if (_imageUrl == null) {
+    //     return Container(
+    //       decoration: BoxDecoration(
+    //         color: const Color(0xffdfdfdf),
+    //         border: Border.all(
+    //           width: 2,
+    //           color: const Color(0xff000000),
+    //         ),
+    //       ),
+    //     );
+    //   } else {
+    //     return Container(
+    //       decoration: BoxDecoration(
+    //         border: Border.all(
+    //           width: 2,
+    //           color: const Color(0xff000000),
+    //         ),
+    //       ),
+    //       child: ClipRRect(
+    //         child: Image.network(
+    //           _imageUrl,
+    //           fit: BoxFit.fill,
+    //         ),
+    //       ),
+    //     );
+    //   }
+    // }
+
+    // Widget _displayInSelectedImage() {
+    //   if (_imageUrl == null) {
+    //     return Column();
+    //   } else {
+    //     return Column(
+    //       mainAxisAlignment: MainAxisAlignment.end,
+    //       children: <Widget>[
+    //         Align(
+    //           alignment: Alignment.topRight,
+    //           child: Container(
+    //             margin: const EdgeInsets.only(bottom: 20, right: 20),
+    //             child: InkWell(
+    //               child: Image.asset(
+    //                 'assets/images/ic_send.png',
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     );
+    //   }
+    // }
+
+    // Future _getImageFromGallery() async {
+    //   AccountAPI b = new AccountAPI(widget.auth.getBearer());
+    //   String imageUrl = await b.uploadUserIcon();
+    //   setState(() => _imageUrl = imageUrl);
+    // }
   }
 }

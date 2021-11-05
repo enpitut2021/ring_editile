@@ -70,7 +70,18 @@ class CupyAPI extends API {
           minimumAspectRatio: 1.0,
         ));
   }
-
+  Future<String> callImagePicker({bool clop = false}) async{
+    PickedFile imageFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    if (imageFile == null) return '';
+    String imagePath = imageFile.path;
+    if (clop) {
+      File cloppedImageFile = await _imageCrop(imagePath);
+      if (cloppedImageFile == null) return '';
+      imagePath = cloppedImageFile.path;
+    }
+    return imagePath;
+  }
   Future<String> uploadImageWithPicker({bool clop = false}) async {
     PickedFile imageFile =
         await ImagePicker().getImage(source: ImageSource.gallery);

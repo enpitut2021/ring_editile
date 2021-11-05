@@ -137,7 +137,7 @@ class _testresult extends State<test_result> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Usersetting(widget.auth)),
+              MaterialPageRoute(builder: (context) => Usersetting(widget.auth, null)),
             );
           },
         ),

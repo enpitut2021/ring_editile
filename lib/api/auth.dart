@@ -16,6 +16,11 @@ class Auth extends API {
   AuthStatus getAuthStatus() => authStatus;
 
   User getUser() => _user;
+  Future<bool> reloadUser() async {
+    User u = await getCurrentUser();
+    _user = u;
+    return true;
+  }
 
   String getHobby() => _user.hobby;
 

@@ -5,6 +5,7 @@ import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ring_sns/page/test_result.dart';
+import 'package:ring_sns/page/GoogleAuth.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -25,12 +26,11 @@ class _test extends State<test> {
   // File _image;
   String _imageUrl;
   final _picker = ImagePicker();
-  String _location= "nodata";
+  String _location = "nodata";
 
   Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high
-    );
+        desiredAccuracy: LocationAccuracy.high);
     print("緯度: " + position.latitude.toString());
     print("経度: " + position.longitude.toString());
     print(position);
@@ -39,9 +39,8 @@ class _test extends State<test> {
     });
   }
 
-  void initState(){
+  void initState() {
     getLocation();
-    
   }
 
   @override
@@ -115,9 +114,7 @@ class _test extends State<test> {
               widget.e_msg,
               style: TextStyle(color: Colors.red),
             ),
-            Text(
-              "$_location,"
-            ),
+            Text("$_location,"),
             RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
@@ -137,15 +134,14 @@ class _test extends State<test> {
                     });
                   }
                 }),
-            // RaisedButton(
-            //     child: Text('投稿一覧画面へ'),
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) => test_result(widget.auth)),
-            //       );
-            //     }),
+            RaisedButton(
+                child: Text('Googleでログインはこちら'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GoogleAuth()),
+                  );
+                }),
           ],
         ),
       ),

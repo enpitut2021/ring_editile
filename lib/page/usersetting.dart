@@ -32,6 +32,7 @@ class _Usersetting extends State<Usersetting> {
   String _profile_text = '';
   String _hobby = '';
   String test;
+  List<Widget> post_own = [];
   bool _loading = false;
 
   AccountAPI _accountAPI;
@@ -62,6 +63,30 @@ class _Usersetting extends State<Usersetting> {
 
   @override
   void initState() {
+    _accountAPI = AccountAPI(widget.auth.getBearer());
+    _accountAPI.getUserPostList().then((posts) {
+      posts.forEach((Post p) { 
+        
+        post_own.add(
+          Column(children: [
+             Image.network(
+                p.imageUrl,
+                errorBuilder: (c, o, s) {
+                  return Text("[画像がありません]");
+                },
+              ),
+              Text(p.text),
+          ],)
+        );
+        setState(() {
+          
+        });
+        
+        
+      });
+    }
+    );
+    
     //for sen
     setState(() {
       _nickname = widget.auth.getNickname();
@@ -71,7 +96,8 @@ class _Usersetting extends State<Usersetting> {
       profile_text = _profile_text;
       hobby = _hobby;
     });
-    _accountAPI = AccountAPI(widget.auth.getBearer());
+    
+      
     print(widget.auth.getUserBackgroundURL());
   }
 
@@ -135,52 +161,52 @@ class _Usersetting extends State<Usersetting> {
                 print('nickname:$nickname');
               },
             ),
-            Text(''),
-            TextField(
-              controller: TextEditingController(text: _profile_text),
-              decoration: InputDecoration(
-                hintText: 'ひとこと',
-                labelText: 'ひとこと',
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      color: Colors.blueGrey[200],
-                    )),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                    )),
-              ),
-              onChanged: (text) {
-                profile_text = text;
-                print('profile_text:$profile_text');
-              },
-            ),
-            Text(''),
-            TextField(
-              controller: TextEditingController(text: _hobby),
-              decoration: InputDecoration(
-                hintText: '趣味をスペース区切りで入力',
-                labelText: '趣味をスペースで区切りで入力',
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      color: Colors.blueGrey[200],
-                    )),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                    )),
-              ),
-              onChanged: (text) {
-                hobby = text;
-                print('hobby:$hobby');
-              },
-            ),
-            Text(''),
-            Text(''),
+            // Text(''),
+            // TextField(
+            //   controller: TextEditingController(text: _profile_text),
+            //   decoration: InputDecoration(
+            //     hintText: 'ひとこと',
+            //     labelText: 'ひとこと',
+            //     enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //         borderSide: BorderSide(
+            //           color: Colors.blueGrey[200],
+            //         )),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //         borderSide: BorderSide(
+            //           color: Colors.blue,
+            //         )),
+            //   ),
+            //   onChanged: (text) {
+            //     profile_text = text;
+            //     print('profile_text:$profile_text');
+            //   },
+            // ),
+            // Text(''),
+            // TextField(
+            //   controller: TextEditingController(text: _hobby),
+            //   decoration: InputDecoration(
+            //     hintText: '趣味をスペース区切りで入力',
+            //     labelText: '趣味をスペースで区切りで入力',
+            //     enabledBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //         borderSide: BorderSide(
+            //           color: Colors.blueGrey[200],
+            //         )),
+            //     focusedBorder: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(30),
+            //         borderSide: BorderSide(
+            //           color: Colors.blue,
+            //         )),
+            //   ),
+            //   onChanged: (text) {
+            //     hobby = text;
+            //     print('hobby:$hobby');
+            //   },
+            // ),
+            // Text(''),
+            // Text(''),
             ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 100, height: 50),
               child: ElevatedButton(
@@ -207,6 +233,16 @@ class _Usersetting extends State<Usersetting> {
                     });
                   }),
             ),
+            Container(
+          height: 300,
+          width: double.maxFinite,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: post_own.length,
+            itemBuilder: (BuildContext context, int index) =>
+                _buildButtonTileView(post_own[index], index),
+          ),
+        ),
             // RaisedButton(
             //     onPressed: () async {
             //       AccountAPI account = new AccountAPI(widget.auth.getBearer());
@@ -230,6 +266,76 @@ class _Usersetting extends State<Usersetting> {
     );
   }
 
+  Widget _buildButtonTileView(Widget title, int index) {
+    return Card(
+      color: Colors.brown[100],
+      child: InkWell(
+        //onTap: (){},
+        onDoubleTap: (){},
+
+        child: Column(
+        children: <Widget>[
+          title,
+          
+        ],
+      ),
+      ),
+      
+      
+     
+    )
+    ;
+  }
+
+
+  Widget _displaySelectionImageOrGrayImage() {
+    if (_imageUrl == null) {
+      return Container(
+        decoration: BoxDecoration(
+          color: const Color(0xffdfdfdf),
+          border: Border.all(
+            width: 2,
+            color: const Color(0xff000000),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: const Color(0xff000000),
+          ),
+        ),
+        child: ClipRRect(
+          child: Image.network(
+            _imageUrl,
+            fit: BoxFit.fill,
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _displayInSelectedImage() {
+    if (_imageUrl == null) {
+      return Column();
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 20, right: 20),
+              child: InkWell(
+                child: Image.asset(
+                  'assets/images/ic_send.png',
+                ),
+              ),
+            ),
+          ),
+=======
   Future<File> _imageCrop(PickedFile image) async {
     return ImageCropper.cropImage(
         sourcePath: image.path,

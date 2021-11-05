@@ -187,13 +187,11 @@ class _testresult extends State<test_result> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             FloatingActionButton(
+              heroTag: "1",
               backgroundColor: Colors.white,
               child: Icon(Icons.add_location_rounded,size: 30,color: Colors.black,),
               onPressed: (){
-                Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => test(widget.auth)),
-          );
+                
               },
               )
           ],),
@@ -201,15 +199,14 @@ class _testresult extends State<test_result> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FloatingActionButton(
+                heroTag: "2",
               backgroundColor: Colors.black,
               child: Icon(Icons.auto_stories_rounded,size: 40,color: Colors.white,),
               onPressed: (){
-                Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => test(widget.auth)),
-          );
+                
               },),
               FloatingActionButton(
+                heroTag: "3",
               backgroundColor: Colors.black,
               child: Icon(Icons.border_color_outlined,size: 40,color: Colors.white,),
               onPressed: (){

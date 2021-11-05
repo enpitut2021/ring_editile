@@ -167,6 +167,16 @@ class AccountAPI extends API {
     });
     return postList;
   }
+  Future<List<Post>> getUserPostMyList() async {
+    String url = 'user/post/user';
+    dynamic response = await getRequest(url);
+    if (response == null) return [];
+    List<Post> postList = [];
+    response["data"].forEach((post) {
+      postList.add(Post(post));
+    });
+    return postList;
+  }
 
   Future<dynamic> postUserPost(String text, String imageUrl) async {
     String url = 'user/post/manage';

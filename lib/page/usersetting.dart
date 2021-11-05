@@ -64,7 +64,7 @@ class _Usersetting extends State<Usersetting> {
   @override
   void initState() {
     _accountAPI = AccountAPI(widget.auth.getBearer());
-    _accountAPI.getUserPostList().then((posts) {
+    _accountAPI.getUserPostMyList().then((posts) {
       posts.forEach((Post p) { 
         
         post_own.add(
@@ -334,8 +334,10 @@ class _Usersetting extends State<Usersetting> {
                 ),
               ),
             ),
-          ),
-=======
+          )
+        ]);
+    }
+  }
   Future<File> _imageCrop(PickedFile image) async {
     return ImageCropper.cropImage(
         sourcePath: image.path,

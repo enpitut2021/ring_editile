@@ -58,25 +58,59 @@ class _testresult extends State<test_result> {
             children: <Widget>[
               FittedBox(
                 child: Container(
-                  width: 100.0,
-                  height: 100.0,
+                  width: 1000.0,
+                  height: 1500.0,
+                  // child: Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     IconButton(
+                  //       icon: Icon(Icons.chat),
+                  //       onPressed: () {
+                  //         Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) =>
+                  //                   ChatDemo(roomid[index], widget.auth)),
+                  //         );
+                  //       },
+                  //     ),
+                  //     IconButton(
+                  //       onPressed: () {
+                  //         AccountAPI a =
+                  //             new AccountAPI(widget.auth.getBearer());
+
+                  //         a.getUserNumInfo(1).then((User user) {
+                  //           print("1");
+                  //           print(user.nickname);
+                  //         });
+
+                  //         setState(() {
+                  //           //print(postIds[index]);
+                  //           post_press[index] = !post_press[index];
+                  //         });
+                  //         a.postUserLikePost(postIds[index], post_press[index]);
+                  //       },
+                  //       icon: Icon(Icons.favorite,
+                  //           color:
+                  //               post_press[index] ? Colors.red : Colors.black),
+                  //     ),
+                  //   ],
+                  // ),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    shape: BoxShape.circle,
-                    // border: Border.all(color: Colors.white30, width: 6),
-                    // image: DecorationImage(
-                    //   fit: BoxFit.fill,
-                    //   image: NetworkImage(imageUrl),
-                    // ),
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(post.imageUrl),
+                    ),
                   ),
                 ),
               ),
-              Image.network(
-                post.imageUrl,
-                errorBuilder: (c, o, s) {
-                  return Text("[画像がありません]");
-                },
-              ),
+              // Image.network(
+              //   post.imageUrl,
+              //   errorBuilder: (c, o, s) {
+              //     return Text("[画像がありません]");
+              //   },
+              // ),
               Text(u_id + ": " + post.text),
             ],
           ));
@@ -156,16 +190,16 @@ class _testresult extends State<test_result> {
           },
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => test(widget.auth)),
-          );
-        },
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.add),
+      //   onPressed: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => test(widget.auth)),
+      //     );
+      //   },
+      // ),
       body: Column(children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,

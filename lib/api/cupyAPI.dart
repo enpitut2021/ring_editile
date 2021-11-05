@@ -30,8 +30,8 @@ class CupyAPI extends API {
     }
   }
 
-  Future<String> _uploadImage(String imageFilePath) async {
-    String url = 'images/upload/cupy';
+  Future<String> _uploadImage(String imageFilePath,[String url = 'images/upload/cupy']) async {
+    // String url = ;
     FormData formData = FormData.fromMap({
       'name': 'image_file',
       'image_file': await MultipartFile.fromFile(
@@ -71,7 +71,7 @@ class CupyAPI extends API {
         ));
   }
 
-  Future<String> uploadImageWithPicker({bool clop = false}) async {
+  Future<String> uploadImageWithPicker([bool clop = false, String url = 'images/upload/cupy']) async {
     PickedFile imageFile =
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (imageFile == null) return '';
@@ -81,6 +81,6 @@ class CupyAPI extends API {
       if (cloppedImageFile == null) return '';
       imagePath = cloppedImageFile.path;
     }
-    return await _uploadImage(imagePath);
+    return await _uploadImage(imagePath, url);
   }
 }

@@ -54,18 +54,42 @@ class _testresult extends State<test_result> {
         print(post.imageUrl);
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
-          post_test.add(Column(
-            children: [
-              // Image.network('https://picsum.photos/250?image=9%27),
-              Image.network(
-                post.imageUrl,
-                errorBuilder: (c, o, s) {
-                  return Text("[画像がありません]");
-                },
-              ),
-              Text(u_id + ": " + post.text),
-            ],
-          ));
+          if (post.imageUrl != "") {
+            post_test.add(Column(
+              children: <Widget>[
+                FittedBox(
+                  child: Container(
+                    width: 1000.0,
+                    height: 800.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(post.imageUrl),
+                      ),
+                    ),
+                  ),
+                ),
+                // Image.network(
+                //   post.imageUrl,
+                //   errorBuilder: (c, o, s) {
+                //     return Text("[画像がありません]");
+                //   },
+                // ),
+                Text(u_id + ": " + post.text),
+              ],
+            ));
+          } else {
+            post_test.add(Column(
+              children: <Widget>[
+                Container(
+                  height: 400,
+                  alignment: Alignment.center,
+                  child: Text(u_id + ": " + post.text),
+                ),
+              ],
+            ));
+          }
           postIds.add(post.postId);
           post_msg.add(post.text);
           print("roomid is");
@@ -148,7 +172,6 @@ class _testresult extends State<test_result> {
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.add),
       //   onPressed: () {
-
       //     Navigator.push(
       //       context,
       //       MaterialPageRoute(builder: (context) => test(widget.auth)),
@@ -275,11 +298,9 @@ class _testresult extends State<test_result> {
 
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
-      color: Colors.brown[100],
+     color: Colors.brown[100],
       child: InkWell(
-        //onTap: (){},
-        onDoubleTap: () {},
-
+        onTap: () {},
         child: Column(
           children: <Widget>[
             title,
@@ -305,7 +326,6 @@ class _testresult extends State<test_result> {
                       print("1");
                       print(user.nickname);
                     });
-
                     setState(() {
                       //print(postIds[index]);
                       post_press[index] = !post_press[index];

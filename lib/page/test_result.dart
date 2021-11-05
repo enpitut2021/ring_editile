@@ -86,11 +86,11 @@ class _testresult extends State<test_result> {
           setState(() {});
         });
       });
-      a.getUserLikeList().then((p_like){
+      a.getUserLikeList().then((p_like) {
         p_like.forEach((PostLike p) {
           print(p.postId);
-          if(postIds.indexOf(p.postId)!=-1){
-            post_press[postIds.indexOf(p.postId)]=true;
+          if (postIds.indexOf(p.postId) != -1) {
+            post_press[postIds.indexOf(p.postId)] = true;
           }
           setState(() {});
         });
@@ -138,7 +138,8 @@ class _testresult extends State<test_result> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Usersetting(widget.auth, null)),
+              MaterialPageRoute(
+                  builder: (context) => Usersetting(widget.auth, null)),
             );
           },
         ),
@@ -147,7 +148,7 @@ class _testresult extends State<test_result> {
       // floatingActionButton: FloatingActionButton(
       //   child: Icon(Icons.add),
       //   onPressed: () {
-          
+
       //     Navigator.push(
       //       context,
       //       MaterialPageRoute(builder: (context) => test(widget.auth)),
@@ -162,15 +163,23 @@ class _testresult extends State<test_result> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(onPressed: (){}, 
-            icon: Icon(Icons.article_rounded),iconSize: 50,),
-            IconButton(onPressed: (){
-              Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChatHistory(widget.auth)),
-            );
-            }, 
-            icon: Icon(Icons.chat),iconSize: 50,),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.article_rounded),
+              iconSize: 50,
+              color: Colors.black,
+            ),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatHistory(widget.auth)),
+                  );
+                },
+                icon: Icon(Icons.chat),
+                iconSize: 50,
+                color: Colors.grey),
           ],
         ),
         Container(
@@ -189,34 +198,45 @@ class _testresult extends State<test_result> {
             FloatingActionButton(
               heroTag: "1",
               backgroundColor: Colors.white,
-              child: Icon(Icons.add_location_rounded,size: 30,color: Colors.black,),
-              onPressed: (){
-                
-              },
-              )
-          ],),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FloatingActionButton(
-                heroTag: "2",
-              backgroundColor: Colors.black,
-              child: Icon(Icons.auto_stories_rounded,size: 40,color: Colors.white,),
-              onPressed: (){
-                
-              },),
-              FloatingActionButton(
-                heroTag: "3",
-              backgroundColor: Colors.black,
-              child: Icon(Icons.border_color_outlined,size: 40,color: Colors.white,),
-              onPressed: (){
+              child: Icon(
+                Icons.add_location_rounded,
+                size: 30,
+                color: Colors.black,
+              ),
+              onPressed: () {},
+            )
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FloatingActionButton(
+              heroTag: "2",
+              backgroundColor: Colors.black87,
+              child: Icon(
+                Icons.auto_stories_rounded,
+                size: 40,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+            ),
+            FloatingActionButton(
+              heroTag: "3",
+              backgroundColor: Colors.black87,
+              child: Icon(
+                Icons.border_color_outlined,
+                size: 40,
+                color: Colors.white,
+              ),
+              onPressed: () {
                 Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => test(widget.auth)),
-          );
-              },),
-            ],
-          )
+                  context,
+                  MaterialPageRoute(builder: (context) => test(widget.auth)),
+                );
+              },
+            ),
+          ],
+        )
       ]),
       // bottomNavigationBar: BottomNavigationBar(
       //   items: <BottomNavigationBarItem>[
@@ -258,50 +278,49 @@ class _testresult extends State<test_result> {
       color: Colors.brown[100],
       child: InkWell(
         //onTap: (){},
-        onDoubleTap: (){},
+        onDoubleTap: () {},
 
         child: Column(
-        children: <Widget>[
-          title,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.chat),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ChatDemo(roomid[index], widget.auth)),
-                  );
-                },
-              ),
-              IconButton(
-                onPressed: () {
-                  AccountAPI a = new AccountAPI(widget.auth.getBearer());
+          children: <Widget>[
+            title,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.chat),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ChatDemo(roomid[index], widget.auth)),
+                    );
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                    AccountAPI a = new AccountAPI(widget.auth.getBearer());
 
-                  a.getUserNumInfo(1).then((User user) {
-                    print("1");
-                    print(user.nickname);
-                  });
+                    a.getUserNumInfo(1).then((User user) {
+                      print("1");
+                      print(user.nickname);
+                    });
 
-                  setState(() {
-                    //print(postIds[index]);
-                    post_press[index] = !post_press[index];
-                  });
-                  a.postUserLikePost(postIds[index], post_press[index]);
-                },
-                icon: Icon(Icons.favorite,
-                    color: post_press[index] ? Colors.red : Colors.black),
-              ),
-            ],
-          ),
-        ],
+                    setState(() {
+                      //print(postIds[index]);
+                      post_press[index] = !post_press[index];
+                    });
+                    a.postUserLikePost(postIds[index], post_press[index]);
+                  },
+                  icon: Icon(Icons.favorite,
+                      color: post_press[index] ? Colors.red : Colors.black),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      ),
-      
-      
+
       // child: Column(
       //   children: <Widget>[
       //     title,
@@ -341,7 +360,6 @@ class _testresult extends State<test_result> {
       //     ),
       //   ],
       // ),
-    )
-    ;
+    );
   }
 }

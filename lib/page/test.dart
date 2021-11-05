@@ -25,23 +25,26 @@ class _test extends State<test> {
   // File _image;
   String _imageUrl;
   final _picker = ImagePicker();
-  String _location= "nodata";
+  String _location = "nodata";
+  String _gps_latitude = "";
+  String _gps_longitude = "";
 
   Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high
-    );
+        desiredAccuracy: LocationAccuracy.high);
     print("緯度: " + position.latitude.toString());
     print("経度: " + position.longitude.toString());
+    _gps_latitude = position.latitude.toString();
+    _gps_longitude = position.longitude.toString();
+
     print(position);
     setState(() {
       _location = position.toString();
     });
   }
 
-  void initState(){
+  void initState() {
     getLocation();
-    
   }
 
   @override
@@ -115,16 +118,14 @@ class _test extends State<test> {
               widget.e_msg,
               style: TextStyle(color: Colors.red),
             ),
-            Text(
-              "$_location,"
-            ),
+            Text("$_location,"),
             RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
-                    a.postUserPost(widget.msg, _imageUrl).then((value) => {
+                    a.postUserPost(widget.msg, _imageUrl, _gps_latitude, _gps_longitude).then((value) => {
                           Navigator.push(
                             context,
                             MaterialPageRoute(

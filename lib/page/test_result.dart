@@ -146,27 +146,48 @@ class _testresult extends State<test_result> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lime[100],
       appBar: AppBar(
         title: Text("投稿一覧画面"),
         automaticallyImplyLeading: false,
-        leading: RaisedButton(
-          color: Colors.white,
-          shape: const CircleBorder(
-            side: BorderSide(
-              color: Colors.black,
-              width: 1,
-              style: BorderStyle.solid,
+        leading: Stack(
+          children: <Widget>[
+            CircleAvatar(
+              radius: 27.0,
+              backgroundImage: NetworkImage(
+              widget.auth.getUserBackgroundURL()),
             ),
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Usersetting(widget.auth, null)),
-            );
-          },
-        ),
+            RawMaterialButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Usersetting(widget.auth, null)),
+                );
+              },
+              child: Container(
+              width: 54.0,
+              height: 54.0,
+            ),
+            shape: new CircleBorder(),
+            elevation: 0.0,
+           ),
+          ],
+        )
+        // RaisedButton(
+        //   color: Colors.white,
+        //   shape: const CircleBorder(
+        //     side: BorderSide(
+        //       color: Colors.black,
+        //       width: 1,
+        //       style: BorderStyle.solid,
+        //     ),
+        //   ),
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => Usersetting(widget.auth, null)),
+        //     );
+        //   },
+        // ),
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButton: FloatingActionButton(

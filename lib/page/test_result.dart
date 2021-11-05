@@ -183,7 +183,7 @@ class _testresult extends State<test_result> {
           ],
         ),
         Container(
-          height: 500,
+          height: 400,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,

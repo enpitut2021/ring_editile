@@ -127,7 +127,7 @@ class _Home extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Usersetting(widget.auth)),
+                      builder: (context) => Usersetting(widget.auth, null)),
                 );
               }
               ),
@@ -247,7 +247,7 @@ class _Home extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Usersetting(widget.auth)),
+                      builder: (context) => Usersetting(widget.auth, null)),
                 );
               },
             ),

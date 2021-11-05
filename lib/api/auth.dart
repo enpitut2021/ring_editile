@@ -16,6 +16,11 @@ class Auth extends API {
   AuthStatus getAuthStatus() => authStatus;
 
   User getUser() => _user;
+  Future<bool> reloadUser() async {
+    User u = await getCurrentUser();
+    _user = u;
+    return true;
+  }
 
   String getHobby() => _user.hobby;
 
@@ -24,6 +29,9 @@ class Auth extends API {
   String getUserId() => _user.userId;
 
   String getDescription() => _user.profileText;
+
+  String getUserThumbnailURL() =>
+      'https://restapi-editile.p0x0q.com/api/images/user/thumbnail/user/${_user.user.toString()}/show?i';
 
   String getUserBackgroundURL() =>
       'https://restapi-editile.p0x0q.com/api/images/user/background/user/${_user.user.toString()}/show?i';

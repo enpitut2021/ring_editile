@@ -54,66 +54,42 @@ class _testresult extends State<test_result> {
         print(post.imageUrl);
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
-          post_test.add(Column(
-            children: <Widget>[
-              FittedBox(
-                child: Container(
-                  width: 1000.0,
-                  height: 1500.0,
-                  // child: Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     IconButton(
-                  //       icon: Icon(Icons.chat),
-                  //       onPressed: () {
-                  //         Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //               builder: (context) =>
-                  //                   ChatDemo(roomid[index], widget.auth)),
-                  //         );
-                  //       },
-                  //     ),
-                  //     IconButton(
-                  //       onPressed: () {
-                  //         AccountAPI a =
-                  //             new AccountAPI(widget.auth.getBearer());
-
-                  //         a.getUserNumInfo(1).then((User user) {
-                  //           print("1");
-                  //           print(user.nickname);
-                  //         });
-
-                  //         setState(() {
-                  //           //print(postIds[index]);
-                  //           post_press[index] = !post_press[index];
-                  //         });
-                  //         a.postUserLikePost(postIds[index], post_press[index]);
-                  //       },
-                  //       icon: Icon(Icons.favorite,
-                  //           color:
-                  //               post_press[index] ? Colors.red : Colors.black),
-                  //     ),
-                  //   ],
-                  // ),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(post.imageUrl),
+          if (post.imageUrl != "") {
+            post_test.add(Column(
+              children: <Widget>[
+                FittedBox(
+                  child: Container(
+                    width: 1000.0,
+                    height: 800.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(post.imageUrl),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              // Image.network(
-              //   post.imageUrl,
-              //   errorBuilder: (c, o, s) {
-              //     return Text("[画像がありません]");
-              //   },
-              // ),
-              Text(u_id + ": " + post.text),
-            ],
-          ));
+                // Image.network(
+                //   post.imageUrl,
+                //   errorBuilder: (c, o, s) {
+                //     return Text("[画像がありません]");
+                //   },
+                // ),
+                // Text(u_id + ": " + post.text),
+              ],
+            ));
+          } else {
+            post_test.add(Column(
+              children: <Widget>[
+                Container(
+                  height: 400,
+                  alignment: Alignment.center,
+                  child: Text(post.text),
+                ),
+              ],
+            ));
+          }
           postIds.add(post.postId);
           post_msg.add(post.text);
           print("roomid is");
@@ -206,7 +182,7 @@ class _testresult extends State<test_result> {
           //children: <Widget>[Text("test")],
         ),
         Container(
-          height: 600,
+          height: 620,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,
@@ -265,44 +241,47 @@ class _testresult extends State<test_result> {
 
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
-      child: Column(
-        children: <Widget>[
-          title,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.chat),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ChatDemo(roomid[index], widget.auth)),
-                  );
-                },
-              ),
-              IconButton(
-                onPressed: () {
-                  AccountAPI a = new AccountAPI(widget.auth.getBearer());
+      child: InkWell(
+        onTap: () {},
+        child: Column(
+          children: <Widget>[
+            title,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.chat),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ChatDemo(roomid[index], widget.auth)),
+                    );
+                  },
+                ),
+                IconButton(
+                  onPressed: () {
+                    AccountAPI a = new AccountAPI(widget.auth.getBearer());
 
-                  a.getUserNumInfo(1).then((User user) {
-                    print("1");
-                    print(user.nickname);
-                  });
+                    a.getUserNumInfo(1).then((User user) {
+                      print("1");
+                      print(user.nickname);
+                    });
 
-                  setState(() {
-                    //print(postIds[index]);
-                    post_press[index] = !post_press[index];
-                  });
-                  a.postUserLikePost(postIds[index], post_press[index]);
-                },
-                icon: Icon(Icons.favorite,
-                    color: post_press[index] ? Colors.red : Colors.black),
-              ),
-            ],
-          ),
-        ],
+                    setState(() {
+                      //print(postIds[index]);
+                      post_press[index] = !post_press[index];
+                    });
+                    a.postUserLikePost(postIds[index], post_press[index]);
+                  },
+                  icon: Icon(Icons.favorite,
+                      color: post_press[index] ? Colors.red : Colors.black),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

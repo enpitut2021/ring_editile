@@ -99,14 +99,44 @@ class _ChatHistory extends State<ChatHistory> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lime[100],
       appBar: AppBar(
         title: Text("チャット"),
         automaticallyImplyLeading: false,
       ),
       body: Column(
         children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => test_result(widget.auth)),
+                  );
+                },
+                icon: Icon(Icons.article_rounded),
+                iconSize: 50,
+                color: Colors.grey,
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChatHistory(widget.auth)),
+                    );
+                  },
+                  icon: Icon(Icons.chat),
+                  iconSize: 50,
+                  color: Colors.black),
+            ],
+          ),
           Container(
-            height: 600,
+            color: Colors.lime[100],
+            height: 550,
             width: double.infinity,
             child: ListView.builder(
               itemCount: chathis.length,
@@ -125,40 +155,40 @@ class _ChatHistory extends State<ChatHistory> {
           // )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            backgroundColor: Colors.blue[900],
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-            backgroundColor: Colors.blue[900],
-          ),
-        ],
-        currentIndex: 1,
-        selectedItemColor: Colors.cyan[400],
-        onTap: (int index) {
-          //_selectedIndex=index;
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => test_result(widget.auth)),
-            );
-            //go to home
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //       backgroundColor: Colors.blue[900],
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.chat),
+      //       label: 'Chat',
+      //       backgroundColor: Colors.blue[900],
+      //     ),
+      //   ],
+      //   currentIndex: 1,
+      //   selectedItemColor: Colors.cyan[400],
+      //   onTap: (int index) {
+      //     //_selectedIndex=index;
+      //     if (index == 0) {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (context) => test_result(widget.auth)),
+      //       );
+      //       //go to home
 
-          } else if (index == 1) {
-            //go to chatlog
-            // Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //                 builder: (context) => ChatHistory(widget.auth)),
-            //           );
-          }
-        },
-      ),
+      //     } else if (index == 1) {
+      //       //go to chatlog
+      //       // Navigator.push(
+      //       //             context,
+      //       //             MaterialPageRoute(
+      //       //                 builder: (context) => ChatHistory(widget.auth)),
+      //       //           );
+      //     }
+      //   },
+      // ),
     );
   }
 }

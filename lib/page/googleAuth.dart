@@ -4,14 +4,14 @@ import 'package:google_sign_in/google_sign_in.dart';//このパッケージを�
 import 'package:flutter_signin_button/flutter_signin_button.dart';//Googleのロゴのついたボタン(これはなくてもよい)
 
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPageGoogle extends StatefulWidget {
+  const LoginPageGoogle({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginPageGoogleState createState() => _LoginPageGoogleState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageGoogleState extends State<LoginPageGoogle> {
   static final googleLogin = GoogleSignIn(scopes: [
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',

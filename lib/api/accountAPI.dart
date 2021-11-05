@@ -183,8 +183,8 @@ class AccountAPI extends API {
     Map<String, dynamic> queryParameters = {
       'text': text,
       'image_url': imageUrl,
-      'latitude': gps_latitude,
-      'longitude': gps_longitude,
+      'gps_latitude': gps_latitude,
+      'gps_longitude': gps_longitude,
     };
     return await postRequest(url, queryParameters);
   }

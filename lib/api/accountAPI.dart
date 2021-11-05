@@ -178,11 +178,13 @@ class AccountAPI extends API {
     return postList;
   }
 
-  Future<dynamic> postUserPost(String text, String imageUrl) async {
+  Future<dynamic> postUserPost(String text, String imageUrl, [String gps_latitude = "", String gps_longitude = ""]) async {
     String url = 'user/post/manage';
     Map<String, dynamic> queryParameters = {
       'text': text,
       'image_url': imageUrl,
+      'latitude': gps_latitude,
+      'longitude': gps_longitude,
     };
     return await postRequest(url, queryParameters);
   }

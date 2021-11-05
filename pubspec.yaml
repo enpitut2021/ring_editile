@@ -36,10 +36,10 @@ dependencies:
   speech_bubble: ^0.0.5
   image_cropper: ^1.4.1
   geolocator: ^7.7.1
-  firebase_core: ^0.4.2+1
-  firebase_auth: ^0.15.1
-  google_sign_in: ^4.0.14
-  flutter_signin_button: ^1.1.0
+  firebase_core: ^1.9.0
+  firebase_auth: ^3.1.5
+  google_sign_in: ^5.2.1
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:

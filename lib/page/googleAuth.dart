@@ -5,7 +5,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';//Googleのロ
 
 
 class LoginPageGoogle extends StatefulWidget {
-  const LoginPageGoogle({Key? key}) : super(key: key);
+  const LoginPageGoogle({Key key}) : super(key: key);
 
   @override
   _LoginPageGoogleState createState() => _LoginPageGoogleState();
@@ -48,7 +48,7 @@ class _LoginPageGoogleState extends State<LoginPageGoogle> {
   }
 
   Future login() async {
-    GoogleSignInAccount? signInAccount = await googleLogin.signIn();
+    GoogleSignInAccount signInAccount = await googleLogin.signIn();
     if (signInAccount == null) return;
 
     GoogleSignInAuthentication auth = await signInAccount.authentication;
@@ -59,9 +59,9 @@ class _LoginPageGoogleState extends State<LoginPageGoogle> {
     final result = await _auth.signInWithCredential(credential);
     
     //下記はコンソルに表示される(書かなくてもよい)
-    print(result.user!.uid.toString());//uid
-    print(result.user!.email.toString());//メールアドレス
-    print(result.user!.displayName.toString());//アカウント名
+    print(result.user.uid.toString());//uid
+    print(result.user.email.toString());//メールアドレス
+    print(result.user.displayName.toString());//アカウント名
     
   }
 }

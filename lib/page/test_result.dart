@@ -76,7 +76,7 @@ class _testresult extends State<test_result> {
                 //     return Text("[画像がありません]");
                 //   },
                 // ),
-                // Text(u_id + ": " + post.text),
+                Text(u_id + ": " + post.text),
               ],
             ));
           } else {
@@ -85,7 +85,7 @@ class _testresult extends State<test_result> {
                 Container(
                   height: 400,
                   alignment: Alignment.center,
-                  child: Text(post.text),
+                  child: Text(u_id + ": " + post.text),
                 ),
               ],
             ));

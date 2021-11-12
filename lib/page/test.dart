@@ -28,6 +28,8 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
+  List<String> _genre = ["--","飲食","お知らせ","気候"];
+  String _selectedgenre = "--";
 
   Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -97,6 +99,14 @@ class _test extends State<test> {
                   ),
                 ),
               ),
+            ),
+            DropdownButton<String>(
+              value: _selectedgenre,
+              onChanged: (String newValue){
+                setState(() {
+                  _selectedgenre = newValue;
+                });
+              }
             ),
             TextField(
               decoration: InputDecoration(

@@ -29,6 +29,18 @@ class _test extends State<test> {
   String _gps_latitude = "";
   String _gps_longitude = "";
 
+  String _hinttext_food =
+      'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
+  String _hinttext_info =
+      "今月末〇〇公園で食材提供が実施されます！\nコロナ禍で困窮する学生へ〇〇様から500名分の支援物資が届きます。\nマイバック持参でお越しください！";
+  String _hinttext_climate =
+      "今ちょうど〇〇を出たところなんだけど、\n急に雨が降ってきた！\n洗濯物取り込んだほうがいいかも...";
+  List<String> placefolder = [
+    _hinttext_food,
+    _hinttext_info,
+    _hinttext_climate
+  ];
+
   Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -109,7 +121,8 @@ class _test extends State<test> {
                   color: Colors.blueGrey[200],
                 )),
                 labelText: '投稿',
-                hintText: 'おしゃれ〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！',
+                hintText:
+                    'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！',
                 hintMaxLines: 5,
                 alignLabelWithHint: true,
               ),
@@ -129,13 +142,17 @@ class _test extends State<test> {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
-                    a.postUserPost(widget.msg, _imageUrl, _gps_latitude, _gps_longitude).then((value) => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => test_result(widget.auth)),
-                          )
-                        });
+                    a
+                        .postUserPost(widget.msg, _imageUrl, _gps_latitude,
+                            _gps_longitude)
+                        .then((value) => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        test_result(widget.auth)),
+                              )
+                            });
                   } else {
                     setState(() {
                       widget.e_msg = '文字を入力してください';

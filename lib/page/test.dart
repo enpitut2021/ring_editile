@@ -28,6 +28,21 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
+  List<String> _genre = ["--","飲食","お知らせ","気候"];
+  String _selectedgenre = "--";
+
+  // String _hinttext_food =
+  //     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
+  // String _hinttext_info =
+  //     "今月末〇〇公園で食材提供が実施されます！\nコロナ禍で困窮する学生へ〇〇様から500名分の支援物資が届きます。\nマイバック持参でお越しください！";
+  // String _hinttext_climate =
+  //     "今ちょうど〇〇を出たところなんだけど、\n急に雨が降ってきた！\n洗濯物取り込んだほうがいいかも...";
+
+  List<String> placefolder = [
+    'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！',
+    "今月末〇〇公園で食材提供が実施されます！\nコロナ禍で困窮する学生へ〇〇様から500名分の支援物資が届きます。\nマイバック持参でお越しください！",
+    "今ちょうど〇〇を出たところなんだけど、\n急に雨が降ってきた！\n洗濯物取り込んだほうがいいかも..."
+  ];
 
   Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -98,16 +113,49 @@ class _test extends State<test> {
                 ),
               ),
             ),
+            DropdownButton<String>(
+              
+              value: _selectedgenre,
+              onChanged: (String newValue){
+                setState(() {
+                  _selectedgenre = newValue;
+                });
+              },
+              selectedItemBuilder: (context) {
+                return _genre.map((String item) {
+                return Text(
+                item,
+                style: TextStyle(color: Colors.black),
+              );
+               }).toList();
+              },
+              items: _genre.map((String item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(
+                item,
+                // style: item == _selectedgenre
+                //     ? TextStyle(fontWeight: FontWeight.bold)
+                //     : TextStyle(fontWeight: FontWeight.normal),
+              ),
+            );
+          }).toList(),
+            ),
             TextField(
+              maxLines: null,
+              minLines: 8,
               decoration: InputDecoration(
                 //errorText: widget.e_msg,
-
                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                   color: Colors.blueGrey[200],
                 )),
                 labelText: '投稿',
+                hintText:
+                    'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！',
+                hintMaxLines: 5,
+                alignLabelWithHint: true,
               ),
               autofocus: true,
               onChanged: (text) {
@@ -125,13 +173,17 @@ class _test extends State<test> {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
-                    a.postUserPost(widget.msg, _imageUrl, _gps_latitude, _gps_longitude).then((value) => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => test_result(widget.auth)),
-                          )
-                        });
+                    a
+                        .postUserPost(widget.msg, _imageUrl, _gps_latitude,
+                            _gps_longitude)
+                        .then((value) => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        test_result(widget.auth)),
+                              )
+                            });
                   } else {
                     setState(() {
                       widget.e_msg = '文字を入力してください';

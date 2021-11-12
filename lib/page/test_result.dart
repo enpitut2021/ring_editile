@@ -238,34 +238,38 @@ class _testresult extends State<test_result> {
                 _buildButtonTileView(post_test[index], index),
           ),
         ),
+        Text(""),
+        Text(""),
+        
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            FloatingActionButton(
-              heroTag: "1",
-              backgroundColor: Colors.white,
-              child: Icon(
-                Icons.add_location_rounded,
-                size: 30,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            )
+            // FloatingActionButton(
+            //   heroTag: "1",
+            //   backgroundColor: Colors.white,
+            //   child: Icon(
+            //     Icons.add_location_rounded,
+            //     size: 30,
+            //     color: Colors.black,
+            //   ),
+            //   onPressed: () {},
+            // )
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            FloatingActionButton(
-              heroTag: "2",
-              backgroundColor: Colors.black87,
-              child: Icon(
-                Icons.auto_stories_rounded,
-                size: 40,
-                color: Colors.white,
-              ),
-              onPressed: () {},
-            ),
+            // FloatingActionButton(
+            //   heroTag: "2",
+            //   backgroundColor: Colors.black87,
+            //   child: Icon(
+            //     Icons.auto_stories_rounded,
+            //     size: 40,
+            //     color: Colors.white,
+            //   ),
+            //   onPressed: () {},
+            // ),
+            Column(children: [],),
             FloatingActionButton(
               heroTag: "3",
               backgroundColor: Colors.black87,

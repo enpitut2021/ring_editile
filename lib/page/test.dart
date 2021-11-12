@@ -99,15 +99,19 @@ class _test extends State<test> {
               ),
             ),
             TextField(
+              maxLines: null,
+              minLines: 8,
               decoration: InputDecoration(
                 //errorText: widget.e_msg,
-
                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                   color: Colors.blueGrey[200],
                 )),
                 labelText: '投稿',
+                hintText: 'おしゃれ〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！',
+                hintMaxLines: 5,
+                alignLabelWithHint: true,
               ),
               autofocus: true,
               onChanged: (text) {

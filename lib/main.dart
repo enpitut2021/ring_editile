@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/page/regist.dart';
 import 'package:ring_sns/page/login.dart';
 import 'package:ring_sns/page/test_result.dart';
-// import 'package:ring_sns/page/GoogleAuth.dart';
+import 'package:ring_sns/page/GoogleAuth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/page/test.dart';
@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => test(auth)),
+          MaterialPageRoute(builder: (context) => GoogleAuth()),
         );
       } else {
         Navigator.push(

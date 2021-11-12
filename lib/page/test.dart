@@ -146,7 +146,7 @@ class _test extends State<test> {
             ),
             TextField(
               maxLines: null,
-              minLines: 8,
+              minLines: 2,
               decoration: InputDecoration(
                 //errorText: widget.e_msg,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),
@@ -157,7 +157,7 @@ class _test extends State<test> {
                 labelText: '投稿',
                 hintText:placefolder[_selectedindex],
                     
-                hintMaxLines: 5,
+                hintMaxLines: 2,
                 alignLabelWithHint: true,
               ),
               autofocus: true,

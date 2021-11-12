@@ -28,6 +28,8 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
+  List<String> _genre = ["--","飲食","お知らせ","気候"];
+  String _selectedgenre = "--";
 
   // String _hinttext_food =
   //     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
@@ -110,6 +112,34 @@ class _test extends State<test> {
                   ),
                 ),
               ),
+            ),
+            DropdownButton<String>(
+              
+              value: _selectedgenre,
+              onChanged: (String newValue){
+                setState(() {
+                  _selectedgenre = newValue;
+                });
+              },
+              selectedItemBuilder: (context) {
+                return _genre.map((String item) {
+                return Text(
+                item,
+                style: TextStyle(color: Colors.black),
+              );
+               }).toList();
+              },
+              items: _genre.map((String item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(
+                item,
+                // style: item == _selectedgenre
+                //     ? TextStyle(fontWeight: FontWeight.bold)
+                //     : TextStyle(fontWeight: FontWeight.normal),
+              ),
+            );
+          }).toList(),
             ),
             TextField(
               maxLines: null,

@@ -101,12 +101,32 @@ class _test extends State<test> {
               ),
             ),
             DropdownButton<String>(
+              
               value: _selectedgenre,
               onChanged: (String newValue){
                 setState(() {
                   _selectedgenre = newValue;
                 });
-              }
+              },
+              selectedItemBuilder: (context) {
+                return _genre.map((String item) {
+                return Text(
+                item,
+                style: TextStyle(color: Colors.black),
+              );
+               }).toList();
+              },
+              items: _genre.map((String item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(
+                item,
+                // style: item == _selectedgenre
+                //     ? TextStyle(fontWeight: FontWeight.bold)
+                //     : TextStyle(fontWeight: FontWeight.normal),
+              ),
+            );
+          }).toList(),
             ),
             TextField(
               decoration: InputDecoration(

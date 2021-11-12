@@ -30,6 +30,8 @@ class _test extends State<test> {
   String _gps_longitude = "";
   List<String> _genre = ["--","飲食","お知らせ","気候"];
   String _selectedgenre = "--";
+  int _selectedindex =0;
+  
 
   // String _hinttext_food =
   //     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
@@ -119,6 +121,7 @@ class _test extends State<test> {
               onChanged: (String newValue){
                 setState(() {
                   _selectedgenre = newValue;
+                  _selectedindex=_genre.indexOf(_selectedgenre);
                 });
               },
               selectedItemBuilder: (context) {
@@ -152,8 +155,8 @@ class _test extends State<test> {
                   color: Colors.blueGrey[200],
                 )),
                 labelText: '投稿',
-                hintText:
-                    'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！',
+                hintText:placefolder[_selectedindex],
+                    
                 hintMaxLines: 5,
                 alignLabelWithHint: true,
               ),

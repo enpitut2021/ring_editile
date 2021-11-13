@@ -18,6 +18,7 @@ class test_result extends StatefulWidget {
 }
 
 class _testresult extends State<test_result> {
+  
   List<Widget> post_test = [];
   Color _iconcolor = Colors.black;
   List<int> postIds = [];
@@ -145,6 +146,7 @@ class _testresult extends State<test_result> {
   }
 
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.lime[100],
       appBar: AppBar(
@@ -229,7 +231,7 @@ class _testresult extends State<test_result> {
           ],
         ),
         Container(
-          height: 400,
+          height: size.height*0.55,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,
@@ -242,6 +244,7 @@ class _testresult extends State<test_result> {
         Text(""),
         
         Row(
+          
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // FloatingActionButton(

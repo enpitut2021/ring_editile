@@ -66,6 +66,7 @@ class _test extends State<test> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -81,17 +82,18 @@ class _test extends State<test> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
+        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
                 width: 150,
-                height: 150,
+                height: size.height*0.2,
                 margin: const EdgeInsets.only(top: 90),
                 child: _displaySelectionImageOrGrayImage()),
             Container(
               width: 144,
-              height: 50,
+              height: size.height*0.05,
               margin: const EdgeInsets.only(top: 47),
               decoration: BoxDecoration(
                 color: const Color(0xfffa4269),
@@ -146,7 +148,7 @@ class _test extends State<test> {
             ),
             TextField(
               maxLines: null,
-              minLines: 2,
+              minLines: 3,
               decoration: InputDecoration(
                 //errorText: widget.e_msg,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),

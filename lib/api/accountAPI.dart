@@ -180,7 +180,7 @@ class AccountAPI extends API {
   }
 
   Future<List<Post>> getUserPostCategoryList(category) async {
-    String url = 'user/post/category/'+category;
+    String url = 'user/post/category/' + category;
     dynamic response = await getRequest(url);
     if (response == null) return [];
     List<Post> postList = [];
@@ -191,8 +191,13 @@ class AccountAPI extends API {
   }
 
   Future<dynamic> postUserPost(String text, String imageUrl,
-      [String gps_latitude = "", String gps_longitude = "", String category = ""]) async {
+      [String gps_latitude = "",
+      String gps_longitude = "",
+      String category = ""]) async {
     String url = 'user/post/manage';
+    print("debug");
+    print(gps_latitude);
+    print(gps_longitude);
     Map<String, dynamic> queryParameters = {
       'text': text,
       'image_url': imageUrl,

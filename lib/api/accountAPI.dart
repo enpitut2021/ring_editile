@@ -167,6 +167,7 @@ class AccountAPI extends API {
     });
     return postList;
   }
+
   Future<List<Post>> getUserPostMyList() async {
     String url = 'user/post/user';
     dynamic response = await getRequest(url);
@@ -178,7 +179,8 @@ class AccountAPI extends API {
     return postList;
   }
 
-  Future<dynamic> postUserPost(String text, String imageUrl, [String gps_latitude = "", String gps_longitude = ""]) async {
+  Future<dynamic> postUserPost(String text, String imageUrl,
+      [String gps_latitude = "", String gps_longitude = ""]) async {
     String url = 'user/post/manage';
     Map<String, dynamic> queryParameters = {
       'text': text,
@@ -222,15 +224,21 @@ class Post {
   String updated;
   String imageUrl;
   String roomId;
+  String category;
+  String gps_latitude;
+  String gps_longitude;
 
   Post(Map<String, dynamic> post) {
     postId = post['post_id'] ?? 0;
-    roomId = post['room_id'] ?? 'public';//roomIdは必ず紐づくものだが，万が一紐付いていなかったらpublicにする
+    roomId =
+        post['room_id'] ?? 'public'; //roomIdは必ず紐づくものだが，万が一紐付いていなかったらpublicにする
     user = post['user'] ?? 0;
     text = post['text'] ?? '';
     created = post['created'] ?? '';
     updated = post['updated'] ?? '';
     imageUrl = post['image_url'] ?? '';
+    gps_latitude = post['gps_latitude'] ?? '';
+    gps_longitude = post['gps_longitude'] ?? '';
   }
 }
 

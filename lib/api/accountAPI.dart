@@ -195,9 +195,6 @@ class AccountAPI extends API {
       String gps_longitude = "",
       String category = ""]) async {
     String url = 'user/post/manage';
-    print("debug");
-    print(gps_latitude);
-    print(gps_longitude);
     Map<String, dynamic> queryParameters = {
       'text': text,
       'image_url': imageUrl,
@@ -242,8 +239,8 @@ class Post {
   String imageUrl;
   String roomId;
   String category;
-  String gps_latitude;
-  String gps_longitude;
+  double gps_latitude;
+  double gps_longitude;
 
   Post(Map<String, dynamic> post) {
     postId = post['post_id'] ?? 0;
@@ -254,8 +251,8 @@ class Post {
     created = post['created'] ?? '';
     updated = post['updated'] ?? '';
     imageUrl = post['image_url'] ?? '';
-    gps_latitude = post['gps_latitude'] ?? '';
-    gps_longitude = post['gps_longitude'] ?? '';
+    gps_latitude = post['gps_latitude'] ?? 0.0;
+    gps_longitude = post['gps_longitude'] ?? 0.0;
   }
 }
 

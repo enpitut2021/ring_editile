@@ -179,14 +179,26 @@ class AccountAPI extends API {
     return postList;
   }
 
+  Future<List<Post>> getUserPostCategoryList(category) async {
+    String url = 'user/post/category/'+category;
+    dynamic response = await getRequest(url);
+    if (response == null) return [];
+    List<Post> postList = [];
+    response["data"].forEach((post) {
+      postList.add(Post(post));
+    });
+    return postList;
+  }
+
   Future<dynamic> postUserPost(String text, String imageUrl,
-      [String gps_latitude = "", String gps_longitude = ""]) async {
+      [String gps_latitude = "", String gps_longitude = "", String category = ""]) async {
     String url = 'user/post/manage';
     Map<String, dynamic> queryParameters = {
       'text': text,
       'image_url': imageUrl,
       'gps_latitude': gps_latitude,
       'gps_longitude': gps_longitude,
+      'category': category
     };
     return await postRequest(url, queryParameters);
   }

@@ -81,6 +81,7 @@ class _test extends State<test> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
+        child:SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -203,7 +204,7 @@ class _test extends State<test> {
             //       );
             //     }),
           ],
-        ),
+        ),)
       ),
     );
   }

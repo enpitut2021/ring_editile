@@ -201,7 +201,9 @@ class _testresult extends State<test_result> {
       //     );
       //   },
       // ),
-      body: Column(children: <Widget>[
+      body: 
+        SingleChildScrollView(
+          child: Column(children: <Widget>[
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           //children: <Widget>[Text("test")],
@@ -288,6 +290,8 @@ class _testresult extends State<test_result> {
           ],
         )
       ]),
+          ) ,
+      
       // bottomNavigationBar: BottomNavigationBar(
       //   items: <BottomNavigationBarItem>[
       //     BottomNavigationBarItem(

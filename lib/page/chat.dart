@@ -258,7 +258,9 @@ class _ChatDemo extends State<ChatDemo> {
           title: Text("チャット"),
           automaticallyImplyLeading: false,
         ),
-        body: Column(
+        body: 
+        SingleChildScrollView(
+        child:Column(
           children: <Widget>[
             Container(
               height: 600,
@@ -300,7 +302,7 @@ class _ChatDemo extends State<ChatDemo> {
               ],
             )
           ],
-        ));
+        )));
     // final _channel = WebSocket(url)
   }
 }

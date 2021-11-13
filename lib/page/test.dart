@@ -147,7 +147,7 @@ class _test extends State<test> {
             ),
             TextField(
               maxLines: null,
-              minLines: 2,
+              minLines: 8,
               decoration: InputDecoration(
                 //errorText: widget.e_msg,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 5),

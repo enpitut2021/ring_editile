@@ -8,6 +8,8 @@ import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/chathistory.dart';
 import 'package:ring_sns/page/usersetting.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:math';
 
 class test_result extends StatefulWidget {
   test_result(this.auth);
@@ -25,9 +27,37 @@ class _testresult extends State<test_result> {
   List<int> post_like = [];
   List<String> roomid = [];
   List<String> post_msg = [];
+  double _gps_latitude;
+  double _gps_longitude;
 
   bool Press = false;
   int checker = -1;
+  Future<void> getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    // print("緯度: " + position.latitude.toString());
+    // print("経度: " + position.longitude.toString());
+    _gps_latitude = double.parse(position.latitude.toString());
+    _gps_longitude = double.parse(position.longitude.toString());
+  }
+
+  double distanceBetween(
+    double latitude1,
+    double longitude1,
+    double latitude2,
+    double longitude2,
+  ) {
+    final toRadians = (double degree) => degree * pi / 180;
+    final double r = 6378137.0; // 地球の半径
+    final double f1 = toRadians(latitude1);
+    final double f2 = toRadians(latitude2);
+    final double l1 = toRadians(longitude1);
+    final double l2 = toRadians(longitude2);
+    final num a = pow(sin((f2 - f1) / 2), 2);
+    final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
+    final double d = 2 * r * asin(sqrt(a + b));
+    return d;
+  }
 
   @override
   void initState() {
@@ -96,7 +126,6 @@ class _testresult extends State<test_result> {
           print(post.roomId);
           // print("a");
           // print(post_like);
-
           post_press.add(false);
           print(post_press);
           roomid.add(post.roomId);
@@ -240,7 +269,6 @@ class _testresult extends State<test_result> {
         ),
         Text(""),
         Text(""),
-        
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -269,7 +297,9 @@ class _testresult extends State<test_result> {
             //   ),
             //   onPressed: () {},
             // ),
-            Column(children: [],),
+            Column(
+              children: [],
+            ),
             FloatingActionButton(
               heroTag: "3",
               backgroundColor: Colors.black87,

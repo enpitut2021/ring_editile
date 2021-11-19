@@ -60,8 +60,8 @@ class _testresult extends State<test_result> {
     return d;
   }
 
-  _launchURL() async {
-    const url = "http://https://www.google.co.jp/";
+  void _launchURL() async {
+    const url = "https://www.google.com/maps/dir/Current+Location/37.422,-122.084";
     if (await canLaunch(url)) {
       await launch(url);
     } else {

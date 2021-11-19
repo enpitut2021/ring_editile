@@ -30,6 +30,8 @@ class _testresult extends State<test_result> {
   List<String> post_msg = [];
   String _gps_latitude = '35.6812362';
   String _gps_longitude = '139.7649361';
+  List<double> latitude=[];
+  List<double> longitude=[];
 
   bool Press = false;
   int checker = -1;
@@ -60,9 +62,10 @@ class _testresult extends State<test_result> {
     return d;
   }
 
-  void _launchURL() async {
-    const url = "https://www.google.com/maps/dir/Current+Location/37.422,-122.084";
+  void _launchURL(String a,String b) async {
+    String url = "https://www.google.com/maps/dir/Current+Location/"+a+","+b;
     if (await canLaunch(url)) {
+      print(url);
       await launch(url);
     } else {
       throw 'Could not Launch $url';
@@ -96,6 +99,8 @@ class _testresult extends State<test_result> {
         print(post.imageUrl);
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
+          latitude.add(post.gps_latitude);
+          longitude.add(post.gps_longitude);
           if (post.imageUrl != "") {
             post_test.add(Column(
               children: <Widget>[
@@ -406,7 +411,7 @@ class _testresult extends State<test_result> {
                 ),
                 IconButton(
                   onPressed: () {
-                    _launchURL();
+                    _launchURL(latitude[index].toString(),longitude[index].toString());
                   },
                   icon: Icon(Icons.add_location_rounded, color: Colors.black),
                 )

@@ -10,6 +10,7 @@ import 'package:ring_sns/page/chathistory.dart';
 import 'package:ring_sns/page/usersetting.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:math';
+import 'package:url_launcher/url_launcher.dart';
 
 class test_result extends StatefulWidget {
   test_result(this.auth);
@@ -59,10 +60,19 @@ class _testresult extends State<test_result> {
     return d;
   }
 
+  _launchURL() async {
+    const url = "http://https://www.google.co.jp/";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not Launch $url';
+    }
+  }
+
   @override
   void initState() {
     getLocation();
-    print("gps:"+_gps_latitude.toString()+_gps_longitude.toString());
+    print("gps:" + _gps_latitude.toString() + _gps_longitude.toString());
     Color icon_color = Colors.black;
     Press = false;
     // print("data");
@@ -394,6 +404,12 @@ class _testresult extends State<test_result> {
                   icon: Icon(Icons.favorite,
                       color: post_press[index] ? Colors.red : Colors.black),
                 ),
+                IconButton(
+                  onPressed: () {
+                    _launchURL();
+                  },
+                  icon: Icon(Icons.add_location_rounded, color: Colors.black),
+                )
               ],
             ),
           ],

@@ -28,6 +28,7 @@ class _testresult extends State<test_result> {
   List<int> post_like = [];
   List<String> roomid = [];
   List<String> post_msg = [];
+  List<String> _gps = [];
   String _gps_latitude = '35.6812362';
   String _gps_longitude = '139.7649361';
 
@@ -60,8 +61,9 @@ class _testresult extends State<test_result> {
     return d;
   }
 
-  void _launchURL() async {
-    const url = "https://www.google.com/maps/dir/Current+Location/37.422,-122.084";
+  void _launchURL(String url_suffix) async {
+    String url =
+        "https://www.google.com/maps/dir/Current+Location/"+url_suffix;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -133,6 +135,9 @@ class _testresult extends State<test_result> {
             ));
           }
           postIds.add(post.postId);
+          _gps.add(post.gps_latitude.toString() +
+              "," +
+              post.gps_longitude.toString());
           post_msg.add(post.text);
           print("roomid is");
           print(post.roomId);
@@ -406,7 +411,7 @@ class _testresult extends State<test_result> {
                 ),
                 IconButton(
                   onPressed: () {
-                    _launchURL();
+                    _launchURL(_gps[index]);
                   },
                   icon: Icon(Icons.add_location_rounded, color: Colors.black),
                 )

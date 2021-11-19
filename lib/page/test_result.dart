@@ -27,8 +27,8 @@ class _testresult extends State<test_result> {
   List<int> post_like = [];
   List<String> roomid = [];
   List<String> post_msg = [];
-  double _gps_latitude;
-  double _gps_longitude;
+  String _gps_latitude = '35.6812362';
+  String _gps_longitude = '139.7649361';
 
   bool Press = false;
   int checker = -1;
@@ -37,8 +37,8 @@ class _testresult extends State<test_result> {
         desiredAccuracy: LocationAccuracy.high);
     // print("緯度: " + position.latitude.toString());
     // print("経度: " + position.longitude.toString());
-    _gps_latitude = double.parse(position.latitude.toString());
-    _gps_longitude = double.parse(position.longitude.toString());
+    _gps_latitude = position.latitude.toString();
+    _gps_longitude = position.longitude.toString();
   }
 
   double distanceBetween(
@@ -61,9 +61,11 @@ class _testresult extends State<test_result> {
 
   @override
   void initState() {
+    getLocation();
+    print("gps:"+_gps_latitude.toString()+_gps_longitude.toString());
     Color icon_color = Colors.black;
     Press = false;
-    print("data");
+    // print("data");
     bool temp_p = this.Press;
     print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());

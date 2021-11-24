@@ -29,11 +29,11 @@ class _testresult extends State<test_result> {
   List<String> roomid = [];
   List<String> post_msg = [];
   List<String> _gps = [];
-  List<double> _gps_la=[];
-  List<double> _gps_lo=[];
+  List<double> _gps_la = [];
+  List<double> _gps_lo = [];
 
-  String _gps_latitude = 'none';
-  String _gps_longitude = 'none';
+  String _gps_latitude = '';
+  String _gps_longitude = '';
 
   bool Press = false;
   int checker = -1;
@@ -60,13 +60,13 @@ class _testresult extends State<test_result> {
     final double l2 = toRadians(longitude2);
     final num a = pow(sin((f2 - f1) / 2), 2);
     final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
-    final String d = (2 * r * asin(sqrt(a + b))/1000).toString();
+    final String d = (2 * r * asin(sqrt(a + b)) / 1000).toString();
     return d;
   }
 
   void _launchURL(String url_suffix) async {
     String url =
-        "https://www.google.com/maps/dir/Current+Location/"+url_suffix;
+        "https://www.google.com/maps/dir/Current+Location/" + url_suffix;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -199,7 +199,6 @@ class _testresult extends State<test_result> {
     return Scaffold(
       backgroundColor: Colors.lime[100],
       appBar: AppBar(
-          
           title: Text("投稿一覧画面"),
           automaticallyImplyLeading: false,
           leading: Stack(
@@ -280,7 +279,6 @@ class _testresult extends State<test_result> {
                 color: Colors.grey),
           ],
         ),
-        Text("latitude:"+_gps_latitude+"longtitude:"+_gps_longitude),
         Container(
           height: 400,
           width: double.maxFinite,
@@ -422,7 +420,11 @@ class _testresult extends State<test_result> {
                   },
                   icon: Icon(Icons.add_location_rounded, color: Colors.black),
                 ),
-                Text(distanceBetween(double.parse(_gps_latitude), double.parse(_gps_longitude), _gps_la[index], _gps_lo[index])),
+                Text(distanceBetween(
+                    double.parse(_gps_latitude),
+                    double.parse(_gps_longitude),
+                    _gps_la[index],
+                    _gps_lo[index])),
               ],
             ),
           ],

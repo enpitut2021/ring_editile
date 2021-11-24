@@ -31,6 +31,7 @@ class _testresult extends State<test_result> {
   List<String> _gps = [];
   String _gps_latitude = '35.6812362';
   String _gps_longitude = '139.7649361';
+  int _likeCount = 0;
 
   bool Press = false;
   int checker = -1;
@@ -63,7 +64,7 @@ class _testresult extends State<test_result> {
 
   void _launchURL(String url_suffix) async {
     String url =
-        "https://www.google.com/maps/dir/Current+Location/"+url_suffix;
+        "https://www.google.com/maps/dir/Current+Location/" + url_suffix;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -96,6 +97,7 @@ class _testresult extends State<test_result> {
     a.getUserPostList().then((posts) {
       posts.forEach((Post post) {
         print(post.imageUrl);
+        print(post.likes);
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
           if (post.imageUrl != "") {
@@ -404,11 +406,14 @@ class _testresult extends State<test_result> {
                       //print(postIds[index]);
                       post_press[index] = !post_press[index];
                     });
-                    a.postUserLikePost(postIds[index], post_press[index]);
+                    a.postUserLikePost(postIds[index], true);
+                    _likeCount += 1;
                   },
                   icon: Icon(Icons.favorite,
-                      color: post_press[index] ? Colors.red : Colors.black),
+                      color: _likeCount == 0 ? Colors.black : Colors.red),
                 ),
+                Text('$_likeCount'),
+                Text(post.likes),
                 IconButton(
                   onPressed: () {
                     _launchURL(_gps[index]);

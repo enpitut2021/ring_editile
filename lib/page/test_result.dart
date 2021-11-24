@@ -31,6 +31,7 @@ class _testresult extends State<test_result> {
   List<String> _gps = [];
   String _gps_latitude = '35.6812362';
   String _gps_longitude = '139.7649361';
+  int _likeCount = 0;
 
   bool Press = false;
   int checker = -1;
@@ -63,7 +64,7 @@ class _testresult extends State<test_result> {
 
   void _launchURL(String url_suffix) async {
     String url =
-        "https://www.google.com/maps/dir/Current+Location/"+url_suffix;
+        "https://www.google.com/maps/dir/Current+Location/" + url_suffix;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -381,6 +382,7 @@ class _testresult extends State<test_result> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {
@@ -392,6 +394,7 @@ class _testresult extends State<test_result> {
                     );
                   },
                 ),
+                
                 IconButton(
                   onPressed: () {
                     AccountAPI a = new AccountAPI(widget.auth.getBearer());
@@ -405,9 +408,13 @@ class _testresult extends State<test_result> {
                       post_press[index] = !post_press[index];
                     });
                     a.postUserLikePost(postIds[index], post_press[index]);
+                    _likeCount += 1;
                   },
                   icon: Icon(Icons.favorite,
                       color: post_press[index] ? Colors.red : Colors.black),
+                ),
+                Text(
+                  '$_likeCount'
                 ),
                 IconButton(
                   onPressed: () {

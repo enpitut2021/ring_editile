@@ -23,8 +23,8 @@ jobs:
       - name: Build
         run: flutter build apk
 
-      # - name: Archive apk file
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: apk
-      #     path: ./build/app/outputs/apk/release/app-release.apk
+      - name: Archive apk file
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: ./build/app/outputs/apk/release/app-release.apk

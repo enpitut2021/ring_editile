@@ -413,7 +413,7 @@ class _testresult extends State<test_result> {
                       color: _likeCount == 0 ? Colors.black : Colors.red),
                 ),
                 Text('$_likeCount'),
-                Text(post.likes),
+                // Text(post.likes),
                 IconButton(
                   onPressed: () {
                     _launchURL(_gps[index]);

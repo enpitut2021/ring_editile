@@ -2,9 +2,9 @@ name: build appbundle
 
 on:
   push:
-    branches: [ debug ]
+    branches: [ master ]
   pull_request:
-    branches: [ debug ]
+    branches: [ master ]
 
 jobs:
   build:

@@ -60,7 +60,7 @@ class _testresult extends State<test_result> {
     final double l2 = toRadians(longitude2);
     final num a = pow(sin((f2 - f1) / 2), 2);
     final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
-    final String d = (2 * r * asin(sqrt(a + b)) / 1000).toString();
+    final String d = (2 * r * asin(sqrt(a + b)) / 1000).toStringAsFixed(2);
     return d;
   }
 
@@ -424,7 +424,7 @@ class _testresult extends State<test_result> {
                     double.parse(_gps_latitude),
                     double.parse(_gps_longitude),
                     _gps_la[index],
-                    _gps_lo[index])),
+                    _gps_lo[index])+"km"),
               ],
             ),
           ],

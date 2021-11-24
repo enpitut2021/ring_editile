@@ -411,7 +411,7 @@ class _testresult extends State<test_result> {
                     _likeCount += 1;
                   },
                   icon: Icon(Icons.favorite,
-                      color: post_press[index] ? Colors.red : Colors.black),
+                      color: _likeCount == 0 ? Colors.black : Colors.red),
                 ),
                 Text(
                   '$_likeCount'

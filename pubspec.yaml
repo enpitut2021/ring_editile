@@ -36,6 +36,7 @@ dependencies:
   speech_bubble: ^0.0.5
   image_cropper: ^1.4.1
   geolocator: ^7.7.1
+  url_launcher: ^6.0.13
 
 dev_dependencies:
   flutter_test:

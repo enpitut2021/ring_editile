@@ -8,6 +8,9 @@ import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/chathistory.dart';
 import 'package:ring_sns/page/usersetting.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:math';
+import 'package:url_launcher/url_launcher.dart';
 
 class test_result extends StatefulWidget {
   test_result(this.auth);
@@ -25,15 +28,56 @@ class _testresult extends State<test_result> {
   List<int> post_like = [];
   List<String> roomid = [];
   List<String> post_msg = [];
+  List<String> _gps = [];
+  String _gps_latitude = '35.6812362';
+  String _gps_longitude = '139.7649361';
 
   bool Press = false;
   int checker = -1;
+  Future<void> getLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    // print("緯度: " + position.latitude.toString());
+    // print("経度: " + position.longitude.toString());
+    _gps_latitude = position.latitude.toString();
+    _gps_longitude = position.longitude.toString();
+  }
+
+  double distanceBetween(
+    double latitude1,
+    double longitude1,
+    double latitude2,
+    double longitude2,
+  ) {
+    final toRadians = (double degree) => degree * pi / 180;
+    final double r = 6378137.0; // 地球の半径
+    final double f1 = toRadians(latitude1);
+    final double f2 = toRadians(latitude2);
+    final double l1 = toRadians(longitude1);
+    final double l2 = toRadians(longitude2);
+    final num a = pow(sin((f2 - f1) / 2), 2);
+    final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
+    final double d = 2 * r * asin(sqrt(a + b));
+    return d;
+  }
+
+  void _launchURL(String url_suffix) async {
+    String url =
+        "https://www.google.com/maps/dir/Current+Location/"+url_suffix;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not Launch $url';
+    }
+  }
 
   @override
   void initState() {
+    getLocation();
+    print("gps:" + _gps_latitude.toString() + _gps_longitude.toString());
     Color icon_color = Colors.black;
     Press = false;
-    print("data");
+    // print("data");
     bool temp_p = this.Press;
     print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
@@ -91,12 +135,14 @@ class _testresult extends State<test_result> {
             ));
           }
           postIds.add(post.postId);
+          _gps.add(post.gps_latitude.toString() +
+              "," +
+              post.gps_longitude.toString());
           post_msg.add(post.text);
           print("roomid is");
           print(post.roomId);
           // print("a");
           // print(post_like);
-
           post_press.add(false);
           print(post_press);
           roomid.add(post.roomId);
@@ -240,7 +286,6 @@ class _testresult extends State<test_result> {
         ),
         Text(""),
         Text(""),
-        
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -269,7 +314,9 @@ class _testresult extends State<test_result> {
             //   ),
             //   onPressed: () {},
             // ),
-            Column(children: [],),
+            Column(
+              children: [],
+            ),
             FloatingActionButton(
               heroTag: "3",
               backgroundColor: Colors.black87,
@@ -362,6 +409,12 @@ class _testresult extends State<test_result> {
                   icon: Icon(Icons.favorite,
                       color: post_press[index] ? Colors.red : Colors.black),
                 ),
+                IconButton(
+                  onPressed: () {
+                    _launchURL(_gps[index]);
+                  },
+                  icon: Icon(Icons.add_location_rounded, color: Colors.black),
+                )
               ],
             ),
           ],

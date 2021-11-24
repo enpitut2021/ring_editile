@@ -97,6 +97,7 @@ class _testresult extends State<test_result> {
     a.getUserPostList().then((posts) {
       posts.forEach((Post post) {
         print(post.imageUrl);
+        print(post.likes);
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
           if (post.imageUrl != "") {
@@ -382,7 +383,6 @@ class _testresult extends State<test_result> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {
@@ -394,7 +394,6 @@ class _testresult extends State<test_result> {
                     );
                   },
                 ),
-                
                 IconButton(
                   onPressed: () {
                     AccountAPI a = new AccountAPI(widget.auth.getBearer());
@@ -407,15 +406,14 @@ class _testresult extends State<test_result> {
                       //print(postIds[index]);
                       post_press[index] = !post_press[index];
                     });
-                    a.postUserLikePost(postIds[index], post_press[index]);
+                    a.postUserLikePost(postIds[index], true);
                     _likeCount += 1;
                   },
                   icon: Icon(Icons.favorite,
                       color: _likeCount == 0 ? Colors.black : Colors.red),
                 ),
-                Text(
-                  '$_likeCount'
-                ),
+                Text('$_likeCount'),
+                Text(post.likes),
                 IconButton(
                   onPressed: () {
                     _launchURL(_gps[index]);

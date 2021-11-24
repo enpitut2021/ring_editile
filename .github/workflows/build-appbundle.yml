@@ -1,0 +1,30 @@
+name: build appbundle
+
+on:
+  push:
+    branches: [ debug ]
+  pull_request:
+    branches: [ debug ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  cirrusci/flutter
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build
+        run: flutter build appbundle
+
+      # - name: Archive app bundle file
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: appbundle
+      #     path: ./build/app/outputs/bundle/release/app-release.aab

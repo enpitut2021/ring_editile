@@ -233,6 +233,7 @@ class AccountAPI extends API {
 class Post {
   int postId;
   int user;
+  int likes;
   String text;
   String created;
   String updated;
@@ -248,6 +249,7 @@ class Post {
         post['room_id'] ?? 'public'; //roomIdは必ず紐づくものだが，万が一紐付いていなかったらpublicにする
     user = post['user'] ?? 0;
     text = post['text'] ?? '';
+    likes = post['likes'] ?? 0;
     created = post['created'] ?? '';
     updated = post['updated'] ?? '';
     imageUrl = post['image_url'] ?? '';

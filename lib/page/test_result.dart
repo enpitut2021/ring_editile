@@ -410,14 +410,14 @@ class _testresult extends State<test_result> {
                       post_press[index] = !post_press[index];
                     });
                     a.postUserLikePost(postIds[index], true);
-                    _likeUserCount[index] += 1;
+                    _likeAPICount[index] += 1;
                   },
                   icon: Icon(Icons.favorite,
-                      // color: _likeUserCount[index] == 0 ? Colors.black : Colors.red),
-                      color:Colors.black),
+                      color: _likeAPICount[index] == 0 ? Colors.black : Colors.red),
+                      // color:Colors.black),
                 ),
-                Text('$_likeUserCount[index]'),
-                Text(' '+'$_likeAPICount[index]'),
+                // Text('$_likeUserCount[index]'),
+                Text('$_likeAPICount[index]'),
                 IconButton(
                   onPressed: () {
                     _launchURL(_gps[index]);

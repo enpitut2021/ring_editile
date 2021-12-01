@@ -29,8 +29,13 @@ class _testresult extends State<test_result> {
   List<String> roomid = [];
   List<String> post_msg = [];
   List<String> _gps = [];
-  String _gps_latitude = '35.6812362';
-  String _gps_longitude = '139.7649361';
+
+  List<double> _gps_la = [];
+  List<double> _gps_lo = [];
+
+  String _gps_latitude = '';
+  String _gps_longitude = '';
+  
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
 
@@ -45,7 +50,7 @@ class _testresult extends State<test_result> {
     _gps_longitude = position.longitude.toString();
   }
 
-  double distanceBetween(
+  String distanceBetween(
     double latitude1,
     double longitude1,
     double latitude2,
@@ -59,7 +64,7 @@ class _testresult extends State<test_result> {
     final double l2 = toRadians(longitude2);
     final num a = pow(sin((f2 - f1) / 2), 2);
     final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
-    final double d = 2 * r * asin(sqrt(a + b));
+    final String d = (2 * r * asin(sqrt(a + b)) / 1000).toStringAsFixed(2);
     return d;
   }
 
@@ -141,6 +146,8 @@ class _testresult extends State<test_result> {
             ));
           }
           postIds.add(post.postId);
+          _gps_la.add(post.gps_latitude);
+          _gps_lo.add(post.gps_longitude);
           _gps.add(post.gps_latitude.toString() +
               "," +
               post.gps_longitude.toString());
@@ -426,7 +433,12 @@ class _testresult extends State<test_result> {
                     _launchURL(_gps[index]);
                   },
                   icon: Icon(Icons.add_location_rounded, color: Colors.black),
-                )
+                ),
+                Text(distanceBetween(
+                    double.parse(_gps_latitude ?? 0.0),
+                    double.parse(_gps_longitude ?? 0.0),
+                    _gps_la[index],
+                    _gps_lo[index])+"km"),
               ],
             ),
           ],

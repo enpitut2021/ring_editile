@@ -417,7 +417,7 @@ class _testresult extends State<test_result> {
                       // color:Colors.black),
                 ),
                 // Text('$_likeUserCount[index]'),
-                Text('$_likeAPICount[index]'),
+                Text(_likeAPICount[index].toString()),
                 IconButton(
                   onPressed: () {
                     _launchURL(_gps[index]);

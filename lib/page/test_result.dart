@@ -31,8 +31,8 @@ class _testresult extends State<test_result> {
   List<String> _gps = [];
   String _gps_latitude = '35.6812362';
   String _gps_longitude = '139.7649361';
-  int _likeUserCount = 0;
-  int _likeAPICount = 0;
+  List<int> _likeUserCount = [];
+  List<int> _likeAPICount = [];
 
   bool Press = false;
   int checker = -1;
@@ -99,7 +99,7 @@ class _testresult extends State<test_result> {
       posts.forEach((Post post) {
         print(post.imageUrl);
         print(post.likes);
-        _likeAPICount = post.likes;
+        _likeAPICount.add(post.likes);
 
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;
@@ -410,13 +410,13 @@ class _testresult extends State<test_result> {
                       post_press[index] = !post_press[index];
                     });
                     a.postUserLikePost(postIds[index], true);
-                    _likeUserCount += 1;
+                    _likeUserCount[index] += 1;
                   },
                   icon: Icon(Icons.favorite,
-                      color: _likeUserCount == 0 ? Colors.black : Colors.red),
+                      color: _likeUserCount[index] == null ? Colors.black : Colors.red),
                 ),
-                Text('$_likeUserCount'),
-                Text(' '+'$_likeAPICount'),
+                Text('$_likeUserCount[index]'),
+                Text(' '+'$_likeAPICount[index]'),
                 IconButton(
                   onPressed: () {
                     _launchURL(_gps[index]);

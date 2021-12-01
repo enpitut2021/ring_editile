@@ -413,7 +413,8 @@ class _testresult extends State<test_result> {
                     _likeUserCount[index] += 1;
                   },
                   icon: Icon(Icons.favorite,
-                      color: _likeUserCount[index] == null ? Colors.black : Colors.red),
+                      // color: _likeUserCount[index] == 0 ? Colors.black : Colors.red),
+                      color:Colors.black),
                 ),
                 Text('$_likeUserCount[index]'),
                 Text(' '+'$_likeAPICount[index]'),

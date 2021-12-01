@@ -100,6 +100,7 @@ class _testresult extends State<test_result> {
         print(post.imageUrl);
         print(post.likes);
         _likeAPICount.add(post.likes);
+        _likeUserCount.add(post.likes)
 
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;

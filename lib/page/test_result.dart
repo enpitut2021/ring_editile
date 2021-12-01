@@ -31,7 +31,7 @@ class _testresult extends State<test_result> {
   List<String> _gps = [];
   String _gps_latitude = '35.6812362';
   String _gps_longitude = '139.7649361';
-  List<int> _likeUserCount =[];
+  List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
 
   bool Press = false;
@@ -100,7 +100,7 @@ class _testresult extends State<test_result> {
         print(post.imageUrl);
         print(post.likes);
         _likeAPICount.add(post.likes);
-        _likeUserCount.add(post.likes)
+        _likeUserCount.add(0);
 
         a.getUserNumInfo(post.user).then((User user) {
           u_id = user.userId;

@@ -29,13 +29,14 @@ class _testresult extends State<test_result> {
   List<String> roomid = [];
   List<String> post_msg = [];
   List<String> _gps = [];
+  List<String> create_time = [];
 
   List<double> _gps_la = [];
   List<double> _gps_lo = [];
 
   String _gps_latitude = '';
   String _gps_longitude = '';
-  
+
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
 
@@ -146,6 +147,7 @@ class _testresult extends State<test_result> {
             ));
           }
           postIds.add(post.postId);
+          create_time.add(post.created);
           _gps_la.add(post.gps_latitude);
           _gps_lo.add(post.gps_longitude);
           _gps.add(post.gps_latitude.toString() +
@@ -394,6 +396,7 @@ class _testresult extends State<test_result> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text(create_time[index]),
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {
@@ -435,10 +438,11 @@ class _testresult extends State<test_result> {
                   icon: Icon(Icons.add_location_rounded, color: Colors.black),
                 ),
                 Text(distanceBetween(
-                    double.parse(_gps_latitude ?? 0.0),
-                    double.parse(_gps_longitude ?? 0.0),
-                    _gps_la[index],
-                    _gps_lo[index])+"km"),
+                        double.parse(_gps_latitude ?? 0.0),
+                        double.parse(_gps_longitude ?? 0.0),
+                        _gps_la[index],
+                        _gps_lo[index]) +
+                    "km"),
               ],
             ),
           ],

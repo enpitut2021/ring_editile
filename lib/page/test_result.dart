@@ -31,7 +31,7 @@ class _testresult extends State<test_result> {
   List<String> _gps = [];
   String _gps_latitude = '35.6812362';
   String _gps_longitude = '139.7649361';
-  int _likeUserCount = 0;
+  List<int> _likeUserCount =[];
   List<int> _likeAPICount = [];
 
   bool Press = false;
@@ -410,11 +410,11 @@ class _testresult extends State<test_result> {
                       post_press[index] = !post_press[index];
                     });
                     a.postUserLikePost(postIds[index], true);
-                    _likeUserCount += 1;
+                    _likeUserCount[index] += 1;
                     _likeAPICount[index] += 1;
                   },
                   icon: Icon(Icons.favorite,
-                      color: _likeUserCount == 0
+                      color: _likeUserCount[index] == 0
                           ? Colors.black
                           : Colors.red),
                 ),

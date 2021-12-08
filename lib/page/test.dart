@@ -28,10 +28,10 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
-  List<String> _genre = ["--","飲食","お知らせ","気候"];
+  // List<String> _genre = ["--", "ラーメン", "定食", "カフェ", "その他"];
+  List<String> _situation = ["--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selectedgenre = "--";
-  int _selectedindex =0;
-  
+  int _selectedindex = 0;
 
   // String _hinttext_food =
   //     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
@@ -40,7 +40,8 @@ class _test extends State<test> {
   // String _hinttext_climate =
   //     "今ちょうど〇〇を出たところなんだけど、\n急に雨が降ってきた！\n洗濯物取り込んだほうがいいかも...";
 
-  List<String> placefolder = ["ジャンルを選んでください",
+  List<String> placefolder = [
+    "ジャンルを選んでください",
     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！',
     "今月末〇〇公園で食材提供が実施されます！\nコロナ禍で困窮する学生へ〇〇様から500名分の支援物資が届きます。\nマイバック持参でお越しください！",
     "今ちょうど〇〇を出たところなんだけど、\n急に雨が降ってきた！\n洗濯物取り込んだほうがいいかも..."
@@ -81,7 +82,7 @@ class _test extends State<test> {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child:SingleChildScrollView(
+          child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -117,33 +118,32 @@ class _test extends State<test> {
               ),
             ),
             DropdownButton<String>(
-              
               value: _selectedgenre,
-              onChanged: (String newValue){
+              onChanged: (String newValue) {
                 setState(() {
                   _selectedgenre = newValue;
-                  _selectedindex=_genre.indexOf(_selectedgenre);
+                  _selectedindex = _situation.indexOf(_selectedgenre);
                 });
               },
               selectedItemBuilder: (context) {
-                return _genre.map((String item) {
-                return Text(
-                item,
-                style: TextStyle(color: Colors.black),
-              );
-               }).toList();
+                return _situation.map((String item) {
+                  return Text(
+                    item,
+                    style: TextStyle(color: Colors.black),
+                  );
+                }).toList();
               },
-              items: _genre.map((String item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(
-                item,
-                // style: item == _selectedgenre
-                //     ? TextStyle(fontWeight: FontWeight.bold)
-                //     : TextStyle(fontWeight: FontWeight.normal),
-              ),
-            );
-          }).toList(),
+              items: _situation.map((String item) {
+                return DropdownMenuItem(
+                  value: item,
+                  child: Text(
+                    item,
+                    // style: item == _selectedgenre
+                    //     ? TextStyle(fontWeight: FontWeight.bold)
+                    //     : TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                );
+              }).toList(),
             ),
             TextField(
               maxLines: null,
@@ -156,9 +156,8 @@ class _test extends State<test> {
                   color: Colors.blueGrey[200],
                 )),
                 labelText: '投稿',
-                hintText:placefolder[_selectedindex],
-                    
-                hintMaxLines: 2,
+
+                hintMaxLines: 4,
                 alignLabelWithHint: true,
               ),
               autofocus: true,
@@ -179,7 +178,7 @@ class _test extends State<test> {
                   if (widget.msg != "") {
                     a
                         .postUserPost(widget.msg, _imageUrl, _gps_latitude,
-                            _gps_longitude)
+                            _gps_longitude, _selectedgenre)
                         .then((value) => {
                               Navigator.push(
                                 context,
@@ -204,8 +203,8 @@ class _test extends State<test> {
             //       );
             //     }),
           ],
-        ),)
-      ),
+        ),
+      )),
     );
   }
 

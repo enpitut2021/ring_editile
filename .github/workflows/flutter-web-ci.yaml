@@ -30,6 +30,6 @@ jobs:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         PUBLISH_BRANCH: web/master
         PUBLISH_DIR: ./build/web
-        CNAME: ring_editile.p0x0q.com
+        cname: ring_editile.p0x0q.com
         #cname tag
         

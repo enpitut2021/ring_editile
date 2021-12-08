@@ -27,7 +27,7 @@ jobs:
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         PUBLISH_BRANCH: web/master
         PUBLISH_DIR: ./build/web
         cname: ring_editile.p0x0q.com

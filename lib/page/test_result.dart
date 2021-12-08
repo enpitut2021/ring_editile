@@ -388,12 +388,12 @@ class _testresult extends State<test_result> {
 
   Widget _buildChip(String label, Color color){
     return Chip(
-      labelPadding: EdgeInsets.all(2.0),
+      labelPadding: EdgeInsets.all(1.0),
        avatar: CircleAvatar(
          backgroundColor: Colors.white70,
          child:
          Icon(
-                Icons.border_color_outlined,
+                Icons.label_important,
                 color: Colors.white,
               ),
        ),
@@ -401,13 +401,13 @@ class _testresult extends State<test_result> {
         label,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 10,
+          fontSize: 14,
         ),
       ),
       backgroundColor: color,
       elevation: 6.0, // 影の大きさ
       shadowColor: Colors.grey[60], // 影の色
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(3.0),
     );
   }
 

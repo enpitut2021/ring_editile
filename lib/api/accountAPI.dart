@@ -255,6 +255,7 @@ class Post {
     imageUrl = post['image_url'] ?? '';
     gps_latitude = post['gps_latitude'] ?? 0.0;
     gps_longitude = post['gps_longitude'] ?? 0.0;
+    category = post['category'] ?? '';
   }
 }
 

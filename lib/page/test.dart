@@ -28,10 +28,12 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
-  // List<String> _genre = ["--", "ラーメン", "定食", "カフェ", "その他"];
+  List<String> _genre = ["--", "ラーメン", "定食", "カフェ", "その他"];
   List<String> _situation = ["--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selectedgenre = "--";
-  int _selectedindex = 0;
+  String _selectedsituation = "--";
+  int _selectedindex1 = 0;
+  int _selectedindex2 = 0;
 
   // String _hinttext_food =
   //     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
@@ -68,6 +70,7 @@ class _test extends State<test> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lime[100],
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -117,33 +120,63 @@ class _test extends State<test> {
                 ),
               ),
             ),
-            DropdownButton<String>(
-              value: _selectedgenre,
-              onChanged: (String newValue) {
-                setState(() {
-                  _selectedgenre = newValue;
-                  _selectedindex = _situation.indexOf(_selectedgenre);
-                });
-              },
-              selectedItemBuilder: (context) {
-                return _situation.map((String item) {
-                  return Text(
-                    item,
-                    style: TextStyle(color: Colors.black),
-                  );
-                }).toList();
-              },
-              items: _situation.map((String item) {
-                return DropdownMenuItem(
-                  value: item,
-                  child: Text(
-                    item,
-                    // style: item == _selectedgenre
-                    //     ? TextStyle(fontWeight: FontWeight.bold)
-                    //     : TextStyle(fontWeight: FontWeight.normal),
-                  ),
-                );
-              }).toList(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                DropdownButton<String>(
+                  value: _selectedgenre,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      _selectedgenre = newValue;
+                      _selectedindex1 = _genre.indexOf(_selectedgenre);
+                    });
+                  },
+                  selectedItemBuilder: (context) {
+                    return _genre.map((String item) {
+                      return Text(
+                        item,
+                        style: TextStyle(color: Colors.black),
+                      );
+                    }).toList();
+                  },
+                  items: _genre.map((String item) {
+                    return DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                      ),
+                    );
+                  }).toList(),
+                ),
+                DropdownButton<String>(
+                  value: _selectedsituation,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      _selectedsituation = newValue;
+                      _selectedindex2 = _situation.indexOf(_selectedsituation);
+                    });
+                  },
+                  selectedItemBuilder: (context) {
+                    return _situation.map((String item) {
+                      return Text(
+                        item,
+                        style: TextStyle(color: Colors.black),
+                      );
+                    }).toList();
+                  },
+                  items: _situation.map((String item) {
+                    return DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        // style: item == _selectedgenre
+                        //     ? TextStyle(fontWeight: FontWeight.bold)
+                        //     : TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
             ),
             TextField(
               maxLines: null,
@@ -178,7 +211,7 @@ class _test extends State<test> {
                   if (widget.msg != "") {
                     a
                         .postUserPost(widget.msg, _imageUrl, _gps_latitude,
-                            _gps_longitude, _selectedgenre)
+                            _gps_longitude, _selectedsituation)
                         .then((value) => {
                               Navigator.push(
                                 context,

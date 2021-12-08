@@ -15,7 +15,6 @@ import 'package:url_launcher/url_launcher.dart';
 class test_result extends StatefulWidget {
   test_result(this.auth);
   Auth auth;
-
   @override
   State<StatefulWidget> createState() => _testresult();
 }
@@ -30,6 +29,7 @@ class _testresult extends State<test_result> {
   List<String> post_msg = [];
   List<String> _gps = [];
   List<String> create_time = [];
+  List<String> tag=[];
 
   List<double> _gps_la = [];
   List<double> _gps_lo = [];
@@ -65,7 +65,7 @@ class _testresult extends State<test_result> {
     final double l2 = toRadians(longitude2);
     final num a = pow(sin((f2 - f1) / 2), 2);
     final double b = cos(f1) * cos(f2) * pow(sin((l2 - l1) / 2), 2);
-    final String d = (2 * r * asin(sqrt(a + b)) / 1000).toStringAsFixed(2);
+    final String d = (2 * r * asin(sqrt(a + b)) / 1000).toStringAsFixed(1);
     return d;
   }
 
@@ -82,29 +82,29 @@ class _testresult extends State<test_result> {
   @override
   void initState() {
     getLocation();
-    print("gps:" + _gps_latitude.toString() + _gps_longitude.toString());
+    //print("gps:" + _gps_latitude.toString() + _gps_longitude.toString());
     Color icon_color = Colors.black;
     Press = false;
     // print("data");
     bool temp_p = this.Press;
-    print(widget.auth.getBearer());
+    //print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
     String u_id;
     a.getUserLikeList().then((p_likes) {
       p_likes.forEach((PostLike p) {
-        print("p_like is");
-        print(p.postId);
+        //print("p_like is");
+        //print(p.postId);
         post_like.add(p.postId);
       });
-      print(post_like);
+      //print(post_like);
     });
-    print("p_likes");
-    print(post_like);
+    //print("p_likes");
+    //print(post_like);
     // print(post_like);
     a.getUserPostList().then((posts) {
       posts.forEach((Post post) {
-        print(post.imageUrl);
-        print(post.likes);
+        //print(post.imageUrl);
+        //print(post.likes);
         _likeAPICount.add(post.likes);
         _likeUserCount.add(0);
 
@@ -147,6 +147,7 @@ class _testresult extends State<test_result> {
             ));
           }
           postIds.add(post.postId);
+          tag.add(post.category);
           create_time.add(post.created);
           _gps_la.add(post.gps_latitude);
           _gps_lo.add(post.gps_longitude);
@@ -154,26 +155,26 @@ class _testresult extends State<test_result> {
               "," +
               post.gps_longitude.toString());
           post_msg.add(post.text);
-          print("roomid is");
-          print(post.roomId);
+          //print("roomid is");
+          //print(post.roomId);
           // print("a");
           // print(post_like);
           post_press.add(false);
-          print(post_press);
+          //print(post_press);
           roomid.add(post.roomId);
           post_like.forEach((int p_l) {
             if (postIds.indexOf(p_l) != -1) {
               post_press[postIds.indexOf(p_l)] = true;
             }
           });
-          print(post_press);
+          //print(post_press);
 
           setState(() {});
         });
       });
       a.getUserLikeList().then((p_like) {
         p_like.forEach((PostLike p) {
-          print(p.postId);
+          //print(p.postId);
           if (postIds.indexOf(p.postId) != -1) {
             post_press[postIds.indexOf(p.postId)] = true;
           }
@@ -385,6 +386,31 @@ class _testresult extends State<test_result> {
     );
   }
 
+  Widget _buildChip(String label, Color color){
+    return Chip(
+      labelPadding: EdgeInsets.all(2.0),
+       avatar: CircleAvatar(
+         backgroundColor: Colors.white70,
+         child:
+         Icon(
+                Icons.border_color_outlined,
+                color: Colors.white,
+              ),
+       ),
+      label: Text(
+        label,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 10,
+        ),
+      ),
+      backgroundColor: color,
+      elevation: 6.0, // 影の大きさ
+      shadowColor: Colors.grey[60], // 影の色
+      padding: EdgeInsets.all(8.0),
+    );
+  }
+
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
       color: Colors.brown[100],
@@ -393,6 +419,7 @@ class _testresult extends State<test_result> {
         child: Column(
           children: <Widget>[
             title,
+            _buildChip(tag[index],Colors.black),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

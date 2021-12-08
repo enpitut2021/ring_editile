@@ -31,3 +31,5 @@ jobs:
         PUBLISH_BRANCH: web/master
         PUBLISH_DIR: ./build/web
         CNAME: ring_editile.p0x0q.com
+        #cname tag
+        

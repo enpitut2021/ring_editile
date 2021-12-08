@@ -1,0 +1,31 @@
+name: build apk
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [ master ]
+  # pull_request:
+  #   branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  cirrusci/flutter
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build
+        run: flutter build apk
+
+      - name: Archive apk file
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: ./build/app/outputs/apk/release/app-release.apk

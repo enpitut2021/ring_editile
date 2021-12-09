@@ -122,7 +122,7 @@ class _testresult extends State<test_result> {
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       image: DecorationImage(
-                        //fit: BoxFit.fill,
+                        fit: BoxFit.fill,
                         image: NetworkImage(post.imageUrl),
                       ),
                     ),

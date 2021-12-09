@@ -114,7 +114,7 @@ class _testresult extends State<test_result> {
             post_test.add(Column(
               children: <Widget>[
                 
-                Image.network(post.imageUrl),
+                Image.asset(post.imageUrl),
                   
 
                 

@@ -112,7 +112,14 @@ class _testresult extends State<test_result> {
           u_id = user.userId;
           if (post.imageUrl != "") {
             post_test.add(Column(
-              children: [
+              children: <Widget>[
+                Expanded(
+                  child: 
+                Container(
+                  child: Image.network(post.imageUrl),
+                  ),
+                  ),
+
                 
                   // Container(
                   //   width: 1000.0,

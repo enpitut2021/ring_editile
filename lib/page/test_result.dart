@@ -114,18 +114,20 @@ class _testresult extends State<test_result> {
             post_test.add(Column(
               children: <Widget>[
                 
-                Image.asset(post.imageUrl),
-                  
-
-                
-                  // Container(
-                  //   width: 1000.0,
-                  //   height: 800.0,
-                    
-                  //   child:Image.network(post.imageUrl),
-                      
-                  //   ),
-                  
+                FittedBox(
+                  child: 
+                  Container(
+                    width: 1000.0,
+                    height: 800.0,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      image: DecorationImage(
+                        //fit: BoxFit.fill,
+                        image: NetworkImage(post.imageUrl),
+                      ),
+                    ),
+                  ),
+                ),
                 
                 // Image.network(
                 //   post.imageUrl,

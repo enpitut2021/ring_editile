@@ -114,13 +114,13 @@ class _testresult extends State<test_result> {
             post_test.add(Column(
               children: [
                 
-                  Container(
-                    width: 1000.0,
-                    height: 800.0,
+                  // Container(
+                  //   width: 1000.0,
+                  //   height: 800.0,
                     
-                    child:Image.network(post.imageUrl),
+                  //   child:Image.network(post.imageUrl),
                       
-                    ),
+                  //   ),
                   
                 
                 // Image.network(

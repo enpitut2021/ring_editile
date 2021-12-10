@@ -29,8 +29,10 @@ class _testresult extends State<test_result> {
   List<String> post_msg = [];
   List<String> _gps = [];
   List<String> create_time = [];
-  List<String> tag=[];
+
+  List<String> tag = [];
   String gps_state="nodata";
+  
   List<double> _gps_la = [];
   List<double> _gps_lo = [];
 
@@ -42,6 +44,12 @@ class _testresult extends State<test_result> {
 
   bool Press = false;
   int checker = -1;
+  List<String> _genre = ["--", "ラーメン", "定食", "カフェ", "その他"];
+  List<String> _situation = ["--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
+  String _selectedgenre = "--";
+  String _selectedsituation = "--";
+  int _genreindex = 0;
+  int _situationindex = 0;
   Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -116,9 +124,7 @@ class _testresult extends State<test_result> {
           if (post.imageUrl != "") {
             post_test.add(Column(
               children: <Widget>[
-                
                 FittedBox(
-                  child: 
                   Container(
                     width: 600.0,
                     height: 400.0,
@@ -131,7 +137,7 @@ class _testresult extends State<test_result> {
                     ),
                   ),
                 ),
-                
+
                 // Image.network(
                 //   post.imageUrl,
                 //   errorBuilder: (c, o, s) {
@@ -307,7 +313,7 @@ class _testresult extends State<test_result> {
             shrinkWrap: true,
             itemCount: post_test.length,
             itemBuilder: (BuildContext context, int index) =>
-                _buildButtonTileView(post_test[index], index),
+                (tag[index]==_selectedsituation) ? _buildButtonTileView(post_test[index], index) : Column()
           ),
         ),
         Text(""),
@@ -341,7 +347,36 @@ class _testresult extends State<test_result> {
             //   onPressed: () {},
             // ),
             Column(
-              children: [],
+              children: [
+                DropdownButton<String>(
+                  value: _selectedsituation,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      _selectedsituation = newValue;
+                      _situationindex = _situation.indexOf(_selectedsituation);
+                    });
+                  },
+                  selectedItemBuilder: (context) {
+                    return _situation.map((String item) {
+                      return Text(
+                        item,
+                        style: TextStyle(color: Colors.black),
+                      );
+                    }).toList();
+                  },
+                  items: _situation.map((String item) {
+                    return DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        // style: item == _selectedgenre
+                        //     ? TextStyle(fontWeight: FontWeight.bold)
+                        //     : TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
             ),
             FloatingActionButton(
               heroTag: "3",
@@ -396,17 +431,16 @@ class _testresult extends State<test_result> {
     );
   }
 
-  Widget _buildChip(String label, Color color){
+  Widget _buildChip(String label, Color color) {
     return Chip(
       labelPadding: EdgeInsets.all(1.0),
-       avatar: CircleAvatar(
-         backgroundColor: Colors.white70,
-         child:
-         Icon(
-                Icons.label_important,
-                color: Colors.white,
-              ),
-       ),
+      avatar: CircleAvatar(
+        backgroundColor: Colors.white70,
+        child: Icon(
+          Icons.label_important,
+          color: Colors.white,
+        ),
+      ),
       label: Text(
         label,
         style: TextStyle(
@@ -429,7 +463,7 @@ class _testresult extends State<test_result> {
         child: Column(
           children: <Widget>[
             title,
-            _buildChip(tag[index],Colors.black),
+            _buildChip(tag[index], Colors.black),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

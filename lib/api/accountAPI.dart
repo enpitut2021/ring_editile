@@ -193,14 +193,16 @@ class AccountAPI extends API {
   Future<dynamic> postUserPost(String text, String imageUrl,
       [String gps_latitude = "",
       String gps_longitude = "",
-      String category = ""]) async {
+      String category = "",
+      String subCategory = ""]) async {
     String url = 'user/post/manage';
     Map<String, dynamic> queryParameters = {
       'text': text,
       'image_url': imageUrl,
       'gps_latitude': gps_latitude,
       'gps_longitude': gps_longitude,
-      'category': category
+      'category': category,
+      'sub_category': subCategory
     };
     return await postRequest(url, queryParameters);
   }
@@ -240,6 +242,7 @@ class Post {
   String imageUrl;
   String roomId;
   String category;
+  String subCategory;
   double gps_latitude;
   double gps_longitude;
 
@@ -256,6 +259,7 @@ class Post {
     gps_latitude = post['gps_latitude'] ?? 0.0;
     gps_longitude = post['gps_longitude'] ?? 0.0;
     category = post['category'] ?? '';
+    subCategory = post['sub_category'] ?? '';
   }
 }
 

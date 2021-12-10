@@ -69480,7 +69480,7 @@ this.by()
 this.e.pu().aF(0,new A.ad4(this),t.P)
 A.bu("\u975e\u540c\u671f\u51e6\u7406\u306a\u306e\u3067\u30ed\u30b0\u30a4\u30f3\u6210\u529f/\u5931\u6557\u304c\u51fa\u308b\u524d\u306b\u3053\u3063\u3061\u306e\u30b3\u30fc\u30c9\u304c\u5b9f\u884c\u3055\u308c\u308b")},
 K(a,b){var s=null
-return A.nL(A.mo(!0,s,A.aH("Ring",s,s,s,s,s,s)),s,A.bV(s,A.ap2(A.c([A.Gz(!1,s,s,s,!0,s,!1,A.dX(B.DN,s,s),new A.acZ(b),!1,s,s,s,s,A.aH("Regist",s,s,s,s,s,s),s,s),A.Gz(!1,s,s,s,!0,s,!1,A.dX(B.DW,s,s),new A.ad_(this,b),!1,s,s,s,s,A.aH("Login",s,s,s,s,s,s),s,s),A.Gz(!1,s,s,s,!0,s,!1,A.dX(B.DU,s,s),new A.ad0(this,b),!1,s,s,s,s,A.aH("\u6295\u7a3f\u4e00\u89a7\u753b\u9762\u3078\u98db\u3076",s,s,s,s,s,s),s,s),A.apM(A.aH("Sign Up",s,s,s,s,s,s),new A.ad1(b))],t.b),s,!1),B.l,s,s,s,s,s,s,s,s,s,1/0))}}
+return A.nL(A.mo(!0,s,A.aH("Ring",s,s,s,s,s,s)),s,A.bV(s,A.ap2(A.c([A.Gz(!1,s,s,s,!0,s,!1,A.dX(B.DN,s,s),new A.acZ(b),!1,s,s,s,s,A.aH("Regist",s,s,s,s,s,s),s,s),A.Gz(!1,s,s,s,!0,s,!1,A.dX(B.DW,s,s),new A.ad_(this,b),!1,s,s,s,s,A.aH("Login",s,s,s,s,s,s),s,s),A.Gz(!1,s,s,s,!0,s,!1,A.dX(B.DU,s,s),new A.ad0(this,b),!1,s,s,s,s,A.aH("\u6295\u7a3f\u4e00\u89a7\u753b\u9762\u306b\u79fb\u52d5\u3057\u306a\u3044\u5834\u5408\u306f\u3053\u3061\u3089\u3092\u30af\u30ea\u30c3\u30af\u3057\u3066\u304f\u3060\u3055\u3044",s,s,s,s,s,s),s,s),A.apM(A.aH("Sign Up",s,s,s,s,s,s),new A.ad1(b))],t.b),s,!1),B.l,s,s,s,s,s,s,s,s,s,1/0))}}
 A.ad4.prototype={
 $1(a){var s,r=this.a,q=t.z
 if(r.e.d===B.hg){A.bu("\u30ed\u30b0\u30a4\u30f3\u6210\u529f")

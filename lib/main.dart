@@ -131,34 +131,34 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.home),
-              title: Text('Home'),
+              title: Text('投稿一覧画面へ飛ぶ'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home(auth)),
+                  MaterialPageRoute(builder: (context) => test(auth)),
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Match'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Match(auth)),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Usersetting'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Usersetting(auth, null)),
-                );
-              },
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.home),
+            //   title: Text('Match'),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => Match(auth)),
+            //     );
+            //   },
+            // ),
+            // ListTile(
+            //   leading: Icon(Icons.settings),
+            //   title: Text('Usersetting'),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => Usersetting(auth, null)),
+            //     );
+            //   },
+            // ),
             RaisedButton(
               child: Text('Sign Up'),
               onPressed: () {

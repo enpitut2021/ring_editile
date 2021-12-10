@@ -124,7 +124,9 @@ class _testresult extends State<test_result> {
           if (post.imageUrl != "") {
             post_test.add(Column(
               children: <Widget>[
+                
                 FittedBox(
+                  child: 
                   Container(
                     width: 600.0,
                     height: 400.0,

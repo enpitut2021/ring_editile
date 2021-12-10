@@ -29,8 +29,10 @@ class _testresult extends State<test_result> {
   List<String> post_msg = [];
   List<String> _gps = [];
   List<String> create_time = [];
-  List<String> tag = [];
 
+  List<String> tag = [];
+  String gps_state="nodata";
+  
   List<double> _gps_la = [];
   List<double> _gps_lo = [];
 
@@ -55,6 +57,9 @@ class _testresult extends State<test_result> {
     // print("経度: " + position.longitude.toString());
     _gps_latitude = position.latitude.toString();
     _gps_longitude = position.longitude.toString();
+    
+    gps_state = position.toString();
+    
   }
 
   String distanceBetween(
@@ -120,9 +125,9 @@ class _testresult extends State<test_result> {
             post_test.add(Column(
               children: <Widget>[
                 FittedBox(
-                  child: Container(
-                    width: 1000.0,
-                    height: 800.0,
+                  Container(
+                    width: 600.0,
+                    height: 400.0,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       image: DecorationImage(
@@ -188,6 +193,10 @@ class _testresult extends State<test_result> {
           setState(() {});
         });
       });
+      if(gps_state=="nodata"){
+        _gps_latitude="0.0";
+        _gps_longitude="0.0";
+      }
       // print(a.getUserLikeList());
       //   a.getUserLikeList().then((p_like) {
       //   p_like.forEach((PostLike posts) {
@@ -298,7 +307,7 @@ class _testresult extends State<test_result> {
           ],
         ),
         Container(
-          height: 400,
+          height: 470,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,
@@ -500,8 +509,8 @@ class _testresult extends State<test_result> {
                   icon: Icon(Icons.add_location_rounded, color: Colors.black),
                 ),
                 Text(distanceBetween(
-                        double.parse(_gps_latitude ?? 0.0),
-                        double.parse(_gps_longitude ?? 0.0),
+                        double.parse(_gps_latitude),
+                        double.parse(_gps_longitude),
                         // 0.0,
                         // 0.0,
                         _gps_la[index],

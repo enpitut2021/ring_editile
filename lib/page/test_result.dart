@@ -468,10 +468,10 @@ class _testresult extends State<test_result> {
                   icon: Icon(Icons.add_location_rounded, color: Colors.black),
                 ),
                 Text(distanceBetween(
-                        // double.parse(_gps_latitude ?? 0.0),
-                        // double.parse(_gps_longitude ?? 0.0),
-                        0.0,
-                        0.0,
+                        double.parse(_gps_latitude ?? 0.0),
+                        double.parse(_gps_longitude ?? 0.0),
+                        // 0.0,
+                        // 0.0,
                         _gps_la[index],
                         _gps_lo[index]) +
                     "km"),

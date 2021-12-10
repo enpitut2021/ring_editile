@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               leading: Icon(Icons.home),
-              title: Text('投稿一覧画面へ飛ぶ'),
+              title: Text('投稿一覧画面に移動しない場合はこちらをクリックしてください'),
               onTap: () {
                 Navigator.push(
                   context,

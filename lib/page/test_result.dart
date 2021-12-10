@@ -46,8 +46,8 @@ class _testresult extends State<test_result> {
   List<String> _situation = ["--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selectedgenre = "--";
   String _selectedsituation = "--";
-  int _selectedindex1 = 0;
-  int _selectedindex2 = 0;
+  int _genreindex = 0;
+  int _situationindex = 0;
   Future<void> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -340,27 +340,29 @@ class _testresult extends State<test_result> {
             Column(
               children: [
                 DropdownButton<String>(
-                  value: _selectedgenre,
+                  value: _selectedsituation,
                   onChanged: (String newValue) {
                     setState(() {
-                      _selectedgenre = newValue;
-                      _selectedindex1 = _genre.indexOf(_selectedgenre);
+                      _selectedsituation = newValue;
+                      _situationindex = _situation.indexOf(_selectedsituation);
                     });
                   },
-                ),
-                selectedItemBuilder: (context) {
-                    return _genre.map((String item) {
+                  selectedItemBuilder: (context) {
+                    return _situation.map((String item) {
                       return Text(
                         item,
                         style: TextStyle(color: Colors.black),
                       );
                     }).toList();
                   },
-                  items: _genre.map((String item) {
+                  items: _situation.map((String item) {
                     return DropdownMenuItem(
                       value: item,
                       child: Text(
                         item,
+                        // style: item == _selectedgenre
+                        //     ? TextStyle(fontWeight: FontWeight.bold)
+                        //     : TextStyle(fontWeight: FontWeight.normal),
                       ),
                     );
                   }).toList(),

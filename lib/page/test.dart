@@ -32,8 +32,8 @@ class _test extends State<test> {
   List<String> _situation = ["--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selectedgenre = "--";
   String _selectedsituation = "--";
-  int _selectedindex1 = 0;
-  int _selectedindex2 = 0;
+  int _genreindex = 0;
+  int _situationindex = 0;
 
   // String _hinttext_food =
   //     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
@@ -128,7 +128,7 @@ class _test extends State<test> {
                   onChanged: (String newValue) {
                     setState(() {
                       _selectedgenre = newValue;
-                      _selectedindex1 = _genre.indexOf(_selectedgenre);
+                      _genreindex = _genre.indexOf(_selectedgenre);
                     });
                   },
                   selectedItemBuilder: (context) {
@@ -153,7 +153,7 @@ class _test extends State<test> {
                   onChanged: (String newValue) {
                     setState(() {
                       _selectedsituation = newValue;
-                      _selectedindex2 = _situation.indexOf(_selectedsituation);
+                      _situationindex = _situation.indexOf(_selectedsituation);
                     });
                   },
                   selectedItemBuilder: (context) {

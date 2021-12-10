@@ -117,8 +117,8 @@ class _testresult extends State<test_result> {
                 FittedBox(
                   child: 
                   Container(
-                    width: 1000.0,
-                    height: 800.0,
+                    width: 600.0,
+                    height: 400.0,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       image: DecorationImage(
@@ -294,7 +294,7 @@ class _testresult extends State<test_result> {
           ],
         ),
         Container(
-          height: double.maxFinite-100,
+          height: 470,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,

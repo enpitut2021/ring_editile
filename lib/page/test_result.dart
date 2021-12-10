@@ -125,6 +125,7 @@ class _testresult extends State<test_result> {
             post_test.add(Column(
               children: <Widget>[
                 FittedBox(
+                  child: 
                   Container(
                     width: 600.0,
                     height: 400.0,

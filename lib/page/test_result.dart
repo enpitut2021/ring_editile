@@ -41,6 +41,7 @@ class _testresult extends State<test_result> {
 
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
+  
 
   bool Press = false;
   int checker = -1;
@@ -224,6 +225,7 @@ class _testresult extends State<test_result> {
   }
 
   Widget build(BuildContext context) {
+    final Size size =MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.lime[100],
       appBar: AppBar(
@@ -308,7 +310,7 @@ class _testresult extends State<test_result> {
           ],
         ),
         Container(
-          height: 470,
+          height: size.height*0.7,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,

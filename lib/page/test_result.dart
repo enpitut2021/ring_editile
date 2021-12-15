@@ -464,11 +464,14 @@ class _testresult extends State<test_result> {
         child: Column(
           children: <Widget>[
             title,
-            _buildChip(tag[index], Colors.black),
+            // _buildChip(tag[index], Colors.black),
+            Text(create_time[index]),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(create_time[index]),
+                // Text(create_time[index]),
+                Text('# '+tag[index],style: TextStyle(color: Colors.black45),),
+                Text('          '),
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {

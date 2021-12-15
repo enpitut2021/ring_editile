@@ -37,7 +37,7 @@ dependencies:
   image_cropper: ^1.4.1
   geolocator: ^7.7.1
   url_launcher: ^6.0.13
-
+  universal_platform: ^1.0.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

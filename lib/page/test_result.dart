@@ -44,10 +44,10 @@ class _testresult extends State<test_result> {
 
   bool Press = false;
   int checker = -1;
-  List<String> _genre = ["--", "ラーメン", "定食", "カフェ", "その他"];
-  List<String> _situation = ["全て", "--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
-  String _selectedgenre = "--";
-  String _selectedsituation = "--";
+  List<String> _genre = ["ラーメン", "定食", "カフェ", "その他"];
+  List<String> _situation = ["全て",  "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
+  String _selectedgenre = "全て";
+  String _selectedsituation = "全て";
   int _genreindex = 0;
   int _situationindex = 0;
   Future<void> getLocation() async {

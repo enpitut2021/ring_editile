@@ -28,10 +28,10 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
-  List<String> _genre = ["--", "ラーメン", "定食", "カフェ", "その他"];
-  List<String> _situation = ["--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
-  String _selectedgenre = "--";
-  String _selectedsituation = "--";
+  List<String> _genre = [ "ラーメン", "定食", "カフェ", "その他"];
+  List<String> _situation = [ "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
+  String _selectedgenre = "ラーメン";
+  String _selectedsituation = "カジュアル";
   int _genreindex = 0;
   int _situationindex = 0;
 

@@ -313,7 +313,7 @@ class _testresult extends State<test_result> {
               shrinkWrap: true,
               itemCount: post_test.length,
               itemBuilder: (BuildContext context, int index) =>
-                  (tag[index] == _selectedsituation || tag[index] == "全て")
+                  (tag[index] == _selectedsituation || _selectedsituation == "全て")
                       ? _buildButtonTileView(post_test[index], index)
                       : Column()),
         ),

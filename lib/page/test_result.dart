@@ -31,8 +31,8 @@ class _testresult extends State<test_result> {
   List<String> create_time = [];
 
   List<String> tag = [];
-  String gps_state="nodata";
-  
+  String gps_state = "nodata";
+
   List<double> _gps_la = [];
   List<double> _gps_lo = [];
 
@@ -41,14 +41,13 @@ class _testresult extends State<test_result> {
 
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
-  
 
   bool Press = false;
   int checker = -1;
-  List<String> _genre = ["--", "ラーメン", "定食", "カフェ", "その他"];
-  List<String> _situation = ["--", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
-  String _selectedgenre = "--";
-  String _selectedsituation = "--";
+  List<String> _genre = ["ラーメン", "定食", "カフェ", "その他"];
+  List<String> _situation = ["全て",  "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
+  String _selectedgenre = "全て";
+  String _selectedsituation = "全て";
   int _genreindex = 0;
   int _situationindex = 0;
   Future<void> getLocation() async {
@@ -58,9 +57,8 @@ class _testresult extends State<test_result> {
     // print("経度: " + position.longitude.toString());
     _gps_latitude = position.latitude.toString();
     _gps_longitude = position.longitude.toString();
-    
+
     gps_state = position.toString();
-    
   }
 
   String distanceBetween(
@@ -125,10 +123,8 @@ class _testresult extends State<test_result> {
           if (post.imageUrl != "") {
             post_test.add(Column(
               children: <Widget>[
-                
                 FittedBox(
-                  child: 
-                  Container(
+                  child: Container(
                     width: 600.0,
                     height: 400.0,
                     decoration: BoxDecoration(
@@ -196,9 +192,9 @@ class _testresult extends State<test_result> {
           setState(() {});
         });
       });
-      if(gps_state=="nodata"){
-        _gps_latitude="0.0";
-        _gps_longitude="0.0";
+      if (gps_state == "nodata") {
+        _gps_latitude = "0.0";
+        _gps_longitude = "0.0";
       }
       // print(a.getUserLikeList());
       //   a.getUserLikeList().then((p_like) {
@@ -226,7 +222,7 @@ class _testresult extends State<test_result> {
   }
 
   Widget build(BuildContext context) {
-    final Size size =MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.lime[100],
       appBar: AppBar(
@@ -311,14 +307,15 @@ class _testresult extends State<test_result> {
           ],
         ),
         Container(
-          height: size.height*0.7,
+          height: size.height * 0.65,
           width: double.maxFinite,
           child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: post_test.length,
-            itemBuilder: (BuildContext context, int index) =>
-                (tag[index]==_selectedsituation) ? _buildButtonTileView(post_test[index], index) : Column()
-          ),
+              shrinkWrap: true,
+              itemCount: post_test.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  (tag[index] == _selectedsituation || _selectedsituation == "全て")
+                      ? _buildButtonTileView(post_test[index], index)
+                      : Column()),
         ),
         Text(""),
         Text(""),

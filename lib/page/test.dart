@@ -10,6 +10,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:ring_sns/api/cupyAPI.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 class test extends StatefulWidget {
   test(this.auth);
@@ -89,12 +90,17 @@ class _test extends State<test> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Container(
-                width: 150,
-                height: 150,
-                margin: const EdgeInsets.only(top: 90),
-                child: _displaySelectionImageOrGrayImage()),
-            Container(
+            Visibility(
+                visible: !UniversalPlatform.isWeb,
+                child: Container(
+                    width: 150,
+                    height: 150,
+                    margin: const EdgeInsets.only(top: 90),
+                    child: _displaySelectionImageOrGrayImage())
+                            ),
+            Visibility(
+                visible: !UniversalPlatform.isWeb,
+                child: Container(
               width: 144,
               height: 50,
               margin: const EdgeInsets.only(top: 47),
@@ -120,6 +126,8 @@ class _test extends State<test> {
                 ),
               ),
             ),
+            ),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

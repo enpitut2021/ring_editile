@@ -383,7 +383,7 @@ class _testresult extends State<test_result> {
               heroTag: "3",
               backgroundColor: Colors.black87,
               child: Icon(
-                Icons.border_color_outlined,
+                Icons.add,
                 size: 40,
                 color: Colors.white,
               ),
@@ -458,17 +458,20 @@ class _testresult extends State<test_result> {
 
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
-      color: Colors.brown[100],
+      color: Color(0xFFFFFFFE),
       child: InkWell(
         onTap: () {},
         child: Column(
           children: <Widget>[
             title,
-            _buildChip(tag[index], Colors.black),
+            // _buildChip(tag[index], Colors.black),
+            Text(create_time[index]),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(create_time[index]),
+                // Text(create_time[index]),
+                Text('# '+tag[index],style: TextStyle(color: Colors.black45),),
+                Text('          '),
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {

@@ -123,31 +123,31 @@ class _test extends State<test> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                DropdownButton<String>(
-                  value: _selectedgenre,
-                  onChanged: (String newValue) {
-                    setState(() {
-                      _selectedgenre = newValue;
-                      _genreindex = _genre.indexOf(_selectedgenre);
-                    });
-                  },
-                  selectedItemBuilder: (context) {
-                    return _genre.map((String item) {
-                      return Text(
-                        item,
-                        style: TextStyle(color: Colors.black),
-                      );
-                    }).toList();
-                  },
-                  items: _genre.map((String item) {
-                    return DropdownMenuItem(
-                      value: item,
-                      child: Text(
-                        item,
-                      ),
-                    );
-                  }).toList(),
-                ),
+                // DropdownButton<String>(
+                //   value: _selectedgenre,
+                //   onChanged: (String newValue) {
+                //     setState(() {
+                //       _selectedgenre = newValue;
+                //       _genreindex = _genre.indexOf(_selectedgenre);
+                //     });
+                //   },
+                //   selectedItemBuilder: (context) {
+                //     return _genre.map((String item) {
+                //       return Text(
+                //         item,
+                //         style: TextStyle(color: Colors.black),
+                //       );
+                //     }).toList();
+                //   },
+                //   items: _genre.map((String item) {
+                //     return DropdownMenuItem(
+                //       value: item,
+                //       child: Text(
+                //         item,
+                //       ),
+                //     );
+                //   }).toList(),
+                // ),
                 DropdownButton<String>(
                   value: _selectedsituation,
                   onChanged: (String newValue) {

@@ -29,9 +29,9 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
-  List<String> _distance = ["2km", "4km", "6km", "8km", "10km"];
+  List<String> _distance = ["2", "4", "6", "8", "10"];
   List<String> _situation = ["カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
-  String _selecteddistance = "2km";
+  String _selecteddistance = "2";
   String _selectedsituation = "カジュアル";
   int _distanceindex = 0;
   int _situationindex = 0;
@@ -141,7 +141,7 @@ class _test extends State<test> {
                   selectedItemBuilder: (context) {
                     return _distance.map((String item) {
                       return Text(
-                        item,
+                        item + "km",
                         style: TextStyle(color: Colors.black),
                       );
                     }).toList();
@@ -150,7 +150,7 @@ class _test extends State<test> {
                     return DropdownMenuItem(
                       value: item,
                       child: Text(
-                        item,
+                        item+ "km",
                       ),
                     );
                   }).toList(),

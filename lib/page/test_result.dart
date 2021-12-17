@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,8 @@ class _testresult extends State<test_result> {
   List<String> post_msg = [];
   List<String> _gps = [];
   List<String> create_time = [];
+  List<String> _postDistance = [];
+  List<String> _distanceList = [];
 
   List<String> tag = [];
   String gps_state = "nodata";
@@ -38,6 +42,8 @@ class _testresult extends State<test_result> {
 
   String _gps_latitude = '';
   String _gps_longitude = '';
+
+  String _toukouDistance = '';
 
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
@@ -60,6 +66,8 @@ class _testresult extends State<test_result> {
 
     gps_state = position.toString();
   }
+
+  // Future<void> getDistance() 
 
   String distanceBetween(
     double latitude1,
@@ -157,11 +165,19 @@ class _testresult extends State<test_result> {
               ],
             ));
           }
+          _distanceList.add(distanceBetween(
+                        double.parse(_gps_latitude),
+                        double.parse(_gps_longitude),
+                        // 0.0,
+                        // 0.0,
+                        post.gps_latitude,
+                        post.gps_longitude));
           postIds.add(post.postId);
           tag.add(post.category);
           create_time.add(post.created);
           _gps_la.add(post.gps_latitude);
           _gps_lo.add(post.gps_longitude);
+          _postDistance.add(post.subCategory);
           _gps.add(post.gps_latitude.toString() +
               "," +
               post.gps_longitude.toString());

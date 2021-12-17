@@ -469,6 +469,7 @@ class _testresult extends State<test_result> {
             title,
             // _buildChip(tag[index], Colors.black),
             Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
+            Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

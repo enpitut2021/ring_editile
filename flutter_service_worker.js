@@ -7,7 +7,7 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.js": "3783918f48ef691e230156c251169480",
 "canvaskit/profiling/canvaskit.wasm": "6d1b0fc1ec88c3110db88caa3393c580",
 "canvaskit/canvaskit.wasm": "b179ba02b7a9f61ebc108f82c5a1ecdb",
-"main.dart.js": "fbff41db760e0fa9ea1ff8c3af11b7d6",
+"main.dart.js": "99cd84438fc26cc1c0ed0e9cefec672d",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "manifest.json": "6721cea5902b9b6b2f71fbc6cbc63c61",
 "version.json": "d33434d921519e9ab733da6c3be25b1f",
@@ -19,8 +19,8 @@ const RESOURCES = {
 "assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
 "assets/AssetManifest.json": "801125fca546f506babac9af4ec061ba",
 "assets/FontManifest.json": "5a32d4310a6f5d9a6b651e75ba0d7372",
-"index.html": "541247f2dbe4dfa8dbc1d568769396e2",
-"/": "541247f2dbe4dfa8dbc1d568769396e2",
+"index.html": "a683621823f74c7f0e932473b8b0bc39",
+"/": "a683621823f74c7f0e932473b8b0bc39",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1"
 };

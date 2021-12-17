@@ -70416,8 +70416,8 @@ A.ahT.prototype={
 $1(a){var s=this.a
 J.cW(a,new A.ahO(s))
 this.b.ok().aE(0,new A.ahP(s),t.P)
-if(s.cy==="nodata")s.fr=s.dy="0.0"
-s.ad(new A.ahQ())},
+if(s.cy==="nodata"){s.dy="36.1106"
+s.fr="140.1007"}s.ad(new A.ahQ())},
 $S:78}
 A.ahO.prototype={
 $1(a){var s,r,q=null,p=this.a

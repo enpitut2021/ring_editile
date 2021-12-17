@@ -38,7 +38,7 @@ class _testresult extends State<test_result> {
 
   String _gps_latitude = "36.1106";
   String _gps_longitude = "140.1007";
-  
+
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
 
@@ -99,7 +99,7 @@ class _testresult extends State<test_result> {
     bool temp_p = this.Press;
     //print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
-    String u_id;
+    // String u_id;
     a.getUserLikeList().then((p_likes) {
       p_likes.forEach((PostLike p) {
         //print("p_like is");
@@ -118,8 +118,9 @@ class _testresult extends State<test_result> {
         _likeAPICount.add(post.likes);
         _likeUserCount.add(0);
 
-        a.getUserNumInfo(post.user).then((User user) {
-          u_id = user.userId;
+        // a.getUserNumInfo(post.user).then((User user) {
+        //   u_id = user.userId;
+        //   });
           if (post.imageUrl != "") {
             post_test.add(Column(
               children: <Widget>[
@@ -136,14 +137,13 @@ class _testresult extends State<test_result> {
                     ),
                   ),
                 ),
-
                 // Image.network(
                 //   post.imageUrl,
                 //   errorBuilder: (c, o, s) {
                 //     return Text("[画像がありません]");
                 //   },
                 // ),
-                Text(u_id + ": " + post.text),
+                Text(post.text),
               ],
             ));
           } else {
@@ -152,7 +152,7 @@ class _testresult extends State<test_result> {
                 Container(
                   height: 400,
                   alignment: Alignment.center,
-                  child: Text(u_id + ": " + post.text),
+                  child: Text(post.text),
                 ),
               ],
             ));
@@ -179,9 +179,7 @@ class _testresult extends State<test_result> {
             }
           });
           //print(post_press);
-
-          setState(() {});
-        });
+        
       });
       a.getUserLikeList().then((p_like) {
         p_like.forEach((PostLike p) {
@@ -189,9 +187,9 @@ class _testresult extends State<test_result> {
           if (postIds.indexOf(p.postId) != -1) {
             post_press[postIds.indexOf(p.postId)] = true;
           }
-          setState(() {});
         });
       });
+
       if (gps_state == "nodata") {
         _gps_latitude = "0.0";
         _gps_longitude = "0.0";
@@ -204,6 +202,7 @@ class _testresult extends State<test_result> {
       //   });
       // });
       //print(post_press);
+      setState(() {});
     });
     // print("a");
     // print(post_press);
@@ -487,10 +486,10 @@ class _testresult extends State<test_result> {
                   onPressed: () {
                     AccountAPI a = new AccountAPI(widget.auth.getBearer());
 
-                    a.getUserNumInfo(1).then((User user) {
-                      print("1");
-                      print(user.nickname);
-                    });
+                    // a.getUserNumInfo(1).then((User user) {
+                    //   print("1");
+                    //   print(user.nickname);
+                    // });
                     setState(() {
                       //print(postIds[index]);
                       post_press[index] = !post_press[index];

@@ -27,6 +27,7 @@ class _test extends State<test> {
   String _imageUrl;
   final _picker = ImagePicker();
   String _location = "nodata";
+  //
 
   String _gps_latitude = "36.1106";
   String _gps_longitude = "140.1007";

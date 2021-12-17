@@ -51,7 +51,7 @@ class _testresult extends State<test_result> {
   bool Press = false;
   int checker = -1;
   List<String> _genre = ["ラーメン", "定食", "カフェ", "その他"];
-  List<String> _situation = ["全て",  "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
+  List<String> _situation = ["全て", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selectedgenre = "全て";
   String _selectedsituation = "全て";
   int _genreindex = 0;
@@ -67,7 +67,7 @@ class _testresult extends State<test_result> {
     gps_state = position.toString();
   }
 
-  // Future<void> getDistance() 
+  // Future<void> getDistance()
 
   String distanceBetween(
     double latitude1,
@@ -166,12 +166,12 @@ class _testresult extends State<test_result> {
             ));
           }
           _distanceList.add(distanceBetween(
-                        double.parse(_gps_latitude),
-                        double.parse(_gps_longitude),
-                        // 0.0,
-                        // 0.0,
-                        post.gps_latitude,
-                        post.gps_longitude));
+              double.parse(_gps_latitude),
+              double.parse(_gps_longitude),
+              // 0.0,
+              // 0.0,
+              post.gps_latitude,
+              post.gps_longitude));
           postIds.add(post.postId);
           tag.add(post.category);
           create_time.add(post.created);
@@ -329,7 +329,10 @@ class _testresult extends State<test_result> {
               shrinkWrap: true,
               itemCount: post_test.length,
               itemBuilder: (BuildContext context, int index) =>
-                  (tag[index] == _selectedsituation || _selectedsituation == "全て")
+                  ((tag[index] == _selectedsituation ||
+                              _selectedsituation == "全て") &&
+                          double.parse(_distanceList[index]) <=
+                              double.parse(_postDistance[index]))
                       ? _buildButtonTileView(post_test[index], index)
                       : Column()),
         ),
@@ -482,11 +485,15 @@ class _testresult extends State<test_result> {
             title,
             // _buildChip(tag[index], Colors.black),
             Text(create_time[index]),
+            Text(_postDistance[index]),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Text(create_time[index]),
-                Text('# '+tag[index],style: TextStyle(color: Colors.black45),),
+                Text(
+                  '# ' + tag[index],
+                  style: TextStyle(color: Colors.black45),
+                ),
                 Text('          '),
                 IconButton(
                   icon: Icon(Icons.chat),

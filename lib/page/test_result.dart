@@ -490,13 +490,13 @@ class _testresult extends State<test_result> {
             // _buildChip(tag[index], Colors.black),
             // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
             // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
-            Text(showTime(index)),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Text(create_time[index]),
-                Text('# '+tag[index],style: TextStyle(color: Colors.black45),),
-                Text('          '),
+                Text(showTime(index),style: TextStyle(color: Colors.black45)),
+                Text('  # '+tag[index]),
+                // Text('          '),
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {

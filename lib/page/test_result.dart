@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,8 @@ class _testresult extends State<test_result> {
   List<String> post_msg = [];
   List<String> _gps = [];
   List<String> create_time = [];
+  List<String> _postDistance = [];
+  List<String> _distanceList = [];
 
   var endDate = new DateTime.now();
   
@@ -42,13 +46,15 @@ class _testresult extends State<test_result> {
   String _gps_latitude = "36.1106";
   String _gps_longitude = "140.1007";
 
+  String _toukouDistance = '';
+
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
 
   bool Press = false;
   int checker = -1;
   List<String> _genre = ["ラーメン", "定食", "カフェ", "その他"];
-  List<String> _situation = ["全て",  "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
+  List<String> _situation = ["全て", "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selectedgenre = "全て";
   String _selectedsituation = "全て";
   int _genreindex = 0;
@@ -63,6 +69,8 @@ class _testresult extends State<test_result> {
 
     gps_state = position.toString();
   }
+
+  // Future<void> getDistance()
 
   String distanceBetween(
     double latitude1,
@@ -160,11 +168,19 @@ class _testresult extends State<test_result> {
               ],
             ));
           }
+          _distanceList.add(distanceBetween(
+              double.parse(_gps_latitude),
+              double.parse(_gps_longitude),
+              // 0.0,
+              // 0.0,
+              post.gps_latitude,
+              post.gps_longitude));
           postIds.add(post.postId);
           tag.add(post.category);
           create_time.add(post.created);
           _gps_la.add(post.gps_latitude);
           _gps_lo.add(post.gps_longitude);
+          _postDistance.add(post.subCategory);
           _gps.add(post.gps_latitude.toString() +
               "," +
               post.gps_longitude.toString());
@@ -316,7 +332,10 @@ class _testresult extends State<test_result> {
               shrinkWrap: true,
               itemCount: post_test.length,
               itemBuilder: (BuildContext context, int index) =>
-                  (tag[index] == _selectedsituation || _selectedsituation == "全て")
+                  ((tag[index] == _selectedsituation ||
+                              _selectedsituation == "全て") &&
+                          double.parse(_distanceList[index]) <=
+                              double.parse(_postDistance[index]))
                       ? _buildButtonTileView(post_test[index], index)
                       : Column()),
         ),
@@ -488,6 +507,9 @@ class _testresult extends State<test_result> {
           children: <Widget>[
             title,
             // _buildChip(tag[index], Colors.black),
+
+            Text(_postDistance[index] + "km以内の人への投稿"),
+
             // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
             // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
             
@@ -497,6 +519,7 @@ class _testresult extends State<test_result> {
                 Text(showTime(index),style: TextStyle(color: Colors.black45)),
                 Text('  # '+tag[index]),
                 // Text('          '),
+
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {

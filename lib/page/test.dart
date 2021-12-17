@@ -29,11 +29,11 @@ class _test extends State<test> {
   String _location = "nodata";
   String _gps_latitude = "";
   String _gps_longitude = "";
-  List<String> _genre = [ "ラーメン", "定食", "カフェ", "その他"];
-  List<String> _situation = [ "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
-  String _selectedgenre = "ラーメン";
+  List<String> _distance = ["2km", "4km", "6km", "8km", "10km"];
+  List<String> _situation = ["カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
+  String _selecteddistance = "2km";
   String _selectedsituation = "カジュアル";
-  int _genreindex = 0;
+  int _distanceindex = 0;
   int _situationindex = 0;
 
   // String _hinttext_food =
@@ -96,66 +96,65 @@ class _test extends State<test> {
                     width: 150,
                     height: 150,
                     margin: const EdgeInsets.only(top: 90),
-                    child: _displaySelectionImageOrGrayImage())
-                            ),
+                    child: _displaySelectionImageOrGrayImage())),
             Visibility(
-                visible: !UniversalPlatform.isWeb,
-                child: Container(
-              width: 144,
-              height: 50,
-              margin: const EdgeInsets.only(top: 47),
-              decoration: BoxDecoration(
-                color: const Color(0xfffa4269),
-                border: Border.all(
-                  width: 2,
-                  color: const Color(0xff000000),
+              visible: !UniversalPlatform.isWeb,
+              child: Container(
+                width: 144,
+                height: 50,
+                margin: const EdgeInsets.only(top: 47),
+                decoration: BoxDecoration(
+                  color: const Color(0xfffa4269),
+                  border: Border.all(
+                    width: 2,
+                    color: const Color(0xff000000),
+                  ),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: FlatButton(
-                onPressed: () => _getImageFromGallery(),
-                child: const Text(
-                  '写真を選ぶ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xffffffff),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                    height: 1.2,
+                child: FlatButton(
+                  onPressed: () => _getImageFromGallery(),
+                  child: const Text(
+                    '写真を選ぶ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xffffffff),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      height: 1.2,
+                    ),
                   ),
                 ),
               ),
             ),
-            ),
-            
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // DropdownButton<String>(
-                //   value: _selectedgenre,
-                //   onChanged: (String newValue) {
-                //     setState(() {
-                //       _selectedgenre = newValue;
-                //       _genreindex = _genre.indexOf(_selectedgenre);
-                //     });
-                //   },
-                //   selectedItemBuilder: (context) {
-                //     return _genre.map((String item) {
-                //       return Text(
-                //         item,
-                //         style: TextStyle(color: Colors.black),
-                //       );
-                //     }).toList();
-                //   },
-                //   items: _genre.map((String item) {
-                //     return DropdownMenuItem(
-                //       value: item,
-                //       child: Text(
-                //         item,
-                //       ),
-                //     );
-                //   }).toList(),
-                // ),
+                DropdownButton<String>(
+                  value: _selecteddistance,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      _selecteddistance = newValue;
+                      _distanceindex = _distance.indexOf(_selecteddistance);
+                    });
+                  },
+                  selectedItemBuilder: (context) {
+                    return _distance.map((String item) {
+                      return Text(
+                        item,
+                        style: TextStyle(color: Colors.black),
+                      );
+                    }).toList();
+                  },
+                  items: _distance.map((String item) {
+                    return DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                      ),
+                    );
+                  }).toList(),
+                ),
                 DropdownButton<String>(
                   value: _selectedsituation,
                   onChanged: (String newValue) {
@@ -177,7 +176,7 @@ class _test extends State<test> {
                       value: item,
                       child: Text(
                         item,
-                        // style: item == _selectedgenre
+                        // style: item == _selecteddistance
                         //     ? TextStyle(fontWeight: FontWeight.bold)
                         //     : TextStyle(fontWeight: FontWeight.normal),
                       ),
@@ -218,8 +217,13 @@ class _test extends State<test> {
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
                     a
-                        .postUserPost(widget.msg, _imageUrl, _gps_latitude,
-                            _gps_longitude, _selectedsituation)
+                        .postUserPost(
+                            widget.msg,
+                            _imageUrl,
+                            _gps_latitude,
+                            _gps_longitude,
+                            _selectedsituation,
+                            _selecteddistance)
                         .then((value) => {
                               Navigator.push(
                                 context,

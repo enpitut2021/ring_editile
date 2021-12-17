@@ -27,11 +27,15 @@ class _test extends State<test> {
   String _imageUrl;
   final _picker = ImagePicker();
   String _location = "nodata";
-  String _gps_latitude = "";
-  String _gps_longitude = "";
+
+  String _gps_latitude = "36.1106";
+  String _gps_longitude = "140.1007";
   List<String> _distance = ["2", "4", "6", "8", "10"];
   List<String> _situation = ["カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selecteddistance = "2";
+
+
+
   String _selectedsituation = "カジュアル";
   int _distanceindex = 0;
   int _situationindex = 0;

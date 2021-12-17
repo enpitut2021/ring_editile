@@ -34,14 +34,17 @@ class _testresult extends State<test_result> {
   List<String> _postDistance = [];
   List<String> _distanceList = [];
 
+  var endDate = new DateTime.now();
+  
+
   List<String> tag = [];
   String gps_state = "nodata";
 
   List<double> _gps_la = [];
   List<double> _gps_lo = [];
 
-  String _gps_latitude = '';
-  String _gps_longitude = '';
+  String _gps_latitude = "36.1106";
+  String _gps_longitude = "140.1007";
 
   String _toukouDistance = '';
 
@@ -107,7 +110,7 @@ class _testresult extends State<test_result> {
     bool temp_p = this.Press;
     //print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
-    String u_id;
+    // String u_id;
     a.getUserLikeList().then((p_likes) {
       p_likes.forEach((PostLike p) {
         //print("p_like is");
@@ -126,8 +129,9 @@ class _testresult extends State<test_result> {
         _likeAPICount.add(post.likes);
         _likeUserCount.add(0);
 
-        a.getUserNumInfo(post.user).then((User user) {
-          u_id = user.userId;
+        // a.getUserNumInfo(post.user).then((User user) {
+        //   u_id = user.userId;
+        //   });
           if (post.imageUrl != "") {
             post_test.add(Column(
               children: <Widget>[
@@ -144,14 +148,13 @@ class _testresult extends State<test_result> {
                     ),
                   ),
                 ),
-
                 // Image.network(
                 //   post.imageUrl,
                 //   errorBuilder: (c, o, s) {
                 //     return Text("[画像がありません]");
                 //   },
                 // ),
-                Text(u_id + ": " + post.text),
+                Text(post.text),
               ],
             ));
           } else {
@@ -160,7 +163,7 @@ class _testresult extends State<test_result> {
                 Container(
                   height: 400,
                   alignment: Alignment.center,
-                  child: Text(u_id + ": " + post.text),
+                  child: Text(post.text),
                 ),
               ],
             ));
@@ -195,9 +198,7 @@ class _testresult extends State<test_result> {
             }
           });
           //print(post_press);
-
-          setState(() {});
-        });
+        
       });
       a.getUserLikeList().then((p_like) {
         p_like.forEach((PostLike p) {
@@ -205,12 +206,13 @@ class _testresult extends State<test_result> {
           if (postIds.indexOf(p.postId) != -1) {
             post_press[postIds.indexOf(p.postId)] = true;
           }
-          setState(() {});
         });
       });
+
+
       if (gps_state == "nodata") {
-        _gps_latitude = "0.0";
-        _gps_longitude = "0.0";
+        _gps_latitude = "36.1106";
+        _gps_longitude = "140.1007";
       }
       // print(a.getUserLikeList());
       //   a.getUserLikeList().then((p_like) {
@@ -220,6 +222,7 @@ class _testresult extends State<test_result> {
       //   });
       // });
       //print(post_press);
+      setState(() {});
     });
     // print("a");
     // print(post_press);
@@ -475,6 +478,26 @@ class _testresult extends State<test_result> {
     );
   }
 
+  String showTime(int index){
+    // final calcDays = endDate.difference(DateTime.parse(create_time[index]));
+    // final Duration difference = DateTime.now().difference(date);
+    final Duration difference = endDate.difference(DateTime.parse(create_time[index]));
+
+    final int sec = difference.inSeconds;
+
+    if (sec >= 60 * 60 * 24) {
+    return '${difference.inDays.toString()}日前';
+  } else if (sec >= 60 * 60) {
+    return '${difference.inHours.toString()}時間前';
+  } else if (sec >= 60) {
+    return '${difference.inMinutes.toString()}分前';
+  } else {
+    return '$sec秒前';
+  }
+}
+  
+  
+
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
       color: Color(0xFFFFFFFE),
@@ -484,17 +507,19 @@ class _testresult extends State<test_result> {
           children: <Widget>[
             title,
             // _buildChip(tag[index], Colors.black),
-            Text(create_time[index]),
+
             Text(_postDistance[index] + "km以内の人への投稿"),
+
+            // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
+            // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Text(create_time[index]),
-                Text(
-                  '# ' + tag[index],
-                  style: TextStyle(color: Colors.black45),
-                ),
-                Text('          '),
+                Text(showTime(index),style: TextStyle(color: Colors.black45)),
+                Text('  # '+tag[index]),
+                // Text('          '),
+
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {
@@ -510,10 +535,10 @@ class _testresult extends State<test_result> {
                   onPressed: () {
                     AccountAPI a = new AccountAPI(widget.auth.getBearer());
 
-                    a.getUserNumInfo(1).then((User user) {
-                      print("1");
-                      print(user.nickname);
-                    });
+                    // a.getUserNumInfo(1).then((User user) {
+                    //   print("1");
+                    //   print(user.nickname);
+                    // });
                     setState(() {
                       //print(postIds[index]);
                       post_press[index] = !post_press[index];
@@ -548,6 +573,8 @@ class _testresult extends State<test_result> {
           ],
         ),
       ),
+
+
 
       // child: Column(
       //   children: <Widget>[

@@ -28,8 +28,8 @@ class ChatAPI extends API {
           contentType: MediaType('multipart', 'form-data')),
     });
     dynamic response = await postImageRequest(url, formData);
-    String filename = response['file_name'];
-    return 'https://restapi-editile.p0x0q.com/api/images/cupy/$filename';
+    String filename = response['file'];
+    return 'https://restapi-editile.p0x0q.com/' + filename;
   }
 
   Future<List<dynamic>> searchThreads(String query) async {

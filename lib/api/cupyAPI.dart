@@ -11,7 +11,7 @@ class CupyAPI extends API {
   String _cupyBaseUrl;
 
   CupyAPI(String bearer) : super(bearer) {
-    _cupyBaseUrl = '${baseUrl}images/cupy/';
+    _cupyBaseUrl = 'https://restapi-editile.p0x0q.com';
   }
 
   Future<dynamic> postImageRequest(String url, [FormData formData]) async {
@@ -40,8 +40,8 @@ class CupyAPI extends API {
     });
     try {
       dynamic response = await postImageRequest(url, formData);
-      String filename = response['file_name'];
-      String imageUrl = _cupyBaseUrl + filename;
+      String filename = response['file'];
+      String imageUrl = "https://restapi-editile.p0x0q.com" + filename;
       print('[$url] uploaded image url: $imageUrl');
       return imageUrl;
     } catch (e) {
@@ -70,7 +70,8 @@ class CupyAPI extends API {
           minimumAspectRatio: 1.0,
         ));
   }
-  Future<String> callImagePicker({bool clop = false}) async{
+
+  Future<String> callImagePicker({bool clop = false}) async {
     PickedFile imageFile =
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (imageFile == null) return '';
@@ -82,6 +83,7 @@ class CupyAPI extends API {
     }
     return imagePath;
   }
+
   Future<String> uploadImageWithPicker({bool clop = false}) async {
     PickedFile imageFile =
         await ImagePicker().getImage(source: ImageSource.gallery);

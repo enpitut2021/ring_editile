@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';

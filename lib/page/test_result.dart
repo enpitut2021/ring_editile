@@ -36,9 +36,9 @@ class _testresult extends State<test_result> {
   List<double> _gps_la = [];
   List<double> _gps_lo = [];
 
-  String _gps_latitude = '';
-  String _gps_longitude = '';
-
+  String _gps_latitude = "36.1106";
+  String _gps_longitude = "140.1007";
+  
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
 

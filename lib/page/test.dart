@@ -27,8 +27,8 @@ class _test extends State<test> {
   String _imageUrl;
   final _picker = ImagePicker();
   String _location = "nodata";
-  String _gps_latitude = "";
-  String _gps_longitude = "";
+  String _gps_latitude = "36.1106";
+  String _gps_longitude = "140.1007";
   List<String> _genre = [ "ラーメン", "定食", "カフェ", "その他"];
   List<String> _situation = [ "カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selectedgenre = "ラーメン";

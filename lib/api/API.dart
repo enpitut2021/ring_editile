@@ -40,7 +40,7 @@ class API {
     try {
       Response<dynamic> response = await dio.get(url,
           options: Options(headers: headers), queryParameters: queryParameters);
-      print('[$url] response: $response');
+      // print('[$url] response: $response');
       return response.data;
     } catch (e) {
       print('[$url] error: ${e.response}');
@@ -56,7 +56,7 @@ class API {
       'Authorization': 'Bearer $bearer',
     };
 
-    print('[$url] submit: ${json.encode(headers)}');
+    // print('[$url] submit: ${json.encode(headers)}');
     if (queryParameters != null)
       print('[$url] queryParameters: ${json.encode(queryParameters)}');
 

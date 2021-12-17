@@ -485,7 +485,7 @@ class _testresult extends State<test_result> {
             title,
             // _buildChip(tag[index], Colors.black),
             Text(create_time[index]),
-            Text(_postDistance[index]),
+            Text(_postDistance[index] + "km以内の人への投稿"),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

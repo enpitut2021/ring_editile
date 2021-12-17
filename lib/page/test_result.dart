@@ -30,6 +30,9 @@ class _testresult extends State<test_result> {
   List<String> _gps = [];
   List<String> create_time = [];
 
+  var endDate = new DateTime.now();
+  
+
   List<String> tag = [];
   String gps_state = "nodata";
 
@@ -465,7 +468,7 @@ class _testresult extends State<test_result> {
           children: <Widget>[
             title,
             // _buildChip(tag[index], Colors.black),
-            Text(create_time[index]),
+            Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

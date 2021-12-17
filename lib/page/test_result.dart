@@ -190,9 +190,10 @@ class _testresult extends State<test_result> {
         });
       });
 
+
       if (gps_state == "nodata") {
-        _gps_latitude = "0.0";
-        _gps_longitude = "0.0";
+        _gps_latitude = "36.1106";
+        _gps_longitude = "140.1007";
       }
       // print(a.getUserLikeList());
       //   a.getUserLikeList().then((p_like) {

@@ -30,6 +30,9 @@ class _testresult extends State<test_result> {
   List<String> _gps = [];
   List<String> create_time = [];
 
+  var endDate = new DateTime.now();
+  
+
   List<String> tag = [];
   String gps_state = "nodata";
 
@@ -456,6 +459,26 @@ class _testresult extends State<test_result> {
     );
   }
 
+  String showTime(int index){
+    // final calcDays = endDate.difference(DateTime.parse(create_time[index]));
+    // final Duration difference = DateTime.now().difference(date);
+    final Duration difference = endDate.difference(DateTime.parse(create_time[index]));
+
+    final int sec = difference.inSeconds;
+
+    if (sec >= 60 * 60 * 24) {
+    return '${difference.inDays.toString()}日前';
+  } else if (sec >= 60 * 60) {
+    return '${difference.inHours.toString()}時間前';
+  } else if (sec >= 60) {
+    return '${difference.inMinutes.toString()}分前';
+  } else {
+    return '$sec秒前';
+  }
+}
+  
+  
+
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
       color: Color(0xFFFFFFFE),
@@ -465,13 +488,15 @@ class _testresult extends State<test_result> {
           children: <Widget>[
             title,
             // _buildChip(tag[index], Colors.black),
-            Text(create_time[index]),
+            // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
+            // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Text(create_time[index]),
-                Text('# '+tag[index],style: TextStyle(color: Colors.black45),),
-                Text('          '),
+                Text(showTime(index),style: TextStyle(color: Colors.black45)),
+                Text('  # '+tag[index]),
+                // Text('          '),
                 IconButton(
                   icon: Icon(Icons.chat),
                   onPressed: () {
@@ -525,6 +550,8 @@ class _testresult extends State<test_result> {
           ],
         ),
       ),
+
+
 
       // child: Column(
       //   children: <Widget>[

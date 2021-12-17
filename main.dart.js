@@ -20372,10 +20372,8 @@ a0r:function a0r(a){this.a=a},
 pi:function pi(){this.r=this.f=null},
 anT(a){var s=new A.V9(a)
 s.fJ(a)
-s.d="https://restapi-editile.p0x0q.com/api/images/cupy/"
 return s},
-V9:function V9(a){this.d=null
-this.a=a
+V9:function V9(a){this.a=a
 this.b=null},
 Hf:function Hf(a){this.a=a},
 x9:function x9(a){this.a=a},

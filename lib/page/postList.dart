@@ -12,14 +12,14 @@ import 'package:geolocator/geolocator.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
-class test_result extends StatefulWidget {
-  test_result(this.auth);
+class postList extends StatefulWidget {
+  postList(this.auth);
   Auth auth;
   @override
   State<StatefulWidget> createState() => _testresult();
 }
 
-class _testresult extends State<test_result> {
+class _testresult extends State<postList> {
   List<Widget> post_test = [];
   Color _iconcolor = Colors.black;
   List<int> postIds = [];

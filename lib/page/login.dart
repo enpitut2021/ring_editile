@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/page/regist.dart';
-import 'package:ring_sns/page/test_result.dart';
+import 'package:ring_sns/page/postList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/test.dart';
 
@@ -126,7 +126,7 @@ class _LoginPage extends State<LoginPage> {
                   }
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => test_result(auth)),
+                    MaterialPageRoute(builder: (context) => postList(auth)),
                   );
                 } else {
                   setState(() {

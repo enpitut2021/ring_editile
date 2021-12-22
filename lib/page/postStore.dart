@@ -92,13 +92,13 @@ class _postStore extends State<postStore> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Visibility(
-                visible: !UniversalPlatform.isWeb,
-                child: Container(
-                    width: 150,
-                    height: 150,
-                    // margin: const EdgeInsets.only(top: 90),
-                    child: _displaySelectionImageOrGrayImage())),
+            // Visibility(
+            //     visible: !UniversalPlatform.isWeb,
+            //     child: Container(
+            //         width: 150,
+            //         height: 150,
+            //         // margin: const EdgeInsets.only(top: 90),
+            //         child: _displaySelectionImageOrGrayImage())),
             // Visibility(
             //   visible: !UniversalPlatform.isWeb,
             //   child: InkWell(
@@ -222,7 +222,18 @@ class _postStore extends State<postStore> {
                 ),
               ],
             ),
-            RaisedButton(
+             Visibility(
+                visible: !UniversalPlatform.isWeb,
+                child: Container(
+                    width: 150,
+                    height: 150,
+                    // margin: const EdgeInsets.only(top: 90),
+                    child: _displaySelectionImageOrGrayImage())),
+            ButtonTheme(
+              minWidth: 100.0,
+              height: 50.0,
+              buttonColor: Colors.white,
+              child:  RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
@@ -249,7 +260,7 @@ class _postStore extends State<postStore> {
                       widget.e_msg = '文字を入力してください';
                     });
                   }
-                }),
+                }),),
             // RaisedButton(
             //     child: Text('投稿一覧画面へ'),
             //     onPressed: () {

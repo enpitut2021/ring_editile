@@ -30,13 +30,15 @@ class CupyAPI extends API {
     }
   }
 
-  Future<String> _uploadImage(String imageFilePath) async {
+  Future<String> _uploadImage(String imageFilePath, PickedFile imageFile) async {
     String url = 'images/upload/cupy';
+    File file = File(imageFile.path);
     FormData formData = FormData.fromMap({
       'name': 'image_file',
       'image_file': await MultipartFile.fromFile(
-        imageFilePath,
-      ),
+      file.path,
+      filename: file.path.split('/').last,
+    ),
     });
     try {
       dynamic response = await postImageRequest(url, formData);
@@ -89,11 +91,11 @@ class CupyAPI extends API {
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (imageFile == null) return '';
     String imagePath = imageFile.path;
-    if (clop) {
-      File cloppedImageFile = await _imageCrop(imagePath);
-      if (cloppedImageFile == null) return '';
-      imagePath = cloppedImageFile.path;
-    }
-    return await _uploadImage(imagePath);
+    // if (clop) {
+    //   File cloppedImageFile = await _imageCrop(imagePath);
+    //   if (cloppedImageFile == null) return '';
+    //   imagePath = cloppedImageFile.path;
+    // }
+    return await _uploadImage(imagePath, imageFile);
   }
 }

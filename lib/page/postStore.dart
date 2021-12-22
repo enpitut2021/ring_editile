@@ -96,14 +96,14 @@ class _postStore extends State<postStore> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Visibility(
-                visible: !UniversalPlatform.isWeb,
+                visible: true,
                 child: Container(
                     width: 150,
                     height: 150,
                     margin: const EdgeInsets.only(top: 90),
                     child: _displaySelectionImageOrGrayImage())),
             Visibility(
-              visible: !UniversalPlatform.isWeb,
+              visible: true,
               child: Container(
                 width: 144,
                 height: 50,

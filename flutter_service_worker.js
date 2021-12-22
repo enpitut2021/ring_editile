@@ -7,7 +7,7 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.js": "3783918f48ef691e230156c251169480",
 "canvaskit/profiling/canvaskit.wasm": "6d1b0fc1ec88c3110db88caa3393c580",
 "canvaskit/canvaskit.wasm": "b179ba02b7a9f61ebc108f82c5a1ecdb",
-"main.dart.js": "90fca4711bc31dbda6897ef60aec1eca",
+"main.dart.js": "2d661632a8d5b9a51dfc0ea65986b33b",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "manifest.json": "6721cea5902b9b6b2f71fbc6cbc63c61",
 "version.json": "d33434d921519e9ab733da6c3be25b1f",
@@ -17,10 +17,11 @@ const RESOURCES = {
 "assets/packages/font_awesome_flutter/lib/fonts/fa-regular-400.ttf": "5178af1d278432bec8fc830d50996d6f",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-solid-900.ttf": "aa1ec80f1b30a51d64c72f669c1326a7",
 "assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
-"assets/AssetManifest.json": "801125fca546f506babac9af4ec061ba",
+"assets/AssetManifest.json": "3dd347f1770240ed9e3b717deadee690",
 "assets/FontManifest.json": "5a32d4310a6f5d9a6b651e75ba0d7372",
-"index.html": "e422c919f7637192e5aee0cb35b54bb0",
-"/": "e422c919f7637192e5aee0cb35b54bb0",
+"assets/assets/icon/ring-icon-color.png": "e3c14c113ef19e431380bdde00e5b64f",
+"index.html": "b2d1ccd257eaf329bf2ec4cee766e574",
+"/": "b2d1ccd257eaf329bf2ec4cee766e574",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1"
 };

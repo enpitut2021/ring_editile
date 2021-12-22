@@ -82,3 +82,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  assets:
+    - assets/
+    - assets/icon/
+    
+flutter_icons:
+  image_path: "assets/icon/ring-icon.png"
+  android: true
+  ios: true

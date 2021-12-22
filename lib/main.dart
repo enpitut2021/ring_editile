@@ -9,7 +9,6 @@ import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/usersetting.dart';
 import 'package:ring_sns/page/match-old.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -57,6 +56,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   final Auth auth = new Auth();
 
   void _incrementCounter() {
@@ -71,24 +71,26 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     //非同期処理(async await)はこうやって書くことで，関数の返戻値successを取得できる。
     auth.autoLogin().then((success) {
-      AuthStatus authStatus = auth.getAuthStatus();
-      // print(authStatus.toString());
-      if (authStatus == AuthStatus.LOGGED_IN) {
-        print("ログイン成功");
+      setState(() {
+        authStatus = auth.getAuthStatus();
+        print('Auth Status: ${authStatus.toString()}');
+      });
+      // // print(authStatus.toString());
+      // if (authStatus == AuthStatus.LOGGED_IN) {
+      //   print("ログイン成功");
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => postList(auth)),
-        );
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LoginPage(auth)),
-        );
-        print("ログイン失敗");
-      }
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => postList(auth)),
+      //   );
+      // } else {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => LoginPage(auth)),
+      //   );
+      //   print("ログイン失敗");
+      // }
     });
-    print("非同期処理なのでログイン成功/失敗が出る前にこっちのコードが実行される");
   }
 
   Future<void> getAutoLoginData() async {
@@ -100,78 +102,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Ring'),
-      ),
-      body: Container(
-        width: double.infinity,
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.app_registration),
-              title: Text('Regist'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AccountSignUp(new Auth())),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Login'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage(auth)),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('投稿一覧画面に移動しない場合はこちらをクリックしてください'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => postStore(auth)),
-                );
-              },
-            ),
-            // ListTile(
-            //   leading: Icon(Icons.home),
-            //   title: Text('Match'),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => Match(auth)),
-            //     );
-            //   },
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.settings),
-            //   title: Text('Usersetting'),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => Usersetting(auth, null)),
-            //     );
-            //   },
-            // ),
-            RaisedButton(
-              child: Text('Sign Up'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AccountSignUp(new Auth())),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+    switch (authStatus) {
+      case AuthStatus.NOT_DETERMINED:
+        return buildWaitingScreen();
+        break;
+      case AuthStatus.NOT_LOGGED_IN:
+        return LoginPage(auth);
+        break;
+      case AuthStatus.LOGGED_IN:
+        // return MainTabView(onLogout: onLogout, auth: widget.auth);
+        return postList(auth);
+        break;
+      default:
+        return buildWaitingScreen();
+    }
+  }
+
+  Widget buildWaitingScreen() {
+    return Container(
+      alignment: Alignment.center,
+      color: Colors.white,
+      child: Image.asset('assets/icon/ring-icon-color.png',
+          height: 150, width: 150),
     );
   }
 }

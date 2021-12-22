@@ -20,8 +20,8 @@ const RESOURCES = {
 "assets/AssetManifest.json": "3dd347f1770240ed9e3b717deadee690",
 "assets/FontManifest.json": "5a32d4310a6f5d9a6b651e75ba0d7372",
 "assets/assets/icon/ring-icon-color.png": "e3c14c113ef19e431380bdde00e5b64f",
-"index.html": "b2d1ccd257eaf329bf2ec4cee766e574",
-"/": "b2d1ccd257eaf329bf2ec4cee766e574",
+"index.html": "78df040c79d93dc494ec301cb134a928",
+"/": "78df040c79d93dc494ec301cb134a928",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1"
 };

@@ -70435,7 +70435,8 @@ R1(a){var s=A.c1(0,this.db.a-A.azu(this.ch[a]).a).a,r=B.f.bU(s,1e6)
 if(r>=86400)return B.f.j(B.f.bU(s,864e8))+"\u65e5\u524d"
 else if(r>=3600)return B.f.j(B.f.bU(s,36e8))+"\u6642\u9593\u524d"
 else if(r>=60)return B.f.j(B.f.bU(s,6e7))+"\u5206\u524d"
-else return""+r+"\u79d2\u524d"},
+else if(r>10)return""+r+"\u79d2\u524d"
+else return"\u73fe\u5728"},
 Y5(a,b){var s=this,r=null,q=A.aJ(s.cx[b]+"km\u4ee5\u5185\u306e\u4eba\u3078\u306e\u6295\u7a3f",r,r,r,r,r,r),p=A.aJ(s.R1(b),r,r,r,A.f8(r,r,B.fv,r,r,r,r,r,r,r,r,r,r,r,r,r,!0,r,r,r,r,r,r,r,r),r,r),o=A.aJ("  # "+s.dx[b],r,r,r,r,r,r),n=A.eX(r,A.fl(B.fP,r,r),r,new A.ahz(s,b),r),m=t.b
 return A.anP(A.n4(!1,r,!0,A.dG(A.c([a,q,A.lK(A.c([p,o,n,A.eX(r,A.fl(B.C5,s.k1[b]===0?B.o:B.eK,r),r,new A.ahA(s,b),r),A.aJ(B.f.j(s.k2[b]),r,r,r,r,r,r),A.eX(r,A.fl(B.C9,B.o,r),r,new A.ahB(s,b),r),A.aJ(s.Mz(A.oY(s.fy),A.oY(s.go),s.fr[b],s.fx[b])+"km",r,r,r,r,r,r)],m),B.S,B.te,B.N)],m),B.S,B.a3,B.N),r,!0,r,r,r,r,r,r,r,r,r,r,new A.ahC(),r,r,r),new A.x(4294967294))}}
 A.ahQ.prototype={

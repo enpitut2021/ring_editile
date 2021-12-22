@@ -97,7 +97,7 @@ class _postStore extends State<postStore> {
                 child: Container(
                     width: 150,
                     height: 150,
-                    margin: const EdgeInsets.only(top: 90),
+                    // margin: const EdgeInsets.only(top: 90),
                     child: _displaySelectionImageOrGrayImage())),
             // Visibility(
             //   visible: !UniversalPlatform.isWeb,
@@ -274,10 +274,15 @@ class _postStore extends State<postStore> {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xffdfdfdf),
-              border: Border.all(
-                width: 2,
-                color: const Color(0xff000000),
+                // border: Border.all(
+                //   width: 2,
+                //   color: const Color(0xff000000),
+                // ),
+                ),
+            child: ClipRRect(
+              child: Image.network(
+                "https://cupy.p0x0q.com/l0edrn64.png",
+                fit: BoxFit.fill,
               ),
             ),
           ));
@@ -288,11 +293,11 @@ class _postStore extends State<postStore> {
           },
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: const Color(0xff000000),
-              ),
-            ),
+                // border: Border.all(
+                //   width: 2,
+                //   color: const Color(0xff000000),
+                // ),
+                ),
             child: ClipRRect(
               child: Image.network(
                 _imageUrl,

@@ -2,7 +2,7 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/page/home.dart';
-import 'package:ring_sns/page/test.dart';
+import 'package:ring_sns/page/postStore.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/page/chat.dart';
@@ -292,7 +292,7 @@ class _testresult extends State<postList> {
       //   onPressed: () {
       //     Navigator.push(
       //       context,
-      //       MaterialPageRoute(builder: (context) => test(widget.auth)),
+      //       MaterialPageRoute(builder: (context) => postStorewidget.auth)),
       //     );
       //   },
       // ),
@@ -410,7 +410,7 @@ class _testresult extends State<postList> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => test(widget.auth)),
+                  MaterialPageRoute(builder: (context) => postStore(widget.auth)),
                 );
               },
             ),
@@ -437,7 +437,7 @@ class _testresult extends State<postList> {
       //     if (index == 0) {
       //       Navigator.push(
       //         context,
-      //         MaterialPageRoute(builder: (context) => test(widget.auth)),
+      //         MaterialPageRoute(builder: (context) => postStorewidget.auth)),
       //       );
       //       //go to home
 

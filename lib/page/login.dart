@@ -5,7 +5,7 @@ import 'package:ring_sns/page/home.dart';
 import 'package:ring_sns/page/regist.dart';
 import 'package:ring_sns/page/postList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ring_sns/page/test.dart';
+import 'package:ring_sns/page/postStore.dart';
 
 class LoginPage extends StatefulWidget {
   @override

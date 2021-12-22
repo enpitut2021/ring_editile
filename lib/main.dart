@@ -4,7 +4,7 @@ import 'package:ring_sns/page/login.dart';
 import 'package:ring_sns/page/postList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ring_sns/page/home.dart';
-import 'package:ring_sns/page/test.dart';
+import 'package:ring_sns/page/postStore.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:ring_sns/page/usersetting.dart';
 import 'package:ring_sns/page/match-old.dart';
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => test(auth)),
+                  MaterialPageRoute(builder: (context) => postStore(auth)),
                 );
               },
             ),

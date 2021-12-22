@@ -33,7 +33,6 @@ class _testresult extends State<postList> {
   List<String> _distanceList = [];
 
   var endDate = new DateTime.now();
-  
 
   List<String> tag = [];
   String gps_state = "nodata";
@@ -130,73 +129,71 @@ class _testresult extends State<postList> {
         // a.getUserNumInfo(post.user).then((User user) {
         //   u_id = user.userId;
         //   });
-          if (post.imageUrl != "") {
-            post_test.add(Column(
-              children: <Widget>[
-                FittedBox(
-                  child: Container(
-                    width: 600.0,
-                    height: 400.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(post.imageUrl),
-                      ),
+        if (post.imageUrl != "") {
+          post_test.add(Column(
+            children: <Widget>[
+              FittedBox(
+                child: Container(
+                  width: 600.0,
+                  height: 400.0,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(post.imageUrl),
                     ),
                   ),
                 ),
-                // Image.network(
-                //   post.imageUrl,
-                //   errorBuilder: (c, o, s) {
-                //     return Text("[画像がありません]");
-                //   },
-                // ),
-                Text(post.text),
-              ],
-            ));
-          } else {
-            post_test.add(Column(
-              children: <Widget>[
-                Container(
-                  height: 400,
-                  alignment: Alignment.center,
-                  child: Text(post.text),
-                ),
-              ],
-            ));
+              ),
+              // Image.network(
+              //   post.imageUrl,
+              //   errorBuilder: (c, o, s) {
+              //     return Text("[画像がありません]");
+              //   },
+              // ),
+              Text(post.text),
+            ],
+          ));
+        } else {
+          post_test.add(Column(
+            children: <Widget>[
+              Container(
+                height: 400,
+                alignment: Alignment.center,
+                child: Text(post.text),
+              ),
+            ],
+          ));
+        }
+        _distanceList.add(distanceBetween(
+            double.parse(_gps_latitude),
+            double.parse(_gps_longitude),
+            // 0.0,
+            // 0.0,
+            post.gps_latitude,
+            post.gps_longitude));
+        postIds.add(post.postId);
+        tag.add(post.category);
+        create_time.add(post.created);
+        _gps_la.add(post.gps_latitude);
+        _gps_lo.add(post.gps_longitude);
+        _postDistance.add(post.subCategory);
+        _gps.add(
+            post.gps_latitude.toString() + "," + post.gps_longitude.toString());
+        post_msg.add(post.text);
+        //print("roomid is");
+        //print(post.roomId);
+        // print("a");
+        // print(post_like);
+        post_press.add(false);
+        //print(post_press);
+        roomid.add(post.roomId);
+        post_like.forEach((int p_l) {
+          if (postIds.indexOf(p_l) != -1) {
+            post_press[postIds.indexOf(p_l)] = true;
           }
-          _distanceList.add(distanceBetween(
-              double.parse(_gps_latitude),
-              double.parse(_gps_longitude),
-              // 0.0,
-              // 0.0,
-              post.gps_latitude,
-              post.gps_longitude));
-          postIds.add(post.postId);
-          tag.add(post.category);
-          create_time.add(post.created);
-          _gps_la.add(post.gps_latitude);
-          _gps_lo.add(post.gps_longitude);
-          _postDistance.add(post.subCategory);
-          _gps.add(post.gps_latitude.toString() +
-              "," +
-              post.gps_longitude.toString());
-          post_msg.add(post.text);
-          //print("roomid is");
-          //print(post.roomId);
-          // print("a");
-          // print(post_like);
-          post_press.add(false);
-          //print(post_press);
-          roomid.add(post.roomId);
-          post_like.forEach((int p_l) {
-            if (postIds.indexOf(p_l) != -1) {
-              post_press[postIds.indexOf(p_l)] = true;
-            }
-          });
-          //print(post_press);
-        
+        });
+        //print(post_press);
       });
       a.getUserLikeList().then((p_like) {
         p_like.forEach((PostLike p) {
@@ -206,7 +203,6 @@ class _testresult extends State<postList> {
           }
         });
       });
-
 
       if (gps_state == "nodata") {
         _gps_latitude = "36.1106";
@@ -410,7 +406,8 @@ class _testresult extends State<postList> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => postStore(widget.auth)),
+                  MaterialPageRoute(
+                      builder: (context) => postStore(widget.auth)),
                 );
               },
             ),
@@ -476,25 +473,26 @@ class _testresult extends State<postList> {
     );
   }
 
-  String showTime(int index){
+  String showTime(int index) {
     // final calcDays = endDate.difference(DateTime.parse(create_time[index]));
     // final Duration difference = DateTime.now().difference(date);
-    final Duration difference = endDate.difference(DateTime.parse(create_time[index]));
+    final Duration difference =
+        endDate.difference(DateTime.parse(create_time[index]));
 
     final int sec = difference.inSeconds;
 
     if (sec >= 60 * 60 * 24) {
-    return '${difference.inDays.toString()}日前';
-  } else if (sec >= 60 * 60) {
-    return '${difference.inHours.toString()}時間前';
-  } else if (sec >= 60) {
-    return '${difference.inMinutes.toString()}分前';
-  } else {
-    return '$sec秒前';
+      return '${difference.inDays.toString()}日前';
+    } else if (sec >= 60 * 60) {
+      return '${difference.inHours.toString()}時間前';
+    } else if (sec >= 60) {
+      return '${difference.inMinutes.toString()}分前';
+    } else if (sec > 10) {
+      return '$sec秒前';
+    } else {
+      return '現在';
+    }
   }
-}
-  
-  
 
   Widget _buildButtonTileView(Widget title, int index) {
     return Card(
@@ -510,12 +508,12 @@ class _testresult extends State<postList> {
 
             // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
             // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
-            
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(showTime(index),style: TextStyle(color: Colors.black45)),
-                Text('  # '+tag[index]),
+                Text(showTime(index), style: TextStyle(color: Colors.black45)),
+                Text('  # ' + tag[index]),
                 // Text('          '),
 
                 IconButton(
@@ -571,8 +569,6 @@ class _testresult extends State<postList> {
           ],
         ),
       ),
-
-
 
       // child: Column(
       //   children: <Widget>[

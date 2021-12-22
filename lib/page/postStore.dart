@@ -140,6 +140,30 @@ class _postStore extends State<postStore> {
             //   ),
             // ),
 
+            TextField(
+              maxLines: null,
+              minLines: 8,
+              decoration: InputDecoration(
+                //errorText: widget.e_msg,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 5),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                  color: Colors.blueGrey[200],
+                )),
+                labelText: '投稿',
+
+                hintMaxLines: 4,
+                alignLabelWithHint: true,
+              ),
+              autofocus: true,
+              onChanged: (text) {
+                widget.msg = text;
+              },
+            ),
+            Text(
+              widget.e_msg,
+              style: TextStyle(color: Colors.red),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -198,31 +222,6 @@ class _postStore extends State<postStore> {
                 ),
               ],
             ),
-            TextField(
-              maxLines: null,
-              minLines: 8,
-              decoration: InputDecoration(
-                //errorText: widget.e_msg,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 5),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.blueGrey[200],
-                )),
-                labelText: '投稿',
-
-                hintMaxLines: 4,
-                alignLabelWithHint: true,
-              ),
-              autofocus: true,
-              onChanged: (text) {
-                widget.msg = text;
-              },
-            ),
-            Text(
-              widget.e_msg,
-              style: TextStyle(color: Colors.red),
-            ),
-            Text("$_location,"),
             RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {

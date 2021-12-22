@@ -35,8 +35,6 @@ class _postStore extends State<postStore> {
   List<String> _situation = ["カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selecteddistance = "2";
 
-
-
   String _selectedsituation = "カジュアル";
   int _distanceindex = 0;
   int _situationindex = 0;
@@ -82,8 +80,7 @@ class _postStore extends State<postStore> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => postList(widget.auth)),
+                MaterialPageRoute(builder: (context) => postList(widget.auth)),
               );
             },
             icon: Icon(Icons.close)),
@@ -102,35 +99,46 @@ class _postStore extends State<postStore> {
                     height: 150,
                     margin: const EdgeInsets.only(top: 90),
                     child: _displaySelectionImageOrGrayImage())),
-            Visibility(
-              visible: !UniversalPlatform.isWeb,
-              child: Container(
-                width: 144,
-                height: 50,
-                margin: const EdgeInsets.only(top: 47),
-                decoration: BoxDecoration(
-                  color: const Color(0xfffa4269),
-                  border: Border.all(
-                    width: 2,
-                    color: const Color(0xff000000),
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: FlatButton(
-                  onPressed: () => _getImageFromGallery(),
-                  child: const Text(
-                    '写真を選ぶ',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xffffffff),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      height: 1.2,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Visibility(
+            //   visible: !UniversalPlatform.isWeb,
+            //   child: InkWell(
+            //     onTap: () {
+            //       showDialog(
+            //           context: context,
+            //           builder: (context) {
+            //             return AlertDialog(
+            //               title: Text('Aの動作の確認'),
+            //             );
+            //           });
+            //     },
+            //     child: Container(
+            //       width: 144,
+            //       height: 50,
+            //       margin: const EdgeInsets.only(top: 47),
+            //       decoration: BoxDecoration(
+            //         color: const Color(0xfffa4269),
+            //         border: Border.all(
+            //           width: 2,
+            //           color: const Color(0xff000000),
+            //         ),
+            //         borderRadius: BorderRadius.circular(15),
+            //       ),
+            //       // child: FlatButton(
+            //       //   onPressed: () => _getImageFromGallery(),
+            //       //   child: const Text(
+            //       //     '写真を選ぶ',
+            //       //     textAlign: TextAlign.center,
+            //       //     style: TextStyle(
+            //       //       color: Color(0xffffffff),
+            //       //       fontWeight: FontWeight.w400,
+            //       //       fontSize: 15,
+            //       //       height: 1.2,
+            //       //     ),
+            //       //   ),
+            //       // ),
+            //     ),
+            //   ),
+            // ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -155,7 +163,7 @@ class _postStore extends State<postStore> {
                     return DropdownMenuItem(
                       value: item,
                       child: Text(
-                        item+ "km",
+                        item + "km",
                       ),
                     );
                   }).toList(),
@@ -260,30 +268,38 @@ class _postStore extends State<postStore> {
 
   Widget _displaySelectionImageOrGrayImage() {
     if (_imageUrl == null) {
-      return Container(
-        decoration: BoxDecoration(
-          color: const Color(0xffdfdfdf),
-          border: Border.all(
-            width: 2,
-            color: const Color(0xff000000),
-          ),
-        ),
-      );
+      return InkWell(
+          onTap: () {
+            _getImageFromGallery();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xffdfdfdf),
+              border: Border.all(
+                width: 2,
+                color: const Color(0xff000000),
+              ),
+            ),
+          ));
     } else {
-      return Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 2,
-            color: const Color(0xff000000),
-          ),
-        ),
-        child: ClipRRect(
-          child: Image.network(
-            _imageUrl,
-            fit: BoxFit.fill,
-          ),
-        ),
-      );
+      return InkWell(
+          onTap: () {
+            _getImageFromGallery();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 2,
+                color: const Color(0xff000000),
+              ),
+            ),
+            child: ClipRRect(
+              child: Image.network(
+                _imageUrl,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ));
     }
   }
 

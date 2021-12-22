@@ -93,13 +93,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> getAutoLoginData() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    var myStringData = prefs.getString("userId");
-    var myStringData2 = prefs.getString("password");
-    print(myStringData);
-    print(myStringData2);
-  }
+  // Future<void> getAutoLoginData() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   var myStringData = prefs.getString("userId");
+  //   var myStringData2 = prefs.getString("password");
+  //   print(myStringData);
+  //   print(myStringData2);
+  // }
 
   Widget build(BuildContext context) {
     switch (authStatus) {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ring_sns/page/test_result.dart';
+import 'package:ring_sns/page/postList.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -12,17 +12,17 @@ import 'package:ring_sns/api/cupyAPI.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-class test extends StatefulWidget {
-  test(this.auth);
+class postStore extends StatefulWidget {
+  postStore(this.auth);
   Auth auth;
   String msg = "";
   String e_msg = "";
 
   @override
-  State<StatefulWidget> createState() => _test();
+  State<StatefulWidget> createState() => _postStore();
 }
 
-class _test extends State<test> {
+class _postStore extends State<postStore> {
   // File _image;
   String _imageUrl;
   final _picker = ImagePicker();
@@ -83,7 +83,7 @@ class _test extends State<test> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => test_result(widget.auth)),
+                    builder: (context) => postList(widget.auth)),
               );
             },
             icon: Icon(Icons.close)),
@@ -234,7 +234,7 @@ class _test extends State<test> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        test_result(widget.auth)),
+                                        postList(widget.auth)),
                               )
                             });
                   } else {
@@ -249,7 +249,7 @@ class _test extends State<test> {
             //       Navigator.push(
             //         context,
             //         MaterialPageRoute(
-            //             builder: (context) => test_result(widget.auth)),
+            //             builder: (context) => postList(widget.auth)),
             //       );
             //     }),
           ],

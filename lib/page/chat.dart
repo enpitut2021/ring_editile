@@ -9,7 +9,7 @@ import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 import 'package:ring_sns/page/chathistory.dart';
-import 'package:ring_sns/page/test_result.dart';
+import 'package:ring_sns/page/postList.dart';
 
 class ChatDemo extends StatefulWidget {
   ChatDemo(this.roomId, this.auth);
@@ -251,7 +251,7 @@ class _ChatDemo extends State<ChatDemo> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => test_result(widget.auth)),
+                      builder: (context) => postList(widget.auth)),
                 );
               },
               icon: Icon(Icons.west)),

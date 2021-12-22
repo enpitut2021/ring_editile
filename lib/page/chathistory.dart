@@ -7,7 +7,7 @@ import 'package:html_unescape/html_unescape.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/page/chat.dart';
 import 'package:ring_sns/page/home.dart';
-import 'package:ring_sns/page/test_result.dart';
+import 'package:ring_sns/page/postList.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 
 class ChatHistory extends StatefulWidget {
@@ -114,7 +114,7 @@ class _ChatHistory extends State<ChatHistory> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => test_result(widget.auth)),
+                        builder: (context) => postList(widget.auth)),
                   );
                 },
                 icon: Icon(Icons.article_rounded),
@@ -175,7 +175,7 @@ class _ChatHistory extends State<ChatHistory> {
       //     if (index == 0) {
       //       Navigator.push(
       //         context,
-      //         MaterialPageRoute(builder: (context) => test_result(widget.auth)),
+      //         MaterialPageRoute(builder: (context) => postList(widget.auth)),
       //       );
       //       //go to home
 

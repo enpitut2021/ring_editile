@@ -2,7 +2,7 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:ring_sns/api/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ring_sns/page/home.dart';
-import 'package:ring_sns/page/test.dart';
+import 'package:ring_sns/page/postStore.dart';
 import 'package:ring_sns/api/accountAPI.dart';
 import 'package:ring_sns/api/chatAPI.dart';
 import 'package:ring_sns/page/chat.dart';
@@ -12,14 +12,14 @@ import 'package:geolocator/geolocator.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
-class test_result extends StatefulWidget {
-  test_result(this.auth);
+class postList extends StatefulWidget {
+  postList(this.auth);
   Auth auth;
   @override
   State<StatefulWidget> createState() => _testresult();
 }
 
-class _testresult extends State<test_result> {
+class _testresult extends State<postList> {
   List<Widget> post_test = [];
   Color _iconcolor = Colors.black;
   List<int> postIds = [];
@@ -292,7 +292,7 @@ class _testresult extends State<test_result> {
       //   onPressed: () {
       //     Navigator.push(
       //       context,
-      //       MaterialPageRoute(builder: (context) => test(widget.auth)),
+      //       MaterialPageRoute(builder: (context) => postStorewidget.auth)),
       //     );
       //   },
       // ),
@@ -410,7 +410,7 @@ class _testresult extends State<test_result> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => test(widget.auth)),
+                  MaterialPageRoute(builder: (context) => postStore(widget.auth)),
                 );
               },
             ),
@@ -437,7 +437,7 @@ class _testresult extends State<test_result> {
       //     if (index == 0) {
       //       Navigator.push(
       //         context,
-      //         MaterialPageRoute(builder: (context) => test(widget.auth)),
+      //         MaterialPageRoute(builder: (context) => postStorewidget.auth)),
       //       );
       //       //go to home
 

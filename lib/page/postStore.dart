@@ -11,6 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ring_sns/api/cupyAPI.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:universal_platform/universal_platform.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+
 
 class postStore extends StatefulWidget {
   postStore(this.auth);
@@ -38,6 +41,20 @@ class _postStore extends State<postStore> {
   String _selectedsituation = "カジュアル";
   int _distanceindex = 0;
   int _situationindex = 0;
+
+  PlatformFile objFile= null;
+  void chooseFileUsingFilePicker() async {
+    //-----pick file by file picker,
+    var result= await FilePicker.platform.pickFiles(
+      withReadStream:
+          true, //this will return PlatformFile object with read stream
+    );
+    if (result != null) {
+      setState(() {
+        objFile= result.files.single;
+      });
+    }
+  }
 
   // String _hinttext_food =
   //     'おしゃれな〇〇に行きました！\nとってもうまうまでした！\n今週中なら半額みたいなので、\n皆さんもぜひ行ってみてください！:\n場所は〇〇3丁目のセブンの角です！';
@@ -230,6 +247,16 @@ class _postStore extends State<postStore> {
                     color: Colors.grey[200],
                     // margin: const EdgeInsets.only(top: 90),
                     child: _displaySelectionImageOrGrayImage())),
+
+            Visibility(
+              visible: UniversalPlatform.isWeb,
+              child:
+              RaisedButton(
+              child: Text("Choose File"),
+              onPressed: ()=> chooseFileUsingFilePicker()),),
+          //------Show file name when file is selected
+              if(objFile != null) Text("File name : ${objFile.name}"),
+           
             Text(""),
             ButtonTheme(
               minWidth: 100.0,

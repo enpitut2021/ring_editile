@@ -25,6 +25,40 @@ class API {
 
   String getBearer() => bearer;
 
+  Future<dynamic> getWebSocketRequest(String url,
+      [Map<String, dynamic> queryParameters]) async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $bearer',
+    };
+
+    Dio dioL = Dio(
+      BaseOptions(
+        baseUrl: "https://chat-editile.p0x0q.com:2053",
+        connectTimeout: 50000,
+        receiveTimeout: 3000,
+        contentType: 'application/json',
+      ),
+    );
+
+    queryParameters["user_session"] = bearer;
+
+    print('[$url] submit: ${json.encode(headers)}');
+    if (queryParameters != null)
+      print('[$url] queryParameters: ${json.encode(queryParameters)}');
+
+    try {
+      Response<dynamic> response = await dioL.get(url,
+          options: Options(headers: headers), queryParameters: queryParameters);
+      // print('[$url] response: $response');
+      return response;
+    } catch (e) {
+      print('[$url] error: ${e.response}');
+      return e.response;
+    }
+  }
+
   Future<dynamic> getRequest(String url,
       [Map<String, dynamic> queryParameters]) async {
     Map<String, String> headers = {
@@ -84,8 +118,7 @@ class API {
 
     try {
       Response<dynamic> response = await dio.post(url,
-          options: Options(headers: headers),
-          data: queryParameters);
+          options: Options(headers: headers), data: queryParameters);
       print('[$url] response: $response');
       return response.data;
     } catch (e) {
@@ -108,8 +141,7 @@ class API {
 
     try {
       Response<dynamic> response = await dio.put(url,
-          options: Options(headers: headers),
-          data: queryParameters);
+          options: Options(headers: headers), data: queryParameters);
       print('[$url] response: $response');
       return response.data;
     } catch (e) {
@@ -132,8 +164,7 @@ class API {
 
     try {
       Response<dynamic> response = await dio.delete(url,
-          options: Options(headers: headers),
-          data: queryParameters);
+          options: Options(headers: headers), data: queryParameters);
       print('[$url] response: $response');
       return response.data;
     } catch (e) {

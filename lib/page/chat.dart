@@ -11,6 +11,9 @@ import 'package:speech_bubble/speech_bubble.dart';
 import 'package:ring_sns/page/chathistory.dart';
 import 'package:ring_sns/page/postList.dart';
 
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/status.dart' as status;
+
 class ChatDemo extends StatefulWidget {
   ChatDemo(this.roomId, this.auth);
   String roomId;
@@ -119,7 +122,8 @@ class _ChatDemo extends State<ChatDemo> {
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
     SocketIO socket = await _manager
-        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2053',
+        //this server: root@i-20100000163665:~/enpit/ChatServer# forever start ChatServer.js
+        .createInstance(SocketOptions('https://chat-editile.p0x0q.com:2053',
             namespace: '/',
             query: {
               'chatid': roomId,
@@ -261,7 +265,7 @@ class _ChatDemo extends State<ChatDemo> {
         body: Column(
           children: <Widget>[
             Container(
-              height: 600,
+              height: 400,
               width: 400,
               child: ListView.builder(
                 itemCount: messages_log.length,

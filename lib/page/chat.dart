@@ -10,6 +10,7 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 import 'package:ring_sns/page/chathistory.dart';
 import 'package:ring_sns/page/postList.dart';
+import 'package:web_socket_channel/io.dart';
 
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
@@ -121,110 +122,119 @@ class _ChatDemo extends State<ChatDemo> {
 
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
-    SocketIO socket = await _manager
-        //this server: root@i-20100000163665:~/enpit/ChatServer# forever start ChatServer.js
-        .createInstance(SocketOptions('https://chat-editile.p0x0q.com:2053',
-            namespace: '/',
-            query: {
-              'chatid': roomId,
-              'user_session': widget.auth.getBearer(),
-            },
-            enableLogging: false,
-            transports: [Transports.webSocket]));
-    socket.onConnect.listen((data) async {
-      print("接続完了");
-      connectRoom(socket, roomId);
-      // socket.emit('connected', []);
-      // print('[socketIO] connect: $_roomId');
-      // await Future.delayed(Duration(milliseconds: 500));
-      // print('[socketIO] emit connected message');
-      // socket.emit('API', [{'apiid': 'ConnectCheck'}]);
-    });
-    socket.onDisconnect.listen((data) => print('[socketIO] disconnect: $data'));
-    socket.onConnectError
-        .listen((data) => print('[socketIO] connectError: $data'));
-    // socket
-    //     .onConnectTimeout((data) => print('[socketIO] connectTimeout: $data'));
-    // socket.onError((data) => print('[socketIO] error: $data'));
-    // socket.on('event', (data) => print('[socketIO] event: $data'));
 
-    socket.on('res').listen((data) {
-      print('[socketIO] res: $data');
-    });
+    String userSession = widget.auth.getBearer();
+    String path =
+        "wss://chat-editile.p0x0q.com:2053/socket.io/?user_session=$userSession&chatid=$roomId&EIO=3&transport=websocket";
+    print(path);
+    final _channel = WebSocketChannel.connect(
+      Uri.parse(path),
+    );
 
-    socket.on('response').listen((data) {
-      print('[socketIO] responce: $data');
-      if (!mounted) return;
-      Message message = Message({
-        'chatid': 0,
-        'uuid': data[0]['uuid'],
-        'roomid': _roomId,
-        'userid': data[0]['userid'],
-        'nickname': data[0]['nickname'],
-        'text': data[0]['text'],
-        'goodsUsers': data[0]['good'],
-        'created': data[0]['time'],
-      });
-      // MessageWidget messageWidget =
-      //     MessageWidget(message, widget.auth.getUserId(), widget.auth);
-      String t = HtmlUnescape().convert(message.text);
-      setState(() => {
-            if (message.userId == widget.auth.getUserId())
-              {
-                messages_log.add(Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                      SpeechBubble(
-                          nipLocation: NipLocation.BOTTOM_RIGHT,
-                          color: Colors.green,
-                          child: Text(
-                            "\r\n${message.userId}:\r\n" + t,
-                            // style: TextStyle(color: Colors.green),
-                            textAlign: TextAlign.right,
-                          )),
-                      Text(''),
-                    ])
-                    //  Text(
-                    //   "\r\n${message.userId}:\r\n" + text,
-                    //   style: TextStyle(color: Colors.green),
+    // SocketIO socket = await _manager
+    //     //this server: root@i-20100000163665:~/enpit/ChatServer# forever start ChatServer.js
+    //     .createInstance(SocketOptions('https://chat-editile.p0x0q.com:2053',
+    //         namespace: '/',
+    //         query: {
+    //           'chatid': roomId,
+    //           'user_session': widget.auth.getBearer(),
+    //         },
+    //         enableLogging: false,
+    //         transports: [Transports.webSocket]));
+    // socket.onConnect.listen((data) async {
+    //   print("接続完了");
+    //   connectRoom(socket, roomId);
+    //   // socket.emit('connected', []);
+    //   // print('[socketIO] connect: $_roomId');
+    //   // await Future.delayed(Duration(milliseconds: 500));
+    //   // print('[socketIO] emit connected message');
+    //   // socket.emit('API', [{'apiid': 'ConnectCheck'}]);
+    // });
+    // socket.onDisconnect.listen((data) => print('[socketIO] disconnect: $data'));
+    // socket.onConnectError
+    //     .listen((data) => print('[socketIO] connectError: $data'));
+    // // socket
+    // //     .onConnectTimeout((data) => print('[socketIO] connectTimeout: $data'));
+    // // socket.onError((data) => print('[socketIO] error: $data'));
+    // // socket.on('event', (data) => print('[socketIO] event: $data'));
 
-                    //   textAlign: TextAlign.right,
-                    // )
-                    // Text(
-                    //   "\r\n${message.userId}:\r\n" + t,
-                    //   style: TextStyle(color: Colors.green),
-                    //   textAlign: TextAlign.right,
-                    // )
-                    )
-              }
-            else
-              {
-                messages_log.add(Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SpeechBubble(
-                          nipLocation: NipLocation.BOTTOM_LEFT,
-                          color: Colors.blueGrey[200],
-                          child: Text(
-                            "\r\n${message.userId}:\r\n" + t,
-                            // style: TextStyle(color: Colors.green),
-                            textAlign: TextAlign.left,
-                          )),
-                      Text(''),
-                    ]))
-              }
-          });
-    });
-    // socket.onAPI.listen(data) async{
-    //   print('[socketIO] API: $data');
-    //   if (data['apiid'] == 'RoomCheck' && !data['res']) {
-    //     connectRoom(socket, roomId);
-    //   }
-    // };
-    // socket.on('destroy', (data) => print('[socketIO] destroy: $data'));
+    // socket.on('res').listen((data) {
+    //   print('[socketIO] res: $data');
+    // });
 
-    socket.connect();
-    _sockets[roomId] = socket;
+    // socket.on('response').listen((data) {
+    //   print('[socketIO] responce: $data');
+    //   if (!mounted) return;
+    //   Message message = Message({
+    //     'chatid': 0,
+    //     'uuid': data[0]['uuid'],
+    //     'roomid': _roomId,
+    //     'userid': data[0]['userid'],
+    //     'nickname': data[0]['nickname'],
+    //     'text': data[0]['text'],
+    //     'goodsUsers': data[0]['good'],
+    //     'created': data[0]['time'],
+    //   });
+    //   // MessageWidget messageWidget =
+    //   //     MessageWidget(message, widget.auth.getUserId(), widget.auth);
+    //   String t = HtmlUnescape().convert(message.text);
+    //   setState(() => {
+    //         if (message.userId == widget.auth.getUserId())
+    //           {
+    //             messages_log.add(Column(
+    //                     crossAxisAlignment: CrossAxisAlignment.end,
+    //                     children: [
+    //                   SpeechBubble(
+    //                       nipLocation: NipLocation.BOTTOM_RIGHT,
+    //                       color: Colors.green,
+    //                       child: Text(
+    //                         "\r\n${message.userId}:\r\n" + t,
+    //                         // style: TextStyle(color: Colors.green),
+    //                         textAlign: TextAlign.right,
+    //                       )),
+    //                   Text(''),
+    //                 ])
+    //                 //  Text(
+    //                 //   "\r\n${message.userId}:\r\n" + text,
+    //                 //   style: TextStyle(color: Colors.green),
+
+    //                 //   textAlign: TextAlign.right,
+    //                 // )
+    //                 // Text(
+    //                 //   "\r\n${message.userId}:\r\n" + t,
+    //                 //   style: TextStyle(color: Colors.green),
+    //                 //   textAlign: TextAlign.right,
+    //                 // )
+    //                 )
+    //           }
+    //         else
+    //           {
+    //             messages_log.add(Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   SpeechBubble(
+    //                       nipLocation: NipLocation.BOTTOM_LEFT,
+    //                       color: Colors.blueGrey[200],
+    //                       child: Text(
+    //                         "\r\n${message.userId}:\r\n" + t,
+    //                         // style: TextStyle(color: Colors.green),
+    //                         textAlign: TextAlign.left,
+    //                       )),
+    //                   Text(''),
+    //                 ]))
+    //           }
+    //       });
+    // });
+    // // socket.onAPI.listen(data) async{
+    // //   print('[socketIO] API: $data');
+    // //   if (data['apiid'] == 'RoomCheck' && !data['res']) {
+    // //     connectRoom(socket, roomId);
+    // //   }
+    // // };
+    // // socket.on('destroy', (data) => print('[socketIO] destroy: $data'));
+
+    // socket.connect();
+    // _sockets[roomId] = socket;
   }
 
   void connectRoom(SocketIO socket, String roomId) async {

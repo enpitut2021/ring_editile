@@ -139,6 +139,14 @@ class _postStore extends State<postStore> {
             //     ),
             //   ),
             // ),
+            Visibility(
+                visible: !UniversalPlatform.isWeb,
+                child: Container(
+                    // width: 180,
+                    // height: 180,
+                    color: Colors.grey[200],
+                    margin: const EdgeInsets.only(bottom: 30),
+                    child: _displaySelectionImageOrGrayImage())),
             Container(
               width: 370.0,
               child: TextField(
@@ -222,14 +230,6 @@ class _postStore extends State<postStore> {
                 ),
               ],
             ),
-             Visibility(
-                visible: !UniversalPlatform.isWeb,
-                child: Container(
-                    width: 180,
-                    height: 180,
-                    color: Colors.grey[200],
-                    // margin: const EdgeInsets.only(top: 90),
-                    child: _displaySelectionImageOrGrayImage())),
             Text(""),
             ButtonTheme(
               minWidth: 100.0,
@@ -241,8 +241,7 @@ class _postStore extends State<postStore> {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
-                    a
-                        .postUserPost(
+                    a.postUserPost(
                             widget.msg,
                             _imageUrl,
                             _gps_latitude,
@@ -285,6 +284,9 @@ class _postStore extends State<postStore> {
             _getImageFromGallery();
           },
           child: Container(
+            width: 370,
+            height: 100,
+            // color: Colors.grey[200],
             decoration: BoxDecoration(
                 // border: Border.all(
                 //   width: 2,
@@ -305,6 +307,8 @@ class _postStore extends State<postStore> {
             _getImageFromGallery();
           },
           child: Container(
+            width: 360,
+            height: 240,
             decoration: BoxDecoration(
                 // border: Border.all(
                 //   width: 2,

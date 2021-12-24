@@ -74,7 +74,7 @@ class _postStore extends State<postStore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lime[100],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -139,27 +139,35 @@ class _postStore extends State<postStore> {
             //     ),
             //   ),
             // ),
-
-            TextField(
+            Visibility(
+                visible: !UniversalPlatform.isWeb,
+                child: Container(
+                    // width: 180,
+                    // height: 180,
+                    color: Colors.grey[200],
+                    margin: const EdgeInsets.only(bottom: 30),
+                    child: _displaySelectionImageOrGrayImage())),
+            Container(
+              width: 370.0,
+              child: TextField(
               maxLines: null,
-              minLines: 8,
+              minLines: 7,
               decoration: InputDecoration(
                 //errorText: widget.e_msg,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 5),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 7,vertical: 10),
+                border: OutlineInputBorder(
+                borderSide: BorderSide(
                   color: Colors.blueGrey[200],
                 )),
-                labelText: '投稿',
-
-                hintMaxLines: 4,
+                hintText: '投稿を書く',
+                hintMaxLines: 6,
                 alignLabelWithHint: true,
               ),
               autofocus: true,
               onChanged: (text) {
                 widget.msg = text;
               },
-            ),
+            ),),
             Text(
               widget.e_msg,
               style: TextStyle(color: Colors.red),
@@ -222,25 +230,18 @@ class _postStore extends State<postStore> {
                 ),
               ],
             ),
-             Visibility(
-                visible: !UniversalPlatform.isWeb,
-                child: Container(
-                    width: 150,
-                    height: 150,
-                    // margin: const EdgeInsets.only(top: 90),
-                    child: _displaySelectionImageOrGrayImage())),
+            Text(""),
             ButtonTheme(
               minWidth: 100.0,
-              height: 50.0,
-              buttonColor: Colors.white,
+              height: 40.0,
+              buttonColor: Colors.grey[200],
               child:  RaisedButton(
                 child: Text('投稿'),
                 onPressed: () {
                   AccountAPI a = new AccountAPI(widget.auth.getBearer());
                   // a.postUserPost(widget.msg, '');
                   if (widget.msg != "") {
-                    a
-                        .postUserPost(
+                    a.postUserPost(
                             widget.msg,
                             _imageUrl,
                             _gps_latitude,
@@ -283,6 +284,9 @@ class _postStore extends State<postStore> {
             _getImageFromGallery();
           },
           child: Container(
+            width: 370,
+            height: 100,
+            // color: Colors.grey[200],
             decoration: BoxDecoration(
                 // border: Border.all(
                 //   width: 2,
@@ -290,10 +294,11 @@ class _postStore extends State<postStore> {
                 // ),
                 ),
             child: ClipRRect(
-              child: Image.network(
-                "https://cupy.p0x0q.com/l0edrn64.png",
-                fit: BoxFit.fill,
-              ),
+              child: Icon(Icons.photo_size_select_actual_outlined, size: 40),
+              // child: Image.network(
+              //   "https://cupy.p0x0q.com/l0edrn64.png",
+              //   fit: BoxFit.fill,
+              // ),
             ),
           ));
     } else {
@@ -302,6 +307,8 @@ class _postStore extends State<postStore> {
             _getImageFromGallery();
           },
           child: Container(
+            width: 360,
+            height: 240,
             decoration: BoxDecoration(
                 // border: Border.all(
                 //   width: 2,

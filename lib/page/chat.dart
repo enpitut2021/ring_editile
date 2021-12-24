@@ -124,12 +124,14 @@ class _ChatDemo extends State<ChatDemo> {
     print("接続中: $roomId");
 
     String userSession = widget.auth.getBearer();
-    String path =
-        "wss://chat-editile.p0x0q.com:2053/socket.io/?user_session=$userSession&chatid=$roomId&EIO=3&transport=websocket";
-    print(path);
-    final _channel = WebSocketChannel.connect(
-      Uri.parse(path),
-    );
+    var channel = IOWebSocketChannel.connect(Uri.parse(
+        'wss://chat-editile.p0x0q.com:2053/socket.io/?user_session={$userSession}&chatid={$roomId}&EIO=3&transport=websocket'));
+
+    channel.stream.listen((message) {
+      // channel.sink.add('received!');
+      print("つながりました！");
+      channel.sink.close(status.goingAway);
+    });
 
     // SocketIO socket = await _manager
     //     //this server: root@i-20100000163665:~/enpit/ChatServer# forever start ChatServer.js

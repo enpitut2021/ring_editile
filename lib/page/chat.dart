@@ -229,11 +229,10 @@ class _ChatDemo extends State<ChatDemo> {
               Text(''),
             ]));
           }
+          setState(() {});
         }
       });
-      setState(() {
-        _isInitialized = 1;
-      });
+      _isInitialized = 1;
     });
   }
 

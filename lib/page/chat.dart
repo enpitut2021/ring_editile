@@ -10,6 +10,8 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 import 'package:ring_sns/page/chathistory.dart';
 import 'package:ring_sns/page/postList.dart';
+import 'package:universal_platform/universal_platform.dart';
+import 'dart:async';
 
 class ChatDemo extends StatefulWidget {
   ChatDemo(this.roomId, this.auth);
@@ -29,8 +31,10 @@ class _ChatDemo extends State<ChatDemo> {
 
   // ignore: non_constant_identifier_names
   List<Widget> messages_log = [];
+  List<String> chatUUID = [];
   var current_count;
-  ChatAPI nChatapi;
+  int _isInitialized = 0;
+  ChatAPI chatapi;
 
   void chatupdate(String msg, String uid) {
     _submitMessage(msg);
@@ -47,79 +51,41 @@ class _ChatDemo extends State<ChatDemo> {
   @override
   void initState() {
     //super.initState();
-    ChatAPI chatapi = new ChatAPI(widget.auth.getBearer());
+    chatapi = new ChatAPI(widget.auth.getBearer());
     _roomId = widget.roomId;
     _manager = SocketIOManager();
+
     print("roomId:$_roomId");
-    chatapi.getRoomInfo(_roomId).then((response) {
-      current_count = response.count;
-      //print("warning");
-      print("current_num:$current_count");
-    });
-    chatapi.getChatMessages(_roomId, 1).then((response) {
-      //print(response);
-      List<Message> msgL = response.messageList;
-      setState(() {
-        msgL.forEach((message) {
-          String text = HtmlUnescape().convert(message.text);
-          if (message.userId == widget.auth.getUserId()) {
-            messages_log.insert(
-                0,
-                Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  SpeechBubble(
-                      nipLocation: NipLocation.BOTTOM_RIGHT,
-                      color: Colors.green,
-                      child: Text(
-                        "\r\n${message.userId}:\r\n" + text,
-                        // style: TextStyle(color: Colors.green),
-                        textAlign: TextAlign.right,
-                      )),
-                  Text(''),
-                ])
-                //  Text(
-                //   "\r\n${message.userId}:\r\n" + text,
-                //   style: TextStyle(color: Colors.green),
+    // chatapi.getRoomInfo(_roomId).then((response) {
+    //   current_count = response.count;
+    //   //print("warning");
+    //   print("current_num:$current_count");
+    // });
 
-                //   textAlign: TextAlign.right,
-                // )
-                );
-          } else {
-            messages_log.insert(
-                0,
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  SpeechBubble(
-                      nipLocation: NipLocation.BOTTOM_LEFT,
-                      color: Colors.blueGrey[200],
-                      child: Text(
-                        "\r\n${message.userId}:\r\n" + text,
-                        // style: TextStyle(color: Colors.green),
-                        textAlign: TextAlign.left,
-                      )),
-                  Text(''),
-                ])
-                //  Text(
-                //   "\r\n${message.userId}:\r\n" + text,
-                //   style: TextStyle(color: Colors.green),
+    _reloadChat();
 
-                //   textAlign: TextAlign.right,
-                // )
-                );
-            // SpeechBubble(
-            //   "\r\n${message.userId}:\r\n" + text,
-            //   style: TextStyle(color: Colors.blue),
-            //   textAlign: TextAlign.left,
-            // ));
-          }
-        });
-      });
-    });
-    _initSocket(_roomId, widget.auth.getBearer());
+    if (UniversalPlatform.isWeb) {
+      Timer.periodic(
+        Duration(seconds: 5),
+        _reloadChatTimer,
+      );
+    } else {
+      _initSocket(_roomId, widget.auth.getBearer());
+    }
+  }
+
+  void _adder(Widget data) {
+    if (_isInitialized == 0) {
+      messages_log.insert(0, data);
+    } else {
+      messages_log.add(data);
+    }
   }
 
   void _initSocket(String roomId, String userSession) async {
     print("接続中: $roomId");
     SocketIO socket = await _manager
-        .createInstance(SocketOptions('https://restapi-enpit.p0x0q.com:2053',
+        .createInstance(SocketOptions('https://chat-editile.p0x0q.com:2053',
             namespace: '/',
             query: {
               'chatid': roomId,
@@ -167,9 +133,9 @@ class _ChatDemo extends State<ChatDemo> {
       setState(() => {
             if (message.userId == widget.auth.getUserId())
               {
-                messages_log.add(Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
+                _adder(Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
                       SpeechBubble(
                           nipLocation: NipLocation.BOTTOM_RIGHT,
                           color: Colors.green,
@@ -179,23 +145,11 @@ class _ChatDemo extends State<ChatDemo> {
                             textAlign: TextAlign.right,
                           )),
                       Text(''),
-                    ])
-                    //  Text(
-                    //   "\r\n${message.userId}:\r\n" + text,
-                    //   style: TextStyle(color: Colors.green),
-
-                    //   textAlign: TextAlign.right,
-                    // )
-                    // Text(
-                    //   "\r\n${message.userId}:\r\n" + t,
-                    //   style: TextStyle(color: Colors.green),
-                    //   textAlign: TextAlign.right,
-                    // )
-                    )
+                    ]))
               }
             else
               {
-                messages_log.add(Column(
+                _adder(Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SpeechBubble(
@@ -234,11 +188,64 @@ class _ChatDemo extends State<ChatDemo> {
     ]);
   }
 
+  void _reloadChatTimer(Timer timer) {
+    _reloadChat();
+  }
+
+  Future<void> _reloadChat() async {
+    chatapi.getChatMessages(_roomId, 1).then((response) {
+      //print(response);
+      List<Message> msgL = response.messageList;
+      msgL.forEach((message) {
+        if (chatUUID.indexOf(message.uuid) == -1) {
+          chatUUID.add(message.uuid);
+
+          String text = HtmlUnescape().convert(message.text);
+
+          if (message.userId == widget.auth.getUserId()) {
+            _adder(
+                Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              SpeechBubble(
+                  nipLocation: NipLocation.BOTTOM_RIGHT,
+                  color: Colors.green,
+                  child: Text(
+                    "\r\n${message.userId}:\r\n" + text,
+                    // style: TextStyle(color: Colors.green),
+                    textAlign: TextAlign.right,
+                  )),
+              Text(''),
+            ]));
+          } else {
+            _adder(
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SpeechBubble(
+                  nipLocation: NipLocation.BOTTOM_LEFT,
+                  color: Colors.blueGrey[200],
+                  child: Text(
+                    "\r\n${message.userId}:\r\n" + text,
+                    // style: TextStyle(color: Colors.green),
+                    textAlign: TextAlign.left,
+                  )),
+              Text(''),
+            ]));
+          }
+        }
+      });
+      setState(() {
+        _isInitialized = 1;
+      });
+    });
+  }
+
   Future<void> _submitMessage(String text) async {
     if (text == '') return;
-    _sockets[_roomId].emit('send', [
-      {'value': text}
-    ]);
+    if (!UniversalPlatform.isWeb) {
+      _sockets[_roomId].emit('send', [
+        {'value': text}
+      ]);
+    } else {
+      chatapi.postLegacyChat(_roomId, text).then((res) => {_reloadChat()});
+    }
   }
 
   Widget build(BuildContext context) {

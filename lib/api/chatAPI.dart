@@ -13,6 +13,13 @@ class ChatAPI extends API {
     return response;
   }
 
+  Future<String> postLegacyChat(String roomId, String text) async {
+    String url = '/v1/api/post';
+    Map<String, dynamic> queryParameters = {'roomid': roomId, 'text': text};
+    dynamic response = await getWebSocketRequest(url, queryParameters);
+    return response.toString();
+  }
+
   Future<MessageList> getChatMessages(String roomId, int page) async {
     String url = 'chat/comment/roomid/$roomId';
     Map<String, dynamic> queryParameters = {'page': page};

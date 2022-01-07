@@ -297,30 +297,30 @@ class _testresult extends State<postList> {
           mainAxisAlignment: MainAxisAlignment.center,
           //children: <Widget>[Text("test")],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.article_rounded),
-              iconSize: 50,
-              color: Colors.black,
-            ),
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChatHistory(widget.auth)),
-                  );
-                },
-                icon: Icon(Icons.chat),
-                iconSize: 50,
-                color: Colors.grey),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //   children: [
+        //     IconButton(
+        //       onPressed: () {},
+        //       icon: Icon(Icons.article_rounded),
+        //       iconSize: 50,
+        //       color: Colors.black,
+        //     ),
+        //     IconButton(
+        //         onPressed: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //                 builder: (context) => ChatHistory(widget.auth)),
+        //           );
+        //         },
+        //         icon: Icon(Icons.chat),
+        //         iconSize: 50,
+        //         color: Colors.grey),
+        //   ],
+        // ),
         Container(
-          height: size.height * 0.65,
+          height: size.height * 0.72,
           width: double.maxFinite,
           child: ListView.builder(
               shrinkWrap: true,

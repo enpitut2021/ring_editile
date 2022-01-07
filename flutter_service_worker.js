@@ -7,7 +7,7 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.js": "3783918f48ef691e230156c251169480",
 "canvaskit/profiling/canvaskit.wasm": "6d1b0fc1ec88c3110db88caa3393c580",
 "canvaskit/canvaskit.wasm": "b179ba02b7a9f61ebc108f82c5a1ecdb",
-"main.dart.js": "f3fb2c32637ce1658fc851000d2177ae",
+"main.dart.js": "9185213eed828bf252138e9bbcefee7f",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "manifest.json": "6721cea5902b9b6b2f71fbc6cbc63c61",
 "version.json": "d33434d921519e9ab733da6c3be25b1f",
@@ -20,8 +20,8 @@ const RESOURCES = {
 "assets/AssetManifest.json": "3dd347f1770240ed9e3b717deadee690",
 "assets/FontManifest.json": "5a32d4310a6f5d9a6b651e75ba0d7372",
 "assets/assets/icon/ring-icon-color.png": "e3c14c113ef19e431380bdde00e5b64f",
-"index.html": "f88c166c581dce3ddc1810cc6f541af4",
-"/": "f88c166c581dce3ddc1810cc6f541af4",
+"index.html": "bc9674c31bb09a0956526ce825b97907",
+"/": "bc9674c31bb09a0956526ce825b97907",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1"
 };

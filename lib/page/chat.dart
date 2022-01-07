@@ -278,6 +278,58 @@ class _ChatDemo extends State<ChatDemo> {
             ),
             Row(
               children: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white60,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(100)),
+                    ),
+                    side: BorderSide(color: Colors.black26)
+                  ),
+                  onPressed:(){
+                    setState(() {
+                      chatupdate("美味しいよね！", widget.auth.getUserId());
+                    });
+                },
+                child: Text("美味しいよね！",style: TextStyle(color: Colors.black45)),
+                
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white60,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(100)),
+                    ),
+                    side: BorderSide(color: Colors.black26)
+                  ),
+                  onPressed:(){
+                    setState(() {
+                      chatupdate("結構並んだ〜", widget.auth.getUserId());
+                    });
+                },
+                child: Text("結構並んだ〜",style: TextStyle(color: Colors.black45)),
+                
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white60,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:BorderRadius.all(Radius.circular(100)),
+                    ),
+                    side: BorderSide(color: Colors.black26)
+                  ),
+                  onPressed:(){
+                    setState(() {
+                      chatupdate("安い", widget.auth.getUserId());
+                    });
+                },
+                child: Text("安い",style: TextStyle(color: Colors.black45)),
+                
+                )
+              ],
+              ),
+            Row(
+              children: [
                 Expanded(
                     child: new TextField(
                   controller: textController,

@@ -511,13 +511,13 @@ class _testresult extends State<postList> {
                 // mainAxisAlignment: MainAxisAlignment.center,
 
                 Text(showTime(index), style: TextStyle(color: Colors.black45)),
-                Text('  # ' + tag[index]),
-                IconButton(
-                  onPressed: () {
-                    _launchURL(_gps[index]);
-                  },
-                  icon: Icon(Icons.add_location_rounded, color: Colors.black),
-                ),
+                Text('  # ' + tag[index], style: TextStyle(color: Colors.black45)),
+                // IconButton(
+                  // onPressed: () {
+                  //   _launchURL(_gps[index]);
+                  // },
+                Icon(Icons.add_location_rounded, color: Colors.black45),
+                // ),
                 Text(distanceBetween(
                         double.parse(_gps_latitude),
                         double.parse(_gps_longitude),
@@ -525,8 +525,8 @@ class _testresult extends State<postList> {
                         // 0.0,
                         _gps_la[index],
                         _gps_lo[index]) +
-                    "km"),
-                Text("  "),
+                    "km", style: TextStyle(color: Colors.black45)),
+                Text("                    "),
                 IconButton(
                   onPressed: () {
                     AccountAPI a = new AccountAPI(widget.auth.getBearer());
@@ -553,6 +553,19 @@ class _testresult extends State<postList> {
                 // Text('$_likeUserCount[index]'),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              ),
+              child: Text('ルートを確認'),
+              onPressed: () {
+                    _launchURL(_gps[index]);
+                  },
+            ),
+            Text("           "),
             TextButton(
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -567,6 +580,7 @@ class _testresult extends State<postList> {
                 );
               },
             ),
+            ],),
           ],
         ),
       ),

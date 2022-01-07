@@ -508,26 +508,74 @@ class _testresult extends State<postList> {
 
             // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
             // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
-
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(showTime(index), style: TextStyle(color: Colors.black45)),
-                Text('  # ' + tag[index]),
-                // Text('          '),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  child:Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(showTime(index), style: TextStyle(color: Colors.black45)),
+                    Text('  # ' + tag[index]),
+                    // Text('          '),
 
-                IconButton(
-                  icon: Icon(Icons.chat),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ChatDemo(roomid[index], widget.auth)),
-                    );
-                  },
+                    IconButton(
+                      icon: Icon(Icons.chat),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ChatDemo(roomid[index], widget.auth)),
+                        );
+                      },
+                    ),
+                    
+                    IconButton(
+                      onPressed: () {
+                        _launchURL(_gps[index]);
+                      },
+                      icon: Icon(Icons.add_location_rounded, color: Colors.black),
+                    ),
+                    Text(distanceBetween(
+                            double.parse(_gps_latitude),
+                            double.parse(_gps_longitude),
+                            // 0.0,
+                            // 0.0,
+                            _gps_la[index],
+                            _gps_lo[index]) +
+                        "km"),
+                    IconButton(
+                      onPressed: () {
+                        AccountAPI a = new AccountAPI(widget.auth.getBearer());
+
+                        // a.getUserNumInfo(1).then((User user) {
+                        //   print("1");
+                        //   print(user.nickname);
+                        // });
+                        setState(() {
+                          //print(postIds[index]);
+                          post_press[index] = !post_press[index];
+                        });
+                        a.postUserLikePost(postIds[index], true);
+                        _likeUserCount[index] += 1;
+                        _likeAPICount[index] += 1;
+                      },
+                      icon: Icon(Icons.favorite,
+                          color: _likeUserCount[index] == 0
+                              ? Colors.black
+                              : Colors.red),
+                    ),
+                    // Text('$_likeUserCount[index]'),
+                    Text(_likeAPICount[index].toString()),
+                  ],
                 ),
-                IconButton(
+
+
+            ),
+            Row(
+              IconButton(
                   onPressed: () {
                     AccountAPI a = new AccountAPI(widget.auth.getBearer());
 
@@ -550,22 +598,13 @@ class _testresult extends State<postList> {
                 ),
                 // Text('$_likeUserCount[index]'),
                 Text(_likeAPICount[index].toString()),
-                IconButton(
-                  onPressed: () {
-                    _launchURL(_gps[index]);
-                  },
-                  icon: Icon(Icons.add_location_rounded, color: Colors.black),
-                ),
-                Text(distanceBetween(
-                        double.parse(_gps_latitude),
-                        double.parse(_gps_longitude),
-                        // 0.0,
-                        // 0.0,
-                        _gps_la[index],
-                        _gps_lo[index]) +
-                    "km"),
+
               ],
+
             ),
+            
+            
+            
           ],
         ),
       ),

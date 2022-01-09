@@ -503,30 +503,30 @@ class _testresult extends State<postList> {
           children: <Widget>[
             title,
             // _buildChip(tag[index], Colors.black),
-
-            Text(_postDistance[index] + "km以内の人への投稿"),
-
             // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
             // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(showTime(index), style: TextStyle(color: Colors.black45)),
-                Text('  # ' + tag[index]),
-                // Text('          '),
+              children: <Widget>[
+                // mainAxisAlignment: MainAxisAlignment.center,
 
-                IconButton(
-                  icon: Icon(Icons.chat),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ChatDemo(roomid[index], widget.auth)),
-                    );
-                  },
-                ),
+                Text(showTime(index), style: TextStyle(color: Colors.black45)),
+                Text('  # ' + tag[index], style: TextStyle(color: Colors.black45)),
+                // IconButton(
+                  // onPressed: () {
+                  //   _launchURL(_gps[index]);
+                  // },
+                Icon(Icons.add_location_rounded, color: Colors.black45),
+                // ),
+                Text(distanceBetween(
+                        double.parse(_gps_latitude),
+                        double.parse(_gps_longitude),
+                        // 0.0,
+                        // 0.0,
+                        _gps_la[index],
+                        _gps_lo[index]) +
+                    "km", style: TextStyle(color: Colors.black45)),
+                Text("                    "),
                 IconButton(
                   onPressed: () {
                     AccountAPI a = new AccountAPI(widget.auth.getBearer());
@@ -548,24 +548,39 @@ class _testresult extends State<postList> {
                           ? Colors.black
                           : Colors.red),
                 ),
-                // Text('$_likeUserCount[index]'),
                 Text(_likeAPICount[index].toString()),
-                IconButton(
-                  onPressed: () {
-                    _launchURL(_gps[index]);
-                  },
-                  icon: Icon(Icons.add_location_rounded, color: Colors.black),
-                ),
-                Text(distanceBetween(
-                        double.parse(_gps_latitude),
-                        double.parse(_gps_longitude),
-                        // 0.0,
-                        // 0.0,
-                        _gps_la[index],
-                        _gps_lo[index]) +
-                    "km"),
+
+                // Text('$_likeUserCount[index]'),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              ),
+              child: Text('ルートを確認'),
+              onPressed: () {
+                    _launchURL(_gps[index]);
+                  },
+            ),
+            Text("           "),
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+              ),
+              child: Text('会話に参加'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ChatDemo(roomid[index], widget.auth)),
+                );
+              },
+            ),
+            ],),
           ],
         ),
       ),

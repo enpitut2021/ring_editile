@@ -239,7 +239,7 @@ class _testresult extends State<postList> {
     return Scaffold(
       backgroundColor: Colors.lime[100],
       appBar: AppBar(
-          title: Text("投稿一覧画面"),
+          title: Text("投稿一覧画面b"),
           automaticallyImplyLeading: false,
           leading: Stack(
             children: <Widget>[

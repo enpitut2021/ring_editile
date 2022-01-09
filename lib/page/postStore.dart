@@ -31,7 +31,7 @@ class _postStore extends State<postStore> {
 
   String _gps_latitude = "36.1106";
   String _gps_longitude = "140.1007";
-  List<String> _distance = ["2", "4", "6", "8", "10"];
+  List<String> _distance = ["2", "4", "6", "8", "10", "10000"];
   List<String> _situation = ["カジュアル", "デート向け", "ひとり様歓迎", "団体様歓迎"];
   String _selecteddistance = "2";
 
@@ -150,24 +150,26 @@ class _postStore extends State<postStore> {
             Container(
               width: 370.0,
               child: TextField(
-              maxLines: null,
-              minLines: 7,
-              decoration: InputDecoration(
-                //errorText: widget.e_msg,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 7,vertical: 10),
-                border: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.blueGrey[200],
-                )),
-                hintText: '投稿を書く',
-                hintMaxLines: 6,
-                alignLabelWithHint: true,
+                maxLines: null,
+                minLines: 7,
+                decoration: InputDecoration(
+                  //errorText: widget.e_msg,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                    color: Colors.blueGrey[200],
+                  )),
+                  hintText: '投稿を書く',
+                  hintMaxLines: 6,
+                  alignLabelWithHint: true,
+                ),
+                autofocus: true,
+                onChanged: (text) {
+                  widget.msg = text;
+                },
               ),
-              autofocus: true,
-              onChanged: (text) {
-                widget.msg = text;
-              },
-            ),),
+            ),
             Text(
               widget.e_msg,
               style: TextStyle(color: Colors.red),
@@ -235,33 +237,35 @@ class _postStore extends State<postStore> {
               minWidth: 100.0,
               height: 40.0,
               buttonColor: Colors.grey[200],
-              child:  RaisedButton(
-                child: Text('投稿'),
-                onPressed: () {
-                  AccountAPI a = new AccountAPI(widget.auth.getBearer());
-                  // a.postUserPost(widget.msg, '');
-                  if (widget.msg != "") {
-                    a.postUserPost(
-                            widget.msg,
-                            _imageUrl,
-                            _gps_latitude,
-                            _gps_longitude,
-                            _selectedsituation,
-                            _selecteddistance)
-                        .then((value) => {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        postList(widget.auth)),
-                              )
-                            });
-                  } else {
-                    setState(() {
-                      widget.e_msg = '文字を入力してください';
-                    });
-                  }
-                }),),
+              child: RaisedButton(
+                  child: Text('投稿'),
+                  onPressed: () {
+                    AccountAPI a = new AccountAPI(widget.auth.getBearer());
+                    // a.postUserPost(widget.msg, '');
+                    if (widget.msg != "") {
+                      a
+                          .postUserPost(
+                              widget.msg,
+                              _imageUrl,
+                              _gps_latitude,
+                              _gps_longitude,
+                              _selectedsituation,
+                              _selecteddistance)
+                          .then((value) => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          postList(widget.auth)),
+                                )
+                              });
+                    } else {
+                      setState(() {
+                        widget.e_msg = '文字を入力してください';
+                      });
+                    }
+                  }),
+            ),
             // RaisedButton(
             //     child: Text('投稿一覧画面へ'),
             //     onPressed: () {

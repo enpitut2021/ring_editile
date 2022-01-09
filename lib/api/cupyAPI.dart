@@ -41,7 +41,7 @@ class CupyAPI extends API {
     try {
       dynamic response = await postImageRequest(url, formData);
       String filename = response['file'];
-      String imageUrl = "https://restapi-editile.p0x0q.com" + filename;
+      String imageUrl = filename;
       print('[$url] uploaded image url: $imageUrl');
       return imageUrl;
     } catch (e) {

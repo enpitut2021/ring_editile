@@ -239,7 +239,7 @@ class _testresult extends State<postList> {
     return Scaffold(
       backgroundColor: Colors.lime[100],
       appBar: AppBar(
-          title: Text("投稿一覧画面"),
+          title: Text("投稿一覧画面a"),
           automaticallyImplyLeading: false,
           leading: Stack(
             children: <Widget>[
@@ -511,21 +511,24 @@ class _testresult extends State<postList> {
                 // mainAxisAlignment: MainAxisAlignment.center,
 
                 Text(showTime(index), style: TextStyle(color: Colors.black45)),
-                Text('  # ' + tag[index], style: TextStyle(color: Colors.black45)),
+                Text('  # ' + tag[index],
+                    style: TextStyle(color: Colors.black45)),
                 // IconButton(
-                  // onPressed: () {
-                  //   _launchURL(_gps[index]);
-                  // },
+                // onPressed: () {
+                //   _launchURL(_gps[index]);
+                // },
                 Icon(Icons.add_location_rounded, color: Colors.black45),
                 // ),
-                Text(distanceBetween(
-                        double.parse(_gps_latitude),
-                        double.parse(_gps_longitude),
-                        // 0.0,
-                        // 0.0,
-                        _gps_la[index],
-                        _gps_lo[index]) +
-                    "km", style: TextStyle(color: Colors.black45)),
+                Text(
+                    distanceBetween(
+                            double.parse(_gps_latitude),
+                            double.parse(_gps_longitude),
+                            // 0.0,
+                            // 0.0,
+                            _gps_la[index],
+                            _gps_lo[index]) +
+                        "km",
+                    style: TextStyle(color: Colors.black45)),
                 Text("                    "),
                 IconButton(
                   onPressed: () {
@@ -556,31 +559,34 @@ class _testresult extends State<postList> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              ),
-              child: Text('ルートを確認'),
-              onPressed: () {
+                TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                  ),
+                  child: Text('ルートを確認'),
+                  onPressed: () {
                     _launchURL(_gps[index]);
                   },
+                ),
+                Text("           "),
+                TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                  ),
+                  child: Text('会話に参加'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ChatDemo(roomid[index], widget.auth)),
+                    );
+                  },
+                ),
+              ],
             ),
-            Text("           "),
-            TextButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              ),
-              child: Text('会話に参加'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ChatDemo(roomid[index], widget.auth)),
-                );
-              },
-            ),
-            ],),
           ],
         ),
       ),

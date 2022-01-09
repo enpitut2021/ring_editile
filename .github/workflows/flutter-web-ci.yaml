@@ -6,24 +6,27 @@ on:
       - master
       - web_demo
 
-
 jobs:
   build:
     name: Flutter build and deploy
     runs-on: ubuntu-18.04
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Say start a build
       run: echo flutter build web
-    - uses: subosito/flutter-action@v1
+    - uses: subosito/flutter-action@v2
       with:
-        channel: 'dev'
+        flutter-version: '2.5.1'
+        channel: 'stable'
 
-    - name: Run a flutter build and deploy
+    - name: Run a flutter dependencies
       run: |
         flutter config --enable-web
         flutter pub get
+
+    - name: Run a flutter build
+      run: |
         flutter build web
 
     - name: Deploy
@@ -33,5 +36,3 @@ jobs:
         PUBLISH_BRANCH: web/master
         PUBLISH_DIR: ./build/web
         cname: ring_editile.p0x0q.com
-        #cname tag
-        

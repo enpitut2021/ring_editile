@@ -276,7 +276,9 @@ class _ChatDemo extends State<ChatDemo> {
                 },
               ),
             ),
-            Row(
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
               children: [
                 TextButton(
                   style: TextButton.styleFrom(
@@ -287,11 +289,11 @@ class _ChatDemo extends State<ChatDemo> {
                       side: BorderSide(color: Colors.black26)),
                   onPressed: () {
                     setState(() {
-                      chatupdate("美味しいよね！", widget.auth.getUserId());
+                      chatupdate("オススメなに？", widget.auth.getUserId());
                     });
                   },
                   child:
-                      Text("美味しいよね！", style: TextStyle(color: Colors.black45)),
+                      Text("オススメなに？", style: TextStyle(color: Colors.black45)),
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
@@ -302,11 +304,11 @@ class _ChatDemo extends State<ChatDemo> {
                       side: BorderSide(color: Colors.black26)),
                   onPressed: () {
                     setState(() {
-                      chatupdate("結構並んだ〜", widget.auth.getUserId());
+                      chatupdate("混んでました？", widget.auth.getUserId());
                     });
                   },
                   child:
-                      Text("結構並んだ〜", style: TextStyle(color: Colors.black45)),
+                      Text("混んでました？", style: TextStyle(color: Colors.black45)),
                 ),
                 TextButton(
                   style: TextButton.styleFrom(
@@ -317,12 +319,28 @@ class _ChatDemo extends State<ChatDemo> {
                       side: BorderSide(color: Colors.black26)),
                   onPressed: () {
                     setState(() {
-                      chatupdate("安い", widget.auth.getUserId());
+                      chatupdate("いつまで？", widget.auth.getUserId());
                     });
                   },
-                  child: Text("安い", style: TextStyle(color: Colors.black45)),
-                )
+                  child:
+                      Text("いつまで？", style: TextStyle(color: Colors.black45)),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.white60,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                      ),
+                      side: BorderSide(color: Colors.black26)),
+                  onPressed: () {
+                    setState(() {
+                      chatupdate("予算どのくらいですか？", widget.auth.getUserId());
+                    });
+                  },
+                  child: Text("予算どのくらいですか？", style: TextStyle(color: Colors.black45)),
+                ),
               ],
+            ),
             ),
             Row(
               children: [
@@ -350,7 +368,7 @@ class _ChatDemo extends State<ChatDemo> {
                         }
                       });
                     },
-                    icon: Icon(Icons.add))
+                    icon: Icon(Icons.arrow_right,size: 40),)
               ],
             )
           ],

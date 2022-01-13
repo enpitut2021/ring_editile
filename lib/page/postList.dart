@@ -158,7 +158,7 @@ class _testresult extends State<postList> {
           post_test.add(Column(
             children: <Widget>[
               Container(
-                height: 400,
+                height: 150,
                 alignment: Alignment.center,
                 child: Text(post.text),
               ),

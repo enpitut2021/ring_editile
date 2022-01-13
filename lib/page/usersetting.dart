@@ -72,10 +72,10 @@ class _Usersetting extends State<Usersetting> {
              Image.network(
                 p.imageUrl,
                 errorBuilder: (c, o, s) {
-                  return Text("[画像がありません]");
+                  return Text(p.text);
                 },
               ),
-              Text(p.text),
+              
           ],)
         );
         setState(() {

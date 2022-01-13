@@ -158,7 +158,7 @@ class _testresult extends State<postList> {
           post_test.add(Column(
             children: <Widget>[
               Container(
-                height: 400,
+                height: 150,
                 alignment: Alignment.center,
                 child: Text(post.text),
               ),
@@ -506,58 +506,64 @@ class _testresult extends State<postList> {
             // Text(endDate.difference(DateTime.parse(create_time[index])).inDays.toString()+"日前"),
             // Text(endDate.difference(DateTime.parse(create_time[index])).inHours.toString()+"時間前"),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                // mainAxisAlignment: MainAxisAlignment.center,
+                Container(
+                    child: Row(
+                  children: [
+                    Text(showTime(index),
+                        style: TextStyle(color: Colors.black45)),
+                    Text('  # ' + tag[index],
+                        style: TextStyle(color: Colors.black45)),
+                    // IconButton(
+                    // onPressed: () {
+                    //   _launchURL(_gps[index]);
+                    // },
+                    Icon(Icons.add_location_rounded, color: Colors.black45),
+                    // ),
+                    Text(
+                        distanceBetween(
+                                double.parse(_gps_latitude),
+                                double.parse(_gps_longitude),
+                                // 0.0,
+                                // 0.0,
+                                _gps_la[index],
+                                _gps_lo[index]) +
+                            "km",
+                        style: TextStyle(color: Colors.black45)),
+                  ],
+                )),
+                Container(
+                    child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        AccountAPI a = new AccountAPI(widget.auth.getBearer());
 
-                Text(showTime(index), style: TextStyle(color: Colors.black45)),
-                Text('  # ' + tag[index],
-                    style: TextStyle(color: Colors.black45)),
-                // IconButton(
-                // onPressed: () {
-                //   _launchURL(_gps[index]);
-                // },
-                Icon(Icons.add_location_rounded, color: Colors.black45),
-                // ),
-                Text(
-                    distanceBetween(
-                            double.parse(_gps_latitude),
-                            double.parse(_gps_longitude),
-                            // 0.0,
-                            // 0.0,
-                            _gps_la[index],
-                            _gps_lo[index]) +
-                        "km",
-                    style: TextStyle(color: Colors.black45)),
-                Text("                    "),
-                IconButton(
-                  onPressed: () {
-                    AccountAPI a = new AccountAPI(widget.auth.getBearer());
-
-                    // a.getUserNumInfo(1).then((User user) {
-                    //   print("1");
-                    //   print(user.nickname);
-                    // });
-                    setState(() {
-                      //print(postIds[index]);
-                      post_press[index] = !post_press[index];
-                    });
-                    a.postUserLikePost(postIds[index], true);
-                    _likeUserCount[index] += 1;
-                    _likeAPICount[index] += 1;
-                  },
-                  icon: Icon(Icons.favorite,
-                      color: _likeUserCount[index] == 0
-                          ? Colors.black
-                          : Colors.red),
-                ),
-                Text(_likeAPICount[index].toString()),
-
-                // Text('$_likeUserCount[index]'),
+                        // a.getUserNumInfo(1).then((User user) {
+                        //   print("1");
+                        //   print(user.nickname);
+                        // });
+                        setState(() {
+                          //print(postIds[index]);
+                          post_press[index] = !post_press[index];
+                        });
+                        a.postUserLikePost(postIds[index], true);
+                        _likeUserCount[index] += 1;
+                        _likeAPICount[index] += 1;
+                      },
+                      icon: Icon(Icons.favorite,
+                          color: _likeUserCount[index] == 0
+                              ? Colors.black
+                              : Colors.red),
+                    ),
+                    Text(_likeAPICount[index].toString()),
+                  ],
+                )),
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 TextButton(
                   style: ButtonStyle(
@@ -569,7 +575,6 @@ class _testresult extends State<postList> {
                     _launchURL(_gps[index]);
                   },
                 ),
-                Text("           "),
                 TextButton(
                   style: ButtonStyle(
                     foregroundColor:

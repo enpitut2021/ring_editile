@@ -103,6 +103,7 @@ class _Usersetting extends State<Usersetting> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(title: Text(widget.auth.getUserId() + "のユーザー設定")),
       body: Container(
@@ -234,7 +235,7 @@ class _Usersetting extends State<Usersetting> {
                   }),
             ),
             Container(
-          height: 300,
+          height: size.height*0.3,
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,

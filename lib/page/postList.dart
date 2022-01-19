@@ -580,7 +580,15 @@ class _testresult extends State<postList> {
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
                   ),
-                  child: Text('会話に参加'),
+                  child: RichText(
+                    text: TextSpan(
+                      text: "会話に参加",
+                      style: TextStyle(color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(text: '('+'5'+')', style: TextStyle(color: Colors.blueGrey)),
+                      ],
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,

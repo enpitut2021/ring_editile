@@ -76,9 +76,9 @@ class _ChatDemo extends State<ChatDemo> {
 
   void _adder(Widget data) {
     if (_isInitialized == 0) {
-      messages_log.insert(0, data);
-    } else {
       messages_log.add(data);
+    } else {
+      messages_log.insert(0,data);
     }
   }
 
@@ -270,6 +270,7 @@ class _ChatDemo extends State<ChatDemo> {
               height: 500,
               width: 400,
               child: ListView.builder(
+                reverse: true,
                 itemCount: messages_log.length,
                 itemBuilder: (BuildContext context, int index) {
                   return messages_log[index];

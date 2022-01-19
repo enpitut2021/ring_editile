@@ -33,6 +33,7 @@ class _ChatDemo extends State<ChatDemo> {
   List<Widget> messages_log = [];
   List<String> chatUUID = [];
   var current_count;
+  String owner_id;
   int _isInitialized = 0;
   ChatAPI chatapi;
 
@@ -56,11 +57,13 @@ class _ChatDemo extends State<ChatDemo> {
     _manager = SocketIOManager();
 
     print("roomId:$_roomId");
-    // chatapi.getRoomInfo(_roomId).then((response) {
-    //   current_count = response.count;
-    //   //print("warning");
-    //   print("current_num:$current_count");
-    // });
+    chatapi.getRoomInfo(_roomId).then((response) {
+      current_count = response.count;
+      owner_id = response.ownerId;
+      print("owner_id:" + owner_id);
+      //print("warning");
+      print("current_num:$current_count");
+    });
 
     _reloadChat();
 
@@ -127,6 +130,10 @@ class _ChatDemo extends State<ChatDemo> {
         'goodsUsers': data[0]['good'],
         'created': data[0]['time'],
       });
+      // ChatRoomInfo chatroom = ChatRoomInfo({
+      //   'owner_id': data[0]['owner_id'],
+      // });
+
       // MessageWidget messageWidget =
       //     MessageWidget(message, widget.auth.getUserId(), widget.auth);
       String t = HtmlUnescape().convert(message.text);
@@ -143,6 +150,23 @@ class _ChatDemo extends State<ChatDemo> {
                             "\r\n${message.userId}:\r\n" + t,
                             // style: TextStyle(color: Colors.green),
                             textAlign: TextAlign.right,
+                          )),
+                      Text(''),
+                    ]))
+              }
+            else if (message.userId == owner_id)
+              {
+                print("ok"),
+                _adder(Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SpeechBubble(
+                          nipLocation: NipLocation.BOTTOM_LEFT,
+                          color: Colors.orange[400],
+                          child: Text(
+                            "\r\n${message.userId}:\r\n" + t,
+                            // style: TextStyle(color: Colors.green),
+                            textAlign: TextAlign.left,
                           )),
                       Text(''),
                     ]))
@@ -215,6 +239,20 @@ class _ChatDemo extends State<ChatDemo> {
                   )),
               Text(''),
             ]));
+          } else if (message.userId == owner_id) {
+            print("ok");
+            _adder(
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SpeechBubble(
+                  nipLocation: NipLocation.BOTTOM_LEFT,
+                  color: Colors.orange[400],
+                  child: Text(
+                    "\r\n${message.userId}:\r\n" + text,
+                    // style: TextStyle(color: Colors.green),
+                    textAlign: TextAlign.left,
+                  )),
+              Text(''),
+            ]));
           } else {
             _adder(
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -280,68 +318,69 @@ class _ChatDemo extends State<ChatDemo> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-              children: [
-                TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: Colors.white60,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                      ),
-                      side: BorderSide(color: Colors.black26)),
-                  onPressed: () {
-                    setState(() {
-                      chatupdate("オススメなに？", widget.auth.getUserId());
-                    });
-                  },
-                  child:
-                      Text("オススメなに？", style: TextStyle(color: Colors.black45)),
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: Colors.white60,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                      ),
-                      side: BorderSide(color: Colors.black26)),
-                  onPressed: () {
-                    setState(() {
-                      chatupdate("混んでました？", widget.auth.getUserId());
-                    });
-                  },
-                  child:
-                      Text("混んでました？", style: TextStyle(color: Colors.black45)),
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: Colors.white60,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                      ),
-                      side: BorderSide(color: Colors.black26)),
-                  onPressed: () {
-                    setState(() {
-                      chatupdate("いつまで？", widget.auth.getUserId());
-                    });
-                  },
-                  child:
-                      Text("いつまで？", style: TextStyle(color: Colors.black45)),
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: Colors.white60,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(100)),
-                      ),
-                      side: BorderSide(color: Colors.black26)),
-                  onPressed: () {
-                    setState(() {
-                      chatupdate("予算どのくらいですか？", widget.auth.getUserId());
-                    });
-                  },
-                  child: Text("予算どのくらいですか？", style: TextStyle(color: Colors.black45)),
-                ),
-              ],
-            ),
+                children: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Colors.white60,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                        ),
+                        side: BorderSide(color: Colors.black26)),
+                    onPressed: () {
+                      setState(() {
+                        chatupdate("オススメなに？", widget.auth.getUserId());
+                      });
+                    },
+                    child: Text("オススメなに？",
+                        style: TextStyle(color: Colors.black45)),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Colors.white60,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                        ),
+                        side: BorderSide(color: Colors.black26)),
+                    onPressed: () {
+                      setState(() {
+                        chatupdate("混んでました？", widget.auth.getUserId());
+                      });
+                    },
+                    child: Text("混んでました？",
+                        style: TextStyle(color: Colors.black45)),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Colors.white60,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                        ),
+                        side: BorderSide(color: Colors.black26)),
+                    onPressed: () {
+                      setState(() {
+                        chatupdate("いつまで？", widget.auth.getUserId());
+                      });
+                    },
+                    child:
+                        Text("いつまで？", style: TextStyle(color: Colors.black45)),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Colors.white60,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                        ),
+                        side: BorderSide(color: Colors.black26)),
+                    onPressed: () {
+                      setState(() {
+                        chatupdate("予算どのくらいですか？", widget.auth.getUserId());
+                      });
+                    },
+                    child: Text("予算どのくらいですか？",
+                        style: TextStyle(color: Colors.black45)),
+                  ),
+                ],
+              ),
             ),
             Row(
               children: [
@@ -359,17 +398,18 @@ class _ChatDemo extends State<ChatDemo> {
                   // },
                 )),
                 IconButton(
-                    onPressed: () {
-                      setState(() {
-                        input_msg = textController.text;
-                        if (input_msg != "") {
-                          chatupdate(input_msg, widget.auth.getUserId());
-                          print(input_msg);
-                          input_msg = "";
-                        }
-                      });
-                    },
-                    icon: Icon(Icons.arrow_right,size: 40),)
+                  onPressed: () {
+                    setState(() {
+                      input_msg = textController.text;
+                      if (input_msg != "") {
+                        chatupdate(input_msg, widget.auth.getUserId());
+                        print(input_msg);
+                        input_msg = "";
+                      }
+                    });
+                  },
+                  icon: Icon(Icons.arrow_right, size: 40),
+                )
               ],
             )
           ],

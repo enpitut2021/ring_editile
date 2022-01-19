@@ -239,6 +239,20 @@ class _ChatDemo extends State<ChatDemo> {
                   )),
               Text(''),
             ]));
+          } else if (message.userId == owner_id) {
+            print("ok");
+            _adder(
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SpeechBubble(
+                  nipLocation: NipLocation.BOTTOM_LEFT,
+                  color: Colors.orange[400],
+                  child: Text(
+                    "\r\n${message.userId}:\r\n" + text,
+                    // style: TextStyle(color: Colors.green),
+                    textAlign: TextAlign.left,
+                  )),
+              Text(''),
+            ]));
           } else {
             _adder(
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

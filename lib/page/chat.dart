@@ -130,9 +130,9 @@ class _ChatDemo extends State<ChatDemo> {
         'goodsUsers': data[0]['good'],
         'created': data[0]['time'],
       });
-      ChatRoomInfo chatroom = ChatRoomInfo({
-        'owner_id': data[0]['owner_id'],
-      });
+      // ChatRoomInfo chatroom = ChatRoomInfo({
+      //   'owner_id': data[0]['owner_id'],
+      // });
 
       // MessageWidget messageWidget =
       //     MessageWidget(message, widget.auth.getUserId(), widget.auth);
@@ -154,8 +154,7 @@ class _ChatDemo extends State<ChatDemo> {
                       Text(''),
                     ]))
               }
-            else if (message.userId == owner_id &&
-                message.userId != widget.auth.getUserId())
+            else if (message.userId == owner_id)
               {
                 print("ok"),
                 _adder(Column(

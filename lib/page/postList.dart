@@ -44,6 +44,7 @@ class _testresult extends State<postList> {
   String _gps_longitude = "140.1007";
 
   String _toukouDistance = '';
+  List<String> _commentCount = [];
 
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
@@ -107,7 +108,9 @@ class _testresult extends State<postList> {
     bool temp_p = this.Press;
     //print(widget.auth.getBearer());
     AccountAPI a = new AccountAPI(widget.auth.getBearer());
+    ChatAPI c = new ChatAPI(widget.auth.getBearer());
     // String u_id;
+
     a.getUserLikeList().then((p_likes) {
       p_likes.forEach((PostLike p) {
         //print("p_like is");
@@ -188,6 +191,10 @@ class _testresult extends State<postList> {
         post_press.add(false);
         //print(post_press);
         roomid.add(post.roomId);
+        c.getRoomInfo(post.roomId).then((roomInfo) {
+          _commentCount.add(roomInfo.count.toString());
+        });
+
         post_like.forEach((int p_l) {
           if (postIds.indexOf(p_l) != -1) {
             post_press[postIds.indexOf(p_l)] = true;
@@ -580,7 +587,21 @@ class _testresult extends State<postList> {
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
                   ),
-                  child: Text('会話に参加'),
+                  child: RichText(
+                    text: TextSpan(
+                      text: "会話に参加",
+                      style: TextStyle(color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: '(' +
+                                (_commentCount.length > 0
+                                    ? _commentCount[index]
+                                    : "0") +
+                                ')',
+                            style: TextStyle(color: Colors.blueGrey)),
+                      ],
+                    ),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,

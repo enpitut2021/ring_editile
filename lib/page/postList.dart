@@ -193,6 +193,7 @@ class _testresult extends State<postList> {
         roomid.add(post.roomId);
         c.getRoomInfo(post.roomId).then((roomInfo) {
           _commentCount.add(roomInfo.count.toString());
+          setState(() {});
         });
 
         post_like.forEach((int p_l) {

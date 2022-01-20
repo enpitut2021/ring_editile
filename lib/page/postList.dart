@@ -245,6 +245,41 @@ class _testresult extends State<postList> {
       appBar: AppBar(
           title: Text("投稿一覧画面"),
           automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () => setState(() {
+                post_test = [];
+                postIds = [];
+                post_press = [];
+                post_like = [];
+                roomid = [];
+                post_msg = [];
+                _gps = [];
+                create_time = [];
+                _postDistance = [];
+                _distanceList = [];
+
+                tag = [];
+                _gps_la = [];
+                _gps_lo = [];
+
+                _commentCount = [];
+
+                _likeUserCount = [];
+                _likeAPICount = [];
+
+                Press = false;
+                checker = -1;
+                _selectedgenre = "全て";
+                _selectedsituation = "全て";
+                _genreindex = 0;
+                _situationindex = 0;
+
+                initState();
+              }),
+            ),
+          ],
           leading: Stack(
             children: <Widget>[
               CircleAvatar(

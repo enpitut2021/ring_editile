@@ -393,14 +393,14 @@ class _ChatDemo extends State<ChatDemo> {
                   decoration: const InputDecoration(
                     hintText: 'メッセージを入力してください',
                   ),
-                  // onChanged: (text) {
-                  //   input_msg = text;
-                  // },
+                  onChanged: (text) {
+                    input_msg = text;
+                  },
                 )),
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      input_msg = textController.text;
+                      //input_msg = textController.text;
                       if (input_msg != "") {
                         chatupdate(input_msg, widget.auth.getUserId());
                         print(input_msg);

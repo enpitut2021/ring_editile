@@ -1,7 +1,7 @@
 // import 'dart:html';
 // import 'package:flutter/foundation.dart';
 
-import 'dart:js';
+//import 'dart:js';
 
 import 'package:flutter/material.dart';
 //import 'package:html_unescape/html_unescape_small.dart';
@@ -306,7 +306,12 @@ class _ChatDemo extends State<ChatDemo> {
         ),
         body: 
         GestureDetector(
-          onTap: ()=> FocusManager.instance.primaryFocus?.unfocus(),
+          onTap: (){
+            setState(() {
+              FocusScope.of(context).unfocus();
+            });
+           
+          },
           child:
         Column(
           children: <Widget>[

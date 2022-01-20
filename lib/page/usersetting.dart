@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:ring_sns/page/login.dart';
 
 class Usersetting extends StatefulWidget {
   //ここにイニシャライザを書く
@@ -112,21 +113,21 @@ class _Usersetting extends State<Usersetting> {
           children: <Widget>[
             Container(
                 width: 150,
-                height: 150,
+                height: 120,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                 ),
                 margin: const EdgeInsets.only(top: 30),
                 child: widget.auth.getUserIcon()),
             Container(
-              width: 144,
-              height: 50,
+              width: 130,
+              height: 40,
               margin: const EdgeInsets.only(top: 47),
               decoration: BoxDecoration(
                 color: const Color(0xfffa4269),
                 border: Border.all(
                   width: 2,
-                  color: const Color(0xff000000),
+                  color: const Color(0xfffa4269),
                 ),
                 borderRadius: BorderRadius.circular(15),
               ),
@@ -209,7 +210,7 @@ class _Usersetting extends State<Usersetting> {
             // Text(''),
             // Text(''),
             ConstrainedBox(
-              constraints: BoxConstraints.tightFor(width: 100, height: 50),
+              constraints: BoxConstraints.tightFor(width: 100, height: 40),
               child: ElevatedButton(
                   child: Text('save'),
                   style: ElevatedButton.styleFrom(
@@ -233,6 +234,24 @@ class _Usersetting extends State<Usersetting> {
                       print(value);
                     });
                   }),
+            ),
+             ConstrainedBox(
+              constraints: BoxConstraints.tightFor(width: 100, height: 40),
+              child: ElevatedButton(
+                  child: Text('logout'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                    onPrimary: Colors.white,
+                    shape: const StadiumBorder(),
+                  ),
+                  onPressed: (){
+                   Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => LoginPage(widget.auth),
+                     ),
+                   );
+                  },
+                  ),
             ),
             Container(
           height: size.height*0.3,

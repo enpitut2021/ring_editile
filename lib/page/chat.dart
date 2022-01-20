@@ -1,6 +1,8 @@
 // import 'dart:html';
 // import 'package:flutter/foundation.dart';
 
+//import 'dart:js';
+
 import 'package:flutter/material.dart';
 //import 'package:html_unescape/html_unescape_small.dart';
 import 'package:ring_sns/api/chatAPI.dart';
@@ -302,7 +304,16 @@ class _ChatDemo extends State<ChatDemo> {
           title: Text("チャット"),
           automaticallyImplyLeading: false,
         ),
-        body: Column(
+        body: 
+        GestureDetector(
+          onTap: (){
+            setState(() {
+              FocusScope.of(context).unfocus();
+            });
+           
+          },
+          child:
+        Column(
           children: <Widget>[
             Container(
               height: 500,
@@ -413,7 +424,8 @@ class _ChatDemo extends State<ChatDemo> {
               ],
             )
           ],
-        ));
+        ))
+        );
     // final _channel = WebSocket(url)
   }
 }

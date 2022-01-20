@@ -236,6 +236,7 @@ class Post {
   int postId;
   int user;
   int likes;
+  int count;
   String text;
   String created;
   String updated;
@@ -260,6 +261,7 @@ class Post {
     gps_longitude = post['gps_longitude'] ?? 0.0;
     category = post['category'] ?? '';
     subCategory = post['sub_category'] ?? '';
+    count = post['count'] ?? 0;
   }
 }
 

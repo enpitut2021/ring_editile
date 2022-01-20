@@ -128,6 +128,7 @@ class _testresult extends State<postList> {
         //print(post.likes);
         _likeAPICount.add(post.likes);
         _likeUserCount.add(0);
+        _commentCount.add(post.count);
 
         // a.getUserNumInfo(post.user).then((User user) {
         //   u_id = user.userId;
@@ -207,17 +208,6 @@ class _testresult extends State<postList> {
           }
         });
       });
-
-      roomid.forEach((id) async {
-        ChatRoomInfo roomInfo = await c.getRoomInfo(id);
-        _commentCount.add(roomInfo.count.toString());
-        print("index:" +
-            _commentCount.length.toString() +
-            ", count: " +
-            roomInfo.count.toString());
-        setState(() {});
-      });
-
       if (gps_state == "nodata") {
         _gps_latitude = "36.1106";
         _gps_longitude = "140.1007";

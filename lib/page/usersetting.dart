@@ -235,6 +235,10 @@ class _Usersetting extends State<Usersetting> {
                     });
                   }),
             ),
+            Container(
+              width: 150,
+                height: 10,
+            ),
              ConstrainedBox(
               constraints: BoxConstraints.tightFor(width: 100, height: 40),
               child: ElevatedButton(

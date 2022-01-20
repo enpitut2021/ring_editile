@@ -44,7 +44,7 @@ class _testresult extends State<postList> {
   String _gps_longitude = "140.1007";
 
   String _toukouDistance = '';
-  List<String> _commentCount = [];
+  List<int> _commentCount = [];
 
   List<int> _likeUserCount = [];
   List<int> _likeAPICount = [];
@@ -592,7 +592,7 @@ class _testresult extends State<postList> {
                         TextSpan(
                             text: '(' +
                                 (_commentCount.length > 0
-                                    ? _commentCount[index]
+                                    ? (_commentCount[index]).toString()
                                     : "0") +
                                 ')',
                             style: TextStyle(color: Colors.blueGrey)),

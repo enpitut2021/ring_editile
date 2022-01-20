@@ -288,7 +288,7 @@ class _ChatDemo extends State<ChatDemo> {
   }
 
   Widget build(BuildContext context) {
-    final textController = TextEditingController();
+    final textController = TextEditingController(text:input_msg);
 
     return Scaffold(
         appBar: AppBar(

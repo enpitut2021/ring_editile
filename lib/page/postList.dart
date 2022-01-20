@@ -123,7 +123,7 @@ class _testresult extends State<postList> {
     //print(post_like);
     // print(post_like);
     a.getUserPostList().then((posts) {
-      posts.forEach((Post post) {
+      posts.forEach((Post post) async {
         //print(post.imageUrl);
         //print(post.likes);
         _likeAPICount.add(post.likes);
@@ -191,10 +191,6 @@ class _testresult extends State<postList> {
         post_press.add(false);
         //print(post_press);
         roomid.add(post.roomId);
-        c.getRoomInfo(post.roomId).then((roomInfo) {
-          _commentCount.add(roomInfo.count.toString());
-          setState(() {});
-        });
 
         post_like.forEach((int p_l) {
           if (postIds.indexOf(p_l) != -1) {
@@ -210,6 +206,16 @@ class _testresult extends State<postList> {
             post_press[postIds.indexOf(p.postId)] = true;
           }
         });
+      });
+
+      roomid.forEach((id) async {
+        ChatRoomInfo roomInfo = await c.getRoomInfo(id);
+        _commentCount.add(roomInfo.count.toString());
+        print("index:" +
+            _commentCount.length.toString() +
+            ", count: " +
+            roomInfo.count.toString());
+        setState(() {});
       });
 
       if (gps_state == "nodata") {

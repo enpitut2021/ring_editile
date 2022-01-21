@@ -1,16 +1,28 @@
-# ring_sns
+# ring_editile
 
-A new Flutter project.
+## デモのやり方
 
-## Getting Started
+以下の方法で，RingEditileをインストールしてください。
+アプリの導入が完了したら，Sign upからアカウントを新規作成して
+ログインを行ってください。
 
-This project is a starting point for a Flutter application.
+ちゃちゃっとお試ししたい場合には以下のアカウント情報をお使いください。
+* ログインID: ```demodemo```
+* パスワード：```demodemo```
 
-A few resources to get you started if this is your first Flutter project:
+-------------------------------------------------------------------- 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## [Web版]
+* https://ring_editile.p0x0q.com/
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## [iOS版]
+1. App StoreでTestFlightと検索して、インストールしておきます。
+1. TestflightをインストールしたiOS端末で以下のURLを開きます：https://testflight.apple.com/join/Tw4Rx8YC
+1. Ring Editileのアプリをインストールします
+
+
+## [android版]
+1. https://drive.google.com/file/d/1TVr-kp29XqkCIlonGXquC8how0di6-xk/view?usp=sharing 
+1. 上記リンクよりapkファイルをダウンロードしインストールしてください。
+
+
